@@ -20,7 +20,10 @@ public class DrawLine : MonoBehaviour
     private int level;
     private GameObject Canvas;
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
-    private string file = "Assets/current.txt";
+    private string file;
+    private int w = 60;
+    private int tX, tY;
+    public int N, M;
 
     public class LevelStructure {
         public List<string> whiteSquare = new List<string>();
@@ -32,17 +35,29 @@ public class DrawLine : MonoBehaviour
     }
 
     void Start() {
+        file = Application.persistentDataPath + "/current.txt";
         UpdateValues();
         Canvas = GameObject.Find("Canvas");
         line = GetComponent<LineRenderer>();
         line.positionCount = 1;
-        line.useWorldSpace = true;
         TextAsset txt = (TextAsset)Resources.Load("Levels/" + curCamp + "/" + curLvl, typeof(TextAsset));
         string settings = txt.text;
         LevelStructure curLevelStruct = JsonUtility.FromJson<LevelStructure>(settings);
-        int x0 = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[0]) - 2;
+        N = curLevelStruct.N;
+        M = curLevelStruct.M;
+        if (M % 2 == 0) {
+            tX = -(M / 2) * w + w / 2;
+        } else {
+            tX = -(int)(M / 2) * w;
+        }
+        if (N % 2 == 0) {
+            tY = -(N / 2) * w + w / 2 + 90;
+        } else {
+            tY = -(int)(N / 2) * w + 90;
+        }
+        int x0 = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[0]);
         int y0 = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[1]);
-        startPoint = new Vector3(x0, -1 + y0, 0);
+        startPoint = new Vector3(tX + x0 * w - w / 2, tY + y0 * w - w / 2, 0);
         pointsList.Add(startPoint);
         line.SetPosition(pointsList.Count - 1, (Vector3)pointsList[pointsList.Count - 1]);
         for (int i = 0; i < curLevelStruct.noWay.Count; i++) {
@@ -52,20 +67,20 @@ public class DrawLine : MonoBehaviour
 
     public void UpPressed() {
         newPoint.x = pointsList[pointsList.Count - 1].x;
-        newPoint.y = pointsList[pointsList.Count - 1].y + 1;
+        newPoint.y = pointsList[pointsList.Count - 1].y + w;
         newPoint.z = 0.0f;
         AddPointToList();
     }
 
     public void LeftPressed() {
-        newPoint.x = pointsList[pointsList.Count - 1].x - 1;
+        newPoint.x = pointsList[pointsList.Count - 1].x - w;
         newPoint.y = pointsList[pointsList.Count - 1].y;
         newPoint.z = 0.0f;
         AddPointToList();
     }
 
     public void RightPressed() {
-        newPoint.x = pointsList[pointsList.Count - 1].x + 1;
+        newPoint.x = pointsList[pointsList.Count - 1].x + w;
         newPoint.y = pointsList[pointsList.Count - 1].y;
         newPoint.z = 0.0f;
         AddPointToList();
@@ -73,18 +88,29 @@ public class DrawLine : MonoBehaviour
 
     public void DownPressed() {
         newPoint.x = pointsList[pointsList.Count - 1].x;
-        newPoint.y = pointsList[pointsList.Count - 1].y - 1;
+        newPoint.y = pointsList[pointsList.Count - 1].y - w;
         newPoint.z = 0.0f;
         AddPointToList();
     }
 
     public void AddPointToList() {
         Vector3 lastPoint = pointsList[pointsList.Count - 1];
-        float y1 = lastPoint.y + newPoint.y + 2;
-        float x1 = lastPoint.x + newPoint.x + 4;
-        float y2 = (newPoint.y + 1) * 2;
-        float x2 = (newPoint.x + 2) * 2;
-        if (-2 <= newPoint.x && newPoint.x <= 2 && -1 <= newPoint.y && newPoint.y <= 3 && !pointsList.Contains(newPoint) && !noWay.Contains(new Vector2(x1, y1)) && !noWay.Contains(new Vector2(x2, y2))) {
+        float y1 = lastPoint.y + newPoint.y + 2 * w;
+        float x1 = lastPoint.x + newPoint.x + 4 * w;
+        float y2 = (newPoint.y + w) * 2;
+        float x2 = (newPoint.x + 2 * w) * 2;
+        int X, Y;
+        if (M % 2 == 0) {
+            X = (M / 2) * w;
+        } else {
+            X = (int)(M / 2) * w + w / 2;
+        }
+        if (N % 2 == 0) {
+            Y = (N / 2) * w;
+        } else {
+            Y = (int)(N / 2) * w + w / 2;
+        }
+        if (-X <= newPoint.x && newPoint.x <= X && -Y + 90 <= newPoint.y && newPoint.y <= Y + 90 && !pointsList.Contains(newPoint) && !noWay.Contains(new Vector2(x1, y1)) && !noWay.Contains(new Vector2(x2, y2))) {
             pointsList.Add(newPoint);
             line.positionCount = pointsList.Count;
             line.SetPosition(pointsList.Count - 1, (Vector3)pointsList[pointsList.Count - 1]);

@@ -18,7 +18,7 @@ public class ChooseLevel : MonoBehaviour
     public void ButtonClick(int c, int l) {
         UpdateValues();
 
-        string file = "Assets/current.txt";
+        string file = Application.persistentDataPath + "/current.txt";
         StreamWriter writer = new StreamWriter(file);
         writer.Write("currentCampaign:" + c + ";\ncurrentLevel:" + l + ";\nprogressCampaign:" + prgCamp + ";\nprogressLevel:" + prgLvl + ";\nend,of,file.");
         writer.Close();
@@ -29,7 +29,7 @@ public class ChooseLevel : MonoBehaviour
     void Start() {
         UpdateValues();
 
-        string file = "Assets/openCampaign.txt";
+        string file = Application.persistentDataPath + "/openCampaign.txt";
         StreamReader reader = new StreamReader(file);
         curCamp = int.Parse(reader.ReadToEnd());
         reader.Close();
@@ -90,7 +90,7 @@ public class ChooseLevel : MonoBehaviour
     }
 
     public void UpdateValues() {
-        string file = "Assets/current.txt";
+        string file = Application.persistentDataPath + "/current.txt";
 
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();
@@ -99,9 +99,6 @@ public class ChooseLevel : MonoBehaviour
         prgCamp = int.Parse(text.Split(new char[] { ';' })[2].Split(new char[] { ':' })[1]);
         prgLvl = int.Parse(text.Split(new char[] { ';' })[3].Split(new char[] { ':' })[1]);
         reader.Close();
-
-        TextAsset txt = (TextAsset)Resources.Load("Levels/campaigns", typeof(TextAsset));
-        campaigns = new List<string>(txt.text.Split(';'));
     }
 
     public int stopEnd(int cc) {

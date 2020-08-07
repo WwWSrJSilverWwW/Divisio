@@ -35,6 +35,8 @@ public class Game : MonoBehaviour
     private int x = 5;
     private float k = 0.5f;
     private int curCamp, curLvl, prgCamp, prgLvl;
+    private int w = 60;
+    private int tX, tY;
 
     public class LevelStructure {
         public List<string> whiteSquare = new List<string>();
@@ -67,14 +69,32 @@ public class Game : MonoBehaviour
         GameObject.Find("LevelText").GetComponent<Text>().text = "Level " + curCamp + "-" + curLvl;
         N = curLevelStruct.N;
         M = curLevelStruct.M;
+        if (M % 2 == 0) {
+            tX = -(M / 2) * w + w / 2;
+        } else {
+            tX = -(int)(M / 2) * w;
+        }
+        if (N % 2 == 0) {
+            tY = -(N / 2) * w + w / 2 + 90;
+        } else {
+            tY = -(int)(N / 2) * w + 90;
+        }
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                GameObject cell = Instantiate(Resources.Load("Prefabs/Cell")) as GameObject;
+                cell.transform.SetParent(Canvas.transform, false);
+                cell.transform.SetSiblingIndex(0);
+                cell.GetComponent<RectTransform>().anchoredPosition = new Vector2(tX + j * w, tY + i * w);
+            }
+        }
         exitX = int.Parse(curLevelStruct.exit.Split(new char[] { ',' })[0]);
         exitY = int.Parse(curLevelStruct.exit.Split(new char[] { ',' })[1]);
-        enterX = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[0]) - 2;
+        enterX = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[0]);
         enterY = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[1]);
         outPanel = GameObject.Find("OutPanel").GetComponent<RectTransform>();
-        outPanel.anchoredPosition = new Vector2(-160 + 80 * exitX, -80 + 80 * exitY);
+        outPanel.anchoredPosition = new Vector2(tX + w * exitX - w / 2, tY + w * exitY - w / 2);
         inPanel = GameObject.Find("InPanel").GetComponent<RectTransform>();
-        inPanel.anchoredPosition = new Vector2(80 * enterX, -80 + 80 * enterY);
+        inPanel.anchoredPosition = new Vector2(tX + w * enterX - w / 2, tY + w * enterY - w / 2);
     }
 
     public void AddWhiteSquare() {
@@ -94,8 +114,8 @@ public class Game : MonoBehaviour
             whitePanel.GetComponent<Image>().color = Color.white;
             whitePanel.transform.SetParent(Canvas.transform, false);
             rect = GameObject.Find("whitePanel" + whitePoints[i].x + whitePoints[i].y).GetComponent<RectTransform>();
-            rect.anchoredPosition = new Vector2(-120 + 80 * whitePoints[i].x, -40 + 80 * whitePoints[i].y);
-            rect.sizeDelta = new Vector2(20, 20);
+            rect.anchoredPosition = new Vector2(tX + w * whitePoints[i].x, tY + w * whitePoints[i].y);
+            rect.sizeDelta = new Vector2(15, 15);
         }
     }
 
@@ -116,8 +136,8 @@ public class Game : MonoBehaviour
             blackPanel.GetComponent<Image>().color = Color.black;
             blackPanel.transform.SetParent(Canvas.transform, false);
             rect = GameObject.Find("blackPanel" + blackPoints[i].x + blackPoints[i].y).GetComponent<RectTransform>();
-            rect.anchoredPosition = new Vector2(-120 + 80 * blackPoints[i].x, -40 + 80 * blackPoints[i].y);
-            rect.sizeDelta = new Vector2(20, 20);
+            rect.anchoredPosition = new Vector2(tX + w * blackPoints[i].x, tY + w * blackPoints[i].y);
+            rect.sizeDelta = new Vector2(15, 15);
         }
     }
 
@@ -131,27 +151,27 @@ public class Game : MonoBehaviour
             passWay.AddComponent<CanvasRenderer>();
             passWay.AddComponent<RectTransform>();
             passWay.AddComponent<Image>();
-            passWay.GetComponent<Image>().color = new Color(0.1176f, 0.5686f, 1f, 1f);
+            passWay.GetComponent<Image>().color = new Color(0.247058f, 0.282352f, 0.8f, 1);
             passWay.transform.SetParent(Canvas.transform, false);
             rect = passWay.GetComponent<RectTransform>();
-            rect.anchoredPosition = new Vector2(-160 + 40 * noWay[i].x, -80 + 40 * noWay[i].y);
+            rect.anchoredPosition = new Vector2(tX + w / 2 * noWay[i].x - w / 2, tY + w / 2 * noWay[i].y - w / 2);
             if (noWay[i].x % 2 == 0 && noWay[i].y % 2 != 0) {
-                rect.sizeDelta = new Vector2(40, 20);
+                rect.sizeDelta = new Vector2(30, 15);
             }
             else if (noWay[i].x % 2 != 0 && noWay[i].y % 2 == 0) {
-                rect.sizeDelta = new Vector2(20, 40);
+                rect.sizeDelta = new Vector2(15, 30);
             }
             else {
-                rect.sizeDelta = new Vector2(40, 40);
+                rect.sizeDelta = new Vector2(30, 30);
             }
         }
     }
 
     public void MakeBFSSplitPlane() {
         pointsList = GameObject.Find("Line").GetComponent<DrawLine>().pointsList;
-        float lineExitX = pointsList[pointsList.Count - 1].x + 2;
-        float lineExitY = pointsList[pointsList.Count - 1].y + 1;
-        if (lineExitX != exitX || lineExitY != exitY) {
+        float lineExitX = pointsList[pointsList.Count - 1].x;
+        float lineExitY = pointsList[pointsList.Count - 1].y;
+        if (lineExitX != tX + w * exitX - w / 2 || lineExitY != tY + w * exitY - w / 2) {
             Debug.Log("CheckError 1: The line doesn't connect to the exit.");
         }
         else {
@@ -166,8 +186,8 @@ public class Game : MonoBehaviour
             int curPlane = 0;
             for (int i = 0; i < N; i++) {
                 for (int j = 0; j < M; j++) {
-                    if (splittedPlane[j][i] == -1) {
-                        StartBFS(i, j, curPlane);
+                    if (splittedPlane[i][j] == -1) {
+                        StartBFS(j, i, curPlane);
                         curPlane++;
                     }
                 }
@@ -184,19 +204,19 @@ public class Game : MonoBehaviour
             Vector2 cur = queue[0];
             queue.RemoveAt(0);
             splittedPlane[(int)cur.y][(int)cur.x] = plane;
-            if (0 <= cur.x + 1 && cur.x + 1 <= 3 && 0 <= cur.y && cur.y <= 3 && splittedPlane[(int)cur.y][(int)cur.x + 1] == -1 && PathExists((int)cur.x, (int)cur.y, (int)(cur.x + 1), (int)cur.y)) {
+            if (0 <= cur.x + 1 && cur.x + 1 <= M - 1 && 0 <= cur.y && cur.y <= N - 1 && splittedPlane[(int)cur.y][(int)cur.x + 1] == -1 && PathExists((int)cur.x, (int)cur.y, (int)(cur.x + 1), (int)cur.y)) {
                 pub = new Vector2(cur.x + 1, cur.y);
                 queue.Add(pub);
             }
-            if (0 <= cur.x - 1 && cur.x - 1 <= 3 && 0 <= cur.y && cur.y <= 3 && splittedPlane[(int)cur.y][(int)cur.x - 1] == -1 && PathExists((int)(cur.x - 1), (int)cur.y, (int)cur.x, (int)cur.y)) {
+            if (0 <= cur.x - 1 && cur.x - 1 <= M - 1 && 0 <= cur.y && cur.y <= N - 1 && splittedPlane[(int)cur.y][(int)cur.x - 1] == -1 && PathExists((int)(cur.x - 1), (int)cur.y, (int)cur.x, (int)cur.y)) {
                 pub = new Vector2(cur.x - 1, cur.y);
                 queue.Add(pub);
             }
-            if (0 <= cur.x && cur.x <= 3 && 0 <= cur.y + 1 && cur.y + 1 <= 3 && splittedPlane[(int)cur.y + 1][(int)cur.x] == -1 && PathExists((int)cur.x, (int)cur.y, (int)cur.x, (int)(cur.y + 1))) {
+            if (0 <= cur.x && cur.x <= M - 1 && 0 <= cur.y + 1 && cur.y + 1 <= N - 1 && splittedPlane[(int)cur.y + 1][(int)cur.x] == -1 && PathExists((int)cur.x, (int)cur.y, (int)cur.x, (int)(cur.y + 1))) {
                 pub = new Vector2(cur.x, cur.y + 1);
                 queue.Add(pub);
             }
-            if (0 <= cur.x && cur.x <= 3 && 0 <= cur.y - 1 && cur.y - 1 <= 3 && splittedPlane[(int)cur.y - 1][(int)cur.x] == -1 && PathExists((int)cur.x, (int)(cur.y - 1), (int)cur.x, (int)cur.y)) {
+            if (0 <= cur.x && cur.x <= M - 1 && 0 <= cur.y - 1 && cur.y - 1 <= N - 1 && splittedPlane[(int)cur.y - 1][(int)cur.x] == -1 && PathExists((int)cur.x, (int)(cur.y - 1), (int)cur.x, (int)cur.y)) {
                 pub = new Vector2(cur.x, cur.y - 1);
                 queue.Add(pub);
             }
@@ -209,18 +229,21 @@ public class Game : MonoBehaviour
             ans2Y = y2;
             ans1X = x1;
             ans2X = x1 + 1;
-        }
-        else {
+        } else {
             ans1Y = y1;
             ans2Y = y1 + 1;
             ans1X = x2;
             ans2X = x2;
         }
         for (int i = 0; i < pointsList.Count - 1; i++) {
-            if (pointsList[i].x == ans1X - 2 && pointsList[i].y == ans1Y - 1 && pointsList[i + 1].x == ans2X - 2 && pointsList[i + 1].y == ans2Y - 1) {
+            float a = (pointsList[i].x + M * w / 2) / w;
+            float b = (pointsList[i].y + (N - 1) * w / 2) / w - 1;
+            float c = (pointsList[i + 1].x + M * w / 2) / w;
+            float d = (pointsList[i + 1].y + (N - 1) * w / 2) / w - 1;
+            if (a == ans1X && b == ans1Y && c == ans2X && d == ans2Y) {
                 return false;
             }
-            if (pointsList[i].x == ans2X - 2 && pointsList[i].y == ans2Y - 1 && pointsList[i + 1].x == ans1X - 2 && pointsList[i + 1].y == ans1Y - 1) {
+            if (a == ans2X && b == ans2Y && c == ans1X && d == ans1Y) {
                 return false;
             }
         }
@@ -280,7 +303,7 @@ public class Game : MonoBehaviour
     }
 
     public void UpdateValues() {
-        string file = "Assets/current.txt";
+        string file = Application.persistentDataPath + "/current.txt";
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();
         curCamp = int.Parse(text.Split(new char[] { ';' })[0].Split(new char[] { ':' })[1]);

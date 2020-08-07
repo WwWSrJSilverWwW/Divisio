@@ -223,6 +223,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 196
       Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
     - Class: 222
@@ -323,6 +325,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 196
       Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
     - Class: 222
@@ -394,7 +398,7 @@ ScriptsOnlyBuild:
     className: Scrollbar
   - hash:
       serializedVersion: 2
-      Hash: f5730578ace995e17c9b40e19da219c6
+      Hash: 6c60bf3f47f1e7e735df52429ebd0be1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DrawLine
@@ -748,7 +752,7 @@ ScriptsOnlyBuild:
     className: MarkerTrack
   - hash:
       serializedVersion: 2
-      Hash: eb7a5e0033759ee03b2e730798b79d84
+      Hash: 67c8d42c662771842e4fc94aac1bd193
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Game

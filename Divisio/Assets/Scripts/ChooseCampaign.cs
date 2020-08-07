@@ -21,10 +21,11 @@ public class ChooseCampaign : MonoBehaviour
 
         campNames.Add("Let's Start");
         campNames.Add("White and Black");
+        campNames.Add("Not Standart");
 
         int x = 0;
 
-        for (int i = 1; i <= 2; i++)
+        for (int i = 1; i <= 3; i++)
         {
             int v = i;
 
@@ -66,7 +67,7 @@ public class ChooseCampaign : MonoBehaviour
     }
 
     public void ButtonClick(int camp) {
-        string file = "Assets/openCampaign.txt";
+        string file = Application.persistentDataPath + "/openCampaign.txt";
         StreamWriter writer = new StreamWriter(file);
         writer.Write(camp);
         writer.Close();
@@ -80,7 +81,7 @@ public class ChooseCampaign : MonoBehaviour
 
     public void UpdateValues()
     {
-        string file = "Assets/current.txt";
+        string file = Application.persistentDataPath + "/current.txt";
 
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();
@@ -89,8 +90,5 @@ public class ChooseCampaign : MonoBehaviour
         prgCamp = int.Parse(text.Split(new char[] { ';' })[2].Split(new char[] { ':' })[1]);
         prgLvl = int.Parse(text.Split(new char[] { ';' })[3].Split(new char[] { ':' })[1]);
         reader.Close();
-
-        TextAsset txt = (TextAsset)Resources.Load("Levels/campaigns", typeof(TextAsset));
-        campaigns = new List<string>(txt.text.Split(';'));
     }
 }
