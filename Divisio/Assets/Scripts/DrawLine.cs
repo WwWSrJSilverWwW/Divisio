@@ -21,7 +21,9 @@ public class DrawLine : MonoBehaviour
     private GameObject Canvas;
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
     private string file;
-    private int w = 60;
+    private int constW = 320;
+    private int moveX = 0, moveY = 90;
+    private int w;
     private int tX, tY;
     public int N, M;
 
@@ -29,13 +31,14 @@ public class DrawLine : MonoBehaviour
         public List<string> whiteSquare = new List<string>();
         public List<string> blackSquare = new List<string>();
         public List<string> noWay = new List<string>();
+        public List<string> deleteObject = new List<string>();
         public string enter = "2,0";
         public string exit = "2,4";
         public int N = 4, M = 4;
     }
 
     void Start() {
-        file = Application.persistentDataPath + "/current.txt";
+        file = "Assets/current.txt";
         UpdateValues();
         Canvas = GameObject.Find("Canvas");
         line = GetComponent<LineRenderer>();
@@ -45,15 +48,16 @@ public class DrawLine : MonoBehaviour
         LevelStructure curLevelStruct = JsonUtility.FromJson<LevelStructure>(settings);
         N = curLevelStruct.N;
         M = curLevelStruct.M;
+        w = constW / Mathf.Max(N, M);
         if (M % 2 == 0) {
-            tX = -(M / 2) * w + w / 2;
+            tX = -(M / 2) * w + w / 2 + moveX;
         } else {
-            tX = -(int)(M / 2) * w;
+            tX = -(int)(M / 2) * w + moveX;
         }
         if (N % 2 == 0) {
-            tY = -(N / 2) * w + w / 2 + 90;
+            tY = -(N / 2) * w + w / 2 + moveY;
         } else {
-            tY = -(int)(N / 2) * w + 90;
+            tY = -(int)(N / 2) * w + moveY;
         }
         int x0 = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[0]);
         int y0 = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[1]);
@@ -95,10 +99,6 @@ public class DrawLine : MonoBehaviour
 
     public void AddPointToList() {
         Vector3 lastPoint = pointsList[pointsList.Count - 1];
-        float y1 = lastPoint.y + newPoint.y + 2 * w;
-        float x1 = lastPoint.x + newPoint.x + 4 * w;
-        float y2 = (newPoint.y + w) * 2;
-        float x2 = (newPoint.x + 2 * w) * 2;
         int X, Y;
         if (M % 2 == 0) {
             X = (M / 2) * w;
@@ -110,7 +110,10 @@ public class DrawLine : MonoBehaviour
         } else {
             Y = (int)(N / 2) * w + w / 2;
         }
-        if (-X <= newPoint.x && newPoint.x <= X && -Y + 90 <= newPoint.y && newPoint.y <= Y + 90 && !pointsList.Contains(newPoint) && !noWay.Contains(new Vector2(x1, y1)) && !noWay.Contains(new Vector2(x2, y2))) {
+        float x1 = ((newPoint.x + lastPoint.x - 2 * moveX) / 2 + w) / (w / 2);
+        float y1 = ((newPoint.y + lastPoint.y - 2 * moveY) / 2 + w) / (w / 2);
+        Debug.Log(x1 + " " + y1);
+        if (-X + moveX <= newPoint.x && newPoint.x <= X + moveX && -Y + moveY <= newPoint.y && newPoint.y <= Y + moveY && !pointsList.Contains(newPoint) && !noWay.Contains(new Vector2(x1, y1))) {
             pointsList.Add(newPoint);
             line.positionCount = pointsList.Count;
             line.SetPosition(pointsList.Count - 1, (Vector3)pointsList[pointsList.Count - 1]);

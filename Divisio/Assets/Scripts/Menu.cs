@@ -8,7 +8,7 @@ using System.IO;
 
 public class Menu : MonoBehaviour
 {
-    private string file = Application.persistentDataPath + "/current.txt";
+    private string file = "Assets/current.txt";
 
     void Start() {
         if (!File.Exists(file)) {

@@ -22,10 +22,11 @@ public class ChooseCampaign : MonoBehaviour
         campNames.Add("Let's Start");
         campNames.Add("White and Black");
         campNames.Add("Not Standart");
+        campNames.Add("Delete it now");
 
         int x = 0;
 
-        for (int i = 1; i <= 3; i++)
+        for (int i = 1; i <= 4; i++)
         {
             int v = i;
 
@@ -67,7 +68,7 @@ public class ChooseCampaign : MonoBehaviour
     }
 
     public void ButtonClick(int camp) {
-        string file = Application.persistentDataPath + "/openCampaign.txt";
+        string file = "Assets/openCampaign.txt";
         StreamWriter writer = new StreamWriter(file);
         writer.Write(camp);
         writer.Close();
@@ -81,7 +82,7 @@ public class ChooseCampaign : MonoBehaviour
 
     public void UpdateValues()
     {
-        string file = Application.persistentDataPath + "/current.txt";
+        string file = "Assets/current.txt";
 
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();

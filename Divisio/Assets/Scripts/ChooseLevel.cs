@@ -18,7 +18,7 @@ public class ChooseLevel : MonoBehaviour
     public void ButtonClick(int c, int l) {
         UpdateValues();
 
-        string file = Application.persistentDataPath + "/current.txt";
+        string file = "Assets/current.txt";
         StreamWriter writer = new StreamWriter(file);
         writer.Write("currentCampaign:" + c + ";\ncurrentLevel:" + l + ";\nprogressCampaign:" + prgCamp + ";\nprogressLevel:" + prgLvl + ";\nend,of,file.");
         writer.Close();
@@ -29,7 +29,7 @@ public class ChooseLevel : MonoBehaviour
     void Start() {
         UpdateValues();
 
-        string file = Application.persistentDataPath + "/openCampaign.txt";
+        string file = "Assets/openCampaign.txt";
         StreamReader reader = new StreamReader(file);
         curCamp = int.Parse(reader.ReadToEnd());
         reader.Close();
@@ -90,7 +90,7 @@ public class ChooseLevel : MonoBehaviour
     }
 
     public void UpdateValues() {
-        string file = Application.persistentDataPath + "/current.txt";
+        string file = "Assets/current.txt";
 
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();

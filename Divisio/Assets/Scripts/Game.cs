@@ -18,9 +18,11 @@ public class Game : MonoBehaviour
     public int exitX, exitY, enterX, enterY;
     public List<Vector2> whitePoints;
     public List<Vector2> blackPoints;
+    public List<Vector2> deletePoints;
     private Vector2 p;
     private GameObject whitePanel;
     private GameObject blackPanel;
+    private GameObject deletePanel;
     private GameObject Canvas;
     private GameObject newGameObj;
     private List<Vector3> pointsList;
@@ -35,13 +37,17 @@ public class Game : MonoBehaviour
     private int x = 5;
     private float k = 0.5f;
     private int curCamp, curLvl, prgCamp, prgLvl;
-    private int w = 60;
+    private int constW = 320;
+    private int moveX = 0, moveY = 90;
+    private int w;
     private int tX, tY;
+    private List<List<int>> infoPlanes;
 
     public class LevelStructure {
         public List<string> whiteSquare = new List<string>();
         public List<string> blackSquare = new List<string>();
         public List<string> noWay = new List<string>();
+        public List<string> deleteObject = new List<string>();
         public string enter = "2,0";
         public string exit = "2,4";
         public int N = 4, M = 4;
@@ -57,10 +63,11 @@ public class Game : MonoBehaviour
         AddWhiteSquare();
         AddBlackSquare();
         AddNoWay();
+        AddDeleteObject();
     }
 
     void Update() {
-        ShowWrongSquares();
+        //ShowWrongSquares();
     }
 
     public void SetEnterExitSettings() {
@@ -69,22 +76,25 @@ public class Game : MonoBehaviour
         GameObject.Find("LevelText").GetComponent<Text>().text = "Level " + curCamp + "-" + curLvl;
         N = curLevelStruct.N;
         M = curLevelStruct.M;
+        w = constW / Mathf.Max(N, M);
         if (M % 2 == 0) {
-            tX = -(M / 2) * w + w / 2;
+            tX = -(M / 2) * w + w / 2 + moveX;
         } else {
-            tX = -(int)(M / 2) * w;
+            tX = -(int)(M / 2) * w + moveX;
         }
         if (N % 2 == 0) {
-            tY = -(N / 2) * w + w / 2 + 90;
+            tY = -(N / 2) * w + w / 2 + moveY;
         } else {
-            tY = -(int)(N / 2) * w + 90;
+            tY = -(int)(N / 2) * w + moveY;
         }
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
                 GameObject cell = Instantiate(Resources.Load("Prefabs/Cell")) as GameObject;
+                cell.name = "cellPanel" + i + j;
                 cell.transform.SetParent(Canvas.transform, false);
                 cell.transform.SetSiblingIndex(0);
                 cell.GetComponent<RectTransform>().anchoredPosition = new Vector2(tX + j * w, tY + i * w);
+                cell.GetComponent<RectTransform>().sizeDelta = new Vector2(w, w);
             }
         }
         exitX = int.Parse(curLevelStruct.exit.Split(new char[] { ',' })[0]);
@@ -93,8 +103,10 @@ public class Game : MonoBehaviour
         enterY = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[1]);
         outPanel = GameObject.Find("OutPanel").GetComponent<RectTransform>();
         outPanel.anchoredPosition = new Vector2(tX + w * exitX - w / 2, tY + w * exitY - w / 2);
+        outPanel.sizeDelta = new Vector2(w / 2, w / 2);
         inPanel = GameObject.Find("InPanel").GetComponent<RectTransform>();
         inPanel.anchoredPosition = new Vector2(tX + w * enterX - w / 2, tY + w * enterY - w / 2);
+        inPanel.sizeDelta = new Vector2(w / 2, w / 2);
     }
 
     public void AddWhiteSquare() {
@@ -102,20 +114,15 @@ public class Game : MonoBehaviour
             whitePoints.Add(new Vector2(int.Parse(curLevelStruct.whiteSquare[i].Split(new char[] { ',' })[0]), int.Parse(curLevelStruct.whiteSquare[i].Split(new char[] { ',' })[1])));
         }
         for (int i = 0; i < whitePoints.Count; i++) {
-            if (GameObject.Find("whitePanel" + whitePoints[i].x + whitePoints[i].y) == null) {
-                whitePanel = new GameObject("whitePanel" + whitePoints[i].x + whitePoints[i].y);
-                whitePanel.AddComponent<CanvasRenderer>();
-                whitePanel.AddComponent<RectTransform>();
-                whitePanel.AddComponent<Image>();
-            }
-            else {
-                whitePanel = GameObject.Find("whitePanel" + whitePoints[i].x + whitePoints[i].y);
-            }
+            whitePanel = new GameObject("whitePanel" + whitePoints[i].x + whitePoints[i].y);
+            whitePanel.AddComponent<CanvasRenderer>();
+            whitePanel.AddComponent<RectTransform>();
+            whitePanel.AddComponent<Image>();
             whitePanel.GetComponent<Image>().color = Color.white;
             whitePanel.transform.SetParent(Canvas.transform, false);
             rect = GameObject.Find("whitePanel" + whitePoints[i].x + whitePoints[i].y).GetComponent<RectTransform>();
             rect.anchoredPosition = new Vector2(tX + w * whitePoints[i].x, tY + w * whitePoints[i].y);
-            rect.sizeDelta = new Vector2(15, 15);
+            rect.sizeDelta = new Vector2(w / 4, w / 4);
         }
     }
 
@@ -124,20 +131,15 @@ public class Game : MonoBehaviour
             blackPoints.Add(new Vector2(int.Parse(curLevelStruct.blackSquare[i].Split(new char[] { ',' })[0]), int.Parse(curLevelStruct.blackSquare[i].Split(new char[] { ',' })[1])));
         }
         for (int i = 0; i < blackPoints.Count; i++) {
-            if (GameObject.Find("blackPanel" + blackPoints[i].x + blackPoints[i].y) == null) {
-                blackPanel = new GameObject("blackPanel" + blackPoints[i].x + blackPoints[i].y);
-                blackPanel.AddComponent<CanvasRenderer>();
-                blackPanel.AddComponent<RectTransform>();
-                blackPanel.AddComponent<Image>();
-            }
-            else {
-                blackPanel = GameObject.Find("blackPanel" + blackPoints[i].x + blackPoints[i].y);
-            }
+            blackPanel = new GameObject("blackPanel" + blackPoints[i].x + blackPoints[i].y);
+            blackPanel.AddComponent<CanvasRenderer>();
+            blackPanel.AddComponent<RectTransform>();
+            blackPanel.AddComponent<Image>();
             blackPanel.GetComponent<Image>().color = Color.black;
             blackPanel.transform.SetParent(Canvas.transform, false);
             rect = GameObject.Find("blackPanel" + blackPoints[i].x + blackPoints[i].y).GetComponent<RectTransform>();
             rect.anchoredPosition = new Vector2(tX + w * blackPoints[i].x, tY + w * blackPoints[i].y);
-            rect.sizeDelta = new Vector2(15, 15);
+            rect.sizeDelta = new Vector2(w / 4, w / 4);
         }
     }
 
@@ -156,14 +158,28 @@ public class Game : MonoBehaviour
             rect = passWay.GetComponent<RectTransform>();
             rect.anchoredPosition = new Vector2(tX + w / 2 * noWay[i].x - w / 2, tY + w / 2 * noWay[i].y - w / 2);
             if (noWay[i].x % 2 == 0 && noWay[i].y % 2 != 0) {
-                rect.sizeDelta = new Vector2(30, 15);
+                rect.sizeDelta = new Vector2(w / 2, w / 4);
             }
             else if (noWay[i].x % 2 != 0 && noWay[i].y % 2 == 0) {
-                rect.sizeDelta = new Vector2(15, 30);
+                rect.sizeDelta = new Vector2(w / 4, w / 2);
             }
             else {
-                rect.sizeDelta = new Vector2(30, 30);
+                rect.sizeDelta = new Vector2(w / 2, w / 2);
             }
+        }
+    }
+
+    public void AddDeleteObject() { 
+        for (int i = 0; i < curLevelStruct.deleteObject.Count; i++) {
+            deletePoints.Add(new Vector2(int.Parse(curLevelStruct.deleteObject[i].Split(new char[] { ',' })[0]), int.Parse(curLevelStruct.deleteObject[i].Split(new char[] { ',' })[1])));
+        }
+        for (int i = 0; i < deletePoints.Count; i++) {
+            deletePanel = Instantiate(Resources.Load("Prefabs/DeleteObject")) as GameObject;
+            deletePanel.name = "deletePanel" + deletePoints[i].x + deletePoints[i].y;
+            deletePanel.transform.SetParent(Canvas.transform, false);
+            rect = deletePanel.GetComponent<RectTransform>();
+            rect.anchoredPosition = new Vector2(tX + w * deletePoints[i].x, tY + w * deletePoints[i].y);
+            rect.sizeDelta = new Vector2(w / 4, w / 4);
         }
     }
 
@@ -191,6 +207,28 @@ public class Game : MonoBehaviour
                         curPlane++;
                     }
                 }
+            }
+            infoPlanes = new List<List<int>>();
+            for (int i = 0; i < curPlane; i++) {
+                List<int> add = new List<int>();
+                add.Add(0);
+                add.Add(0);
+                add.Add(0);
+                infoPlanes.Add(add);
+            }
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < M; j++) { 
+                    if (GameObject.Find("whitePanel" + j + i) != null) {
+                        infoPlanes[splittedPlane[i][j]][0]++;
+                    } else if (GameObject.Find("blackPanel" + j + i) != null) {
+                        infoPlanes[splittedPlane[i][j]][1]++;
+                    } else if (GameObject.Find("deletePanel" + j + i) != null) {
+                        infoPlanes[splittedPlane[i][j]][2]++;
+                    }
+                }
+            }
+            for (int i = 0; i < curPlane; i++) {
+                Debug.Log(i + ") " + infoPlanes[i][0] + " " + infoPlanes[i][1] + " " + infoPlanes[i][2]);
             }
             CheckAll();
         }
@@ -236,10 +274,10 @@ public class Game : MonoBehaviour
             ans2X = x2;
         }
         for (int i = 0; i < pointsList.Count - 1; i++) {
-            float a = (pointsList[i].x + M * w / 2) / w;
-            float b = (pointsList[i].y + (N - 1) * w / 2) / w - 1;
-            float c = (pointsList[i + 1].x + M * w / 2) / w;
-            float d = (pointsList[i + 1].y + (N - 1) * w / 2) / w - 1;
+            float a = (pointsList[i].x - moveX + M * w / 2) / w;
+            float b = (pointsList[i].y - moveY + N * w / 2) / w;
+            float c = (pointsList[i + 1].x - moveX + M * w / 2) / w;
+            float d = (pointsList[i + 1].y - moveY + N * w / 2) / w;
             if (a == ans1X && b == ans1Y && c == ans2X && d == ans2Y) {
                 return false;
             }
@@ -254,29 +292,19 @@ public class Game : MonoBehaviour
         if (!CheckSquares()) {
             x = 0;
             Debug.Log("CheckError2: White and black squares aren't splitted.");
-        }
-        else {
+        } else {
             Debug.Log("You won!");
             SceneManager.LoadScene("LevelComplitedScene");
         }
     }
 
     public bool CheckSquares() {
-        List<int> whitePlanes = new List<int>();
-        List<int> blackPlanes = new List<int>();
-        for (int i = 0; i < whitePoints.Count; i++) {
-            whitePlanes.Add(splittedPlane[(int)whitePoints[i].y][(int)whitePoints[i].x]);
-        }
-        for (int i = 0; i < blackPoints.Count; i++) {
-            blackPlanes.Add(splittedPlane[(int)blackPoints[i].y][(int)blackPoints[i].x]);
-        }
-        for (int i = 0; i < whitePoints.Count; i++) {
-            for (int j = 0; j < blackPoints.Count; j++) {
-                if (blackPlanes[j] == whitePlanes[i]) {
-                    wrongWhiteSquare = GameObject.Find("whitePanel" + whitePoints[i].x + whitePoints[i].y);
-                    wrongBlackSquare = GameObject.Find("blackPanel" + blackPoints[j].x + blackPoints[j].y);
-                    return false;
-                }
+        for (int i = 0; i < infoPlanes.Count; i++) {
+            List<int> li = infoPlanes[i];
+            if (li[0] + li[1] < li[2]) {
+                return false;
+            } else if (Mathf.Min(li[0], li[1]) > li[2]) {
+                return false;
             }
         }
         return true;
@@ -286,11 +314,11 @@ public class Game : MonoBehaviour
         if (x < 5) {
             RectTransform white = wrongWhiteSquare.GetComponent<RectTransform>();
             RectTransform black = wrongBlackSquare.GetComponent<RectTransform>();
-            if (white.sizeDelta.x <= 20) {
+            if (white.sizeDelta.x <= w / 4) {
                 k = 0.5f;
                 x++;
             }
-            else if (white.sizeDelta.x >= 30) {
+            else if (white.sizeDelta.x >= w / 2) {
                 k = -0.5f;
             }
             white.sizeDelta = new Vector2(white.sizeDelta.x + k, white.sizeDelta.y + k);
@@ -303,7 +331,7 @@ public class Game : MonoBehaviour
     }
 
     public void UpdateValues() {
-        string file = Application.persistentDataPath + "/current.txt";
+        string file = "Assets/current.txt";
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();
         curCamp = int.Parse(text.Split(new char[] { ';' })[0].Split(new char[] { ':' })[1]);

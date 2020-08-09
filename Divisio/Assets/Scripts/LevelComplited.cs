@@ -11,7 +11,7 @@ public class LevelComplited : MonoBehaviour
 {
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
     private int c0, l0, c1, l1;
-    private string file = Application.persistentDataPath + "/current.txt";
+    private string file = "Assets/current.txt";
 
     public void NextLevel() {
         UpdateValues();
@@ -36,7 +36,7 @@ public class LevelComplited : MonoBehaviour
             c1 = prgCamp;
             l1 = prgLvl;
         }
-        if (curLvl == stopEndOfLevels && curCamp == 3) { 
+        if (curLvl == stopEndOfLevels && curCamp == 4) { 
             SceneManager.LoadScene("EndScene");
         }
         else {
