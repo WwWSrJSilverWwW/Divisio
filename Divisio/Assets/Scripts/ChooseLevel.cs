@@ -13,12 +13,12 @@ public class ChooseLevel : MonoBehaviour
     private GameObject levelButton;
     private GameObject textLevelButton;
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
-    List<string> campaigns;
+    private List<string> campaigns;
 
     public void ButtonClick(int c, int l) {
         UpdateValues();
 
-        string file = "Assets/current.txt";
+        string file = Application.persistentDataPath + "/current.txt";
         StreamWriter writer = new StreamWriter(file);
         writer.Write("currentCampaign:" + c + ";\ncurrentLevel:" + l + ";\nprogressCampaign:" + prgCamp + ";\nprogressLevel:" + prgLvl + ";\nend,of,file.");
         writer.Close();
@@ -29,7 +29,7 @@ public class ChooseLevel : MonoBehaviour
     void Start() {
         UpdateValues();
 
-        string file = "Assets/openCampaign.txt";
+        string file = Application.persistentDataPath + "/openCampaign.txt";
         StreamReader reader = new StreamReader(file);
         curCamp = int.Parse(reader.ReadToEnd());
         reader.Close();
@@ -90,7 +90,7 @@ public class ChooseLevel : MonoBehaviour
     }
 
     public void UpdateValues() {
-        string file = "Assets/current.txt";
+        string file = Application.persistentDataPath + "/current.txt";
 
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();

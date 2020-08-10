@@ -11,7 +11,11 @@ public class LevelComplited : MonoBehaviour
 {
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
     private int c0, l0, c1, l1;
-    private string file = "Assets/current.txt";
+    private string file;
+
+    void Start() {
+        file = Application.persistentDataPath + "/current.txt";
+    }
 
     public void NextLevel() {
         UpdateValues();

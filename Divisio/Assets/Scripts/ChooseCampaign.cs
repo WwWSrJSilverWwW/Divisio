@@ -11,9 +11,9 @@ public class ChooseCampaign : MonoBehaviour
 {
     public int nowCamp;
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
-    List<string> campaigns;
-    List<string> campNames = new List<string>();
-    GameObject levelButton, textLevelButton;
+    private List<string> campaigns;
+    private List<string> campNames = new List<string>();
+    private GameObject levelButton, textLevelButton;
 
     void Start() {
         GameObject Canvas = GameObject.Find("Canvas");
@@ -68,7 +68,7 @@ public class ChooseCampaign : MonoBehaviour
     }
 
     public void ButtonClick(int camp) {
-        string file = "Assets/openCampaign.txt";
+        string file = Application.persistentDataPath + "/openCampaign.txt";
         StreamWriter writer = new StreamWriter(file);
         writer.Write(camp);
         writer.Close();
@@ -82,7 +82,7 @@ public class ChooseCampaign : MonoBehaviour
 
     public void UpdateValues()
     {
-        string file = "Assets/current.txt";
+        string file = Application.persistentDataPath + "/current.txt";
 
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();

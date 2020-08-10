@@ -37,7 +37,7 @@ public class Game : MonoBehaviour
     private int x = 5;
     private float k = 0.5f;
     private int curCamp, curLvl, prgCamp, prgLvl;
-    private int constW = 320;
+    private int constW = 240;
     private int moveX = 0, moveY = 90;
     private int w;
     private int tX, tY;
@@ -331,7 +331,7 @@ public class Game : MonoBehaviour
     }
 
     public void UpdateValues() {
-        string file = "Assets/current.txt";
+        string file = Application.persistentDataPath + "/current.txt";
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();
         curCamp = int.Parse(text.Split(new char[] { ';' })[0].Split(new char[] { ':' })[1]);

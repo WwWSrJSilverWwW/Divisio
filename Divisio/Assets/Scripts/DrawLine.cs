@@ -21,7 +21,7 @@ public class DrawLine : MonoBehaviour
     private GameObject Canvas;
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
     private string file;
-    private int constW = 320;
+    private int constW = 240;
     private int moveX = 0, moveY = 90;
     private int w;
     private int tX, tY;
@@ -38,7 +38,7 @@ public class DrawLine : MonoBehaviour
     }
 
     void Start() {
-        file = "Assets/current.txt";
+        file = Application.persistentDataPath + "/current.txt";
         UpdateValues();
         Canvas = GameObject.Find("Canvas");
         line = GetComponent<LineRenderer>();
@@ -110,9 +110,9 @@ public class DrawLine : MonoBehaviour
         } else {
             Y = (int)(N / 2) * w + w / 2;
         }
-        float x1 = ((newPoint.x + lastPoint.x - 2 * moveX) / 2 + w) / (w / 2);
-        float y1 = ((newPoint.y + lastPoint.y - 2 * moveY) / 2 + w) / (w / 2);
-        Debug.Log(x1 + " " + y1);
+        float x1 = ((newPoint.x + lastPoint.x) / 2 - tX + w / 2) / (w / 2);
+        float y1 = ((newPoint.y + lastPoint.y) / 2 - tY + w / 2) / (w / 2);
+        Debug.Log(x1 + " " + y1 + " " + tX + " " + tY);
         if (-X + moveX <= newPoint.x && newPoint.x <= X + moveX && -Y + moveY <= newPoint.y && newPoint.y <= Y + moveY && !pointsList.Contains(newPoint) && !noWay.Contains(new Vector2(x1, y1))) {
             pointsList.Add(newPoint);
             line.positionCount = pointsList.Count;

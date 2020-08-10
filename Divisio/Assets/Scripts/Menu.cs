@@ -8,9 +8,10 @@ using System.IO;
 
 public class Menu : MonoBehaviour
 {
-    private string file = "Assets/current.txt";
+    private string file;
 
     void Start() {
+        file = Application.persistentDataPath + "/current.txt";
         if (!File.Exists(file)) {
             File.CreateText(file).Close();
             NewGame();
