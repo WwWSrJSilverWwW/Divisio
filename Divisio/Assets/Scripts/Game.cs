@@ -19,10 +19,12 @@ public class Game : MonoBehaviour
     public List<Vector2> whitePoints;
     public List<Vector2> blackPoints;
     public List<Vector2> deletePoints;
+    public List<Vector2> takePoints;
     private Vector2 p;
     private GameObject whitePanel;
     private GameObject blackPanel;
     private GameObject deletePanel;
+    private GameObject takePanel;
     private GameObject Canvas;
     private GameObject newGameObj;
     private List<Vector3> pointsList;
@@ -37,9 +39,8 @@ public class Game : MonoBehaviour
     private int x = 5;
     private float k = 0.5f;
     private int curCamp, curLvl, prgCamp, prgLvl;
-    private int constW = 240;
     private int moveX = 0, moveY = 90;
-    private int w;
+    private int w = 60;
     private int tX, tY;
     private List<List<int>> infoPlanes;
 
@@ -48,6 +49,7 @@ public class Game : MonoBehaviour
         public List<string> blackSquare = new List<string>();
         public List<string> noWay = new List<string>();
         public List<string> deleteObject = new List<string>();
+        public List<string> takePoint = new List<string>();
         public string enter = "2,0";
         public string exit = "2,4";
         public int N = 4, M = 4;
@@ -63,6 +65,7 @@ public class Game : MonoBehaviour
         AddWhiteSquare();
         AddBlackSquare();
         AddNoWay();
+        AddTakePoints();
         AddDeleteObject();
     }
 
@@ -76,7 +79,6 @@ public class Game : MonoBehaviour
         GameObject.Find("LevelText").GetComponent<Text>().text = "Level " + curCamp + "-" + curLvl;
         N = curLevelStruct.N;
         M = curLevelStruct.M;
-        w = constW / Mathf.Max(N, M);
         if (M % 2 == 0) {
             tX = -(M / 2) * w + w / 2 + moveX;
         } else {
@@ -183,6 +185,20 @@ public class Game : MonoBehaviour
         }
     }
 
+    public void AddTakePoints() { 
+        for (int i = 0; i < curLevelStruct.takePoint.Count; i++) {
+            takePoints.Add(new Vector2(int.Parse(curLevelStruct.takePoint[i].Split(new char[] { ',' })[0]), int.Parse(curLevelStruct.takePoint[i].Split(new char[] { ',' })[1])));
+        }
+        for (int i = 0; i < takePoints.Count; i++) {
+            takePanel = Instantiate(Resources.Load("Prefabs/TakePoint")) as GameObject;
+            takePanel.name = "takePanel" + takePoints[i].x + takePoints[i].y;
+            takePanel.transform.SetParent(Canvas.transform, false);
+            rect = takePanel.GetComponent<RectTransform>();
+            rect.anchoredPosition = new Vector2(tX + w * takePoints[i].x / 2 - w / 2, tY + w * takePoints[i].y / 2 - w / 2);
+            rect.sizeDelta = new Vector2(w / 3, w / 3);
+        }
+    }
+
     public void MakeBFSSplitPlane() {
         pointsList = GameObject.Find("Line").GetComponent<DrawLine>().pointsList;
         float lineExitX = pointsList[pointsList.Count - 1].x;
@@ -226,9 +242,6 @@ public class Game : MonoBehaviour
                         infoPlanes[splittedPlane[i][j]][2]++;
                     }
                 }
-            }
-            for (int i = 0; i < curPlane; i++) {
-                Debug.Log(i + ") " + infoPlanes[i][0] + " " + infoPlanes[i][1] + " " + infoPlanes[i][2]);
             }
             CheckAll();
         }
@@ -292,6 +305,8 @@ public class Game : MonoBehaviour
         if (!CheckSquares()) {
             x = 0;
             Debug.Log("CheckError2: White and black squares aren't splitted.");
+        } else if (!CheckTakePoints()) {
+            Debug.Log("CheckError3: Some points aren't taken.");
         } else {
             Debug.Log("You won!");
             SceneManager.LoadScene("LevelComplitedScene");
@@ -304,6 +319,22 @@ public class Game : MonoBehaviour
             if (li[0] + li[1] < li[2]) {
                 return false;
             } else if (Mathf.Min(li[0], li[1]) > li[2]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public bool CheckTakePoints() {
+        List<Vector3> e = new List<Vector3>();
+        for (int i = 0; i < pointsList.Count - 1; i++) {
+            e.Add(new Vector3((pointsList[i].x + pointsList[i + 1].x) / 2, (pointsList[i].y + pointsList[i + 1].y) / 2, 0));
+        }
+        for (int i = 0; i < takePoints.Count; i++) {
+            Vector2 g = GameObject.Find("takePanel" + takePoints[i].x + takePoints[i].y).GetComponent<RectTransform>().anchoredPosition;
+            Vector3 gg = new Vector3(g.x, g.y, 0);
+            Debug.Log(gg);
+            if (!pointsList.Contains(gg) && !e.Contains(gg)) {
                 return false;
             }
         }

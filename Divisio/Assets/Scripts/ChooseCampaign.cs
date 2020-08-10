@@ -21,12 +21,12 @@ public class ChooseCampaign : MonoBehaviour
 
         campNames.Add("Let's Start");
         campNames.Add("White and Black");
-        campNames.Add("Not Standart");
         campNames.Add("Delete it now");
+        campNames.Add("Take or be taken");
 
         int x = 0;
 
-        for (int i = 1; i <= 4; i++)
+        for (int i = 1; i <= campNames.Count; i++)
         {
             int v = i;
 

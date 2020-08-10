@@ -718,6 +718,7 @@ MonoBehaviour:
   whitePoints: []
   blackPoints: []
   deletePoints: []
+  takePoints: []
   N: 4
   M: 4
   level: 1

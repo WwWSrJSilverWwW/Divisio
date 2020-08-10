@@ -21,9 +21,8 @@ public class DrawLine : MonoBehaviour
     private GameObject Canvas;
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
     private string file;
-    private int constW = 240;
     private int moveX = 0, moveY = 90;
-    private int w;
+    private int w = 60;
     private int tX, tY;
     public int N, M;
 
@@ -32,6 +31,7 @@ public class DrawLine : MonoBehaviour
         public List<string> blackSquare = new List<string>();
         public List<string> noWay = new List<string>();
         public List<string> deleteObject = new List<string>();
+        public List<string> takePoint = new List<string>();
         public string enter = "2,0";
         public string exit = "2,4";
         public int N = 4, M = 4;
@@ -48,7 +48,6 @@ public class DrawLine : MonoBehaviour
         LevelStructure curLevelStruct = JsonUtility.FromJson<LevelStructure>(settings);
         N = curLevelStruct.N;
         M = curLevelStruct.M;
-        w = constW / Mathf.Max(N, M);
         if (M % 2 == 0) {
             tX = -(M / 2) * w + w / 2 + moveX;
         } else {
@@ -112,7 +111,6 @@ public class DrawLine : MonoBehaviour
         }
         float x1 = ((newPoint.x + lastPoint.x) / 2 - tX + w / 2) / (w / 2);
         float y1 = ((newPoint.y + lastPoint.y) / 2 - tY + w / 2) / (w / 2);
-        Debug.Log(x1 + " " + y1 + " " + tX + " " + tY);
         if (-X + moveX <= newPoint.x && newPoint.x <= X + moveX && -Y + moveY <= newPoint.y && newPoint.y <= Y + moveY && !pointsList.Contains(newPoint) && !noWay.Contains(new Vector2(x1, y1))) {
             pointsList.Add(newPoint);
             line.positionCount = pointsList.Count;
