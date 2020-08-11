@@ -40,7 +40,7 @@ public class LevelComplited : MonoBehaviour
             c1 = prgCamp;
             l1 = prgLvl;
         }
-        if (curLvl == stopEndOfLevels && curCamp == 4) { 
+        if (curLvl == stopEndOfLevels && curCamp == 1) { 
             SceneManager.LoadScene("EndScene");
         }
         else {

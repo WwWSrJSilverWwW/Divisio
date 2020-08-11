@@ -68,6 +68,15 @@ public class DrawLine : MonoBehaviour
         }
     }
 
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (line.positionCount > 0) {
+                line.positionCount--;
+                pointsList.RemoveAt(pointsList.Count - 1);
+            }
+        }
+    }
+
     public void UpPressed() {
         newPoint.x = pointsList[pointsList.Count - 1].x;
         newPoint.y = pointsList[pointsList.Count - 1].y + w;

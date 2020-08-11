@@ -19,10 +19,7 @@ public class ChooseCampaign : MonoBehaviour
         GameObject Canvas = GameObject.Find("Canvas");
         UpdateValues();
 
-        campNames.Add("Let's Start");
         campNames.Add("White and Black");
-        campNames.Add("Delete it now");
-        campNames.Add("Take or be taken");
 
         int x = 0;
 
