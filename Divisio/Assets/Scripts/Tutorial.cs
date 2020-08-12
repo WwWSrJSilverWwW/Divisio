@@ -11,8 +11,14 @@ using UnityEngine.SceneManagement;
 public class Tutorial : MonoBehaviour
 {
     private int curCamp, curLvl, prgCamp, prgLvl;
+    private string platform;
 
     void Start() {
+        if (Application.platform == RuntimePlatform.Android) {
+            platform = Application.persistentDataPath;
+        } else {
+            platform = "Assets";
+        }
         GameObject Canvas = GameObject.Find("Canvas"); 
         UpdateValues();
         GameObject t = Instantiate(Resources.Load("Prefabs/Tutorials/" + curCamp)) as GameObject;
@@ -24,7 +30,7 @@ public class Tutorial : MonoBehaviour
     }
 
     public void UpdateValues() {
-        string file = Application.persistentDataPath + "/current.txt";
+        string file = platform + "/current.txt";
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();
         curCamp = int.Parse(text.Split(new char[] { ';' })[0].Split(new char[] { ':' })[1]);

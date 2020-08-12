@@ -14,8 +14,14 @@ public class ChooseCampaign : MonoBehaviour
     private List<string> campaigns;
     private List<string> campNames = new List<string>();
     private GameObject levelButton, textLevelButton;
+    private string platform;
 
     void Start() {
+        if (Application.platform == RuntimePlatform.Android) {
+            platform = Application.persistentDataPath;
+        } else {
+            platform = "Assets";
+        }
         GameObject Canvas = GameObject.Find("Canvas");
         UpdateValues(); 
         
@@ -66,7 +72,7 @@ public class ChooseCampaign : MonoBehaviour
     }
 
     public void ButtonClick(int camp) {
-        string file = Application.persistentDataPath + "/openCampaign.txt";
+        string file = platform + "/openCampaign.txt";
         StreamWriter writer = new StreamWriter(file);
         writer.Write(camp);
         writer.Close();
@@ -80,7 +86,7 @@ public class ChooseCampaign : MonoBehaviour
 
     public void UpdateValues()
     {
-        string file = Application.persistentDataPath + "/current.txt";
+        string file = platform + "/current.txt";
 
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();

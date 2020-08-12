@@ -25,7 +25,8 @@ public class DrawLine : MonoBehaviour
     private int w = 60;
     private int tX, tY;
     public int N, M;
-    private List<int> ws = new List<int>() { 160, 108, 80, 64, 52, 44 };
+    private List<int> ws = new List<int>() { 160, 108, 80, 64, 52, 44, 40, 36, 32, 28 };
+    private string platform;
 
     public class LevelStructure {
         public List<string> whiteSquare = new List<string>();
@@ -39,7 +40,12 @@ public class DrawLine : MonoBehaviour
     }
 
     void Start() {
-        file = Application.persistentDataPath + "/current.txt";
+        if (Application.platform == RuntimePlatform.Android) {
+            platform = Application.persistentDataPath;
+        } else {
+            platform = "Assets";
+        }
+        file = platform + "/current.txt";
         UpdateValues();
         Canvas = GameObject.Find("Canvas");
         line = GetComponent<LineRenderer>();

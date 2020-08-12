@@ -43,7 +43,8 @@ public class Game : MonoBehaviour
     private int w;
     private int tX, tY;
     private List<List<int>> infoPlanes;
-    private List<int> ws = new List<int>() { 160, 108, 80, 64, 52, 44 };
+    private List<int> ws = new List<int>() { 160, 108, 80, 64, 52, 44, 40, 36, 32, 28 };
+    private string platform;
 
     public class LevelStructure {
         public List<string> whiteSquare = new List<string>();
@@ -57,6 +58,11 @@ public class Game : MonoBehaviour
     }
 
     void Start() {
+        if (Application.platform == RuntimePlatform.Android) {
+            platform = Application.persistentDataPath;
+        } else {
+            platform = "Assets";
+        }
         Canvas = GameObject.Find("Canvas");
         UpdateValues();
         TextAsset txt = (TextAsset)Resources.Load("Levels/" + curCamp + "/" + curLvl, typeof(TextAsset));
@@ -412,7 +418,7 @@ public class Game : MonoBehaviour
     }
 
     public void UpdateValues() {
-        string file = Application.persistentDataPath + "/current.txt";
+        string file = platform + "/current.txt";
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();
         curCamp = int.Parse(text.Split(new char[] { ';' })[0].Split(new char[] { ':' })[1]);

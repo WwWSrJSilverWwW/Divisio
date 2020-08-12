@@ -14,11 +14,12 @@ public class ChooseLevel : MonoBehaviour
     private GameObject textLevelButton;
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
     private List<string> campaigns;
+    private string platform;
 
     public void ButtonClick(int c, int l) {
         UpdateValues();
 
-        string file = Application.persistentDataPath + "/current.txt";
+        string file = platform + "/current.txt";
         StreamWriter writer = new StreamWriter(file);
         writer.Write("currentCampaign:" + c + ";\ncurrentLevel:" + l + ";\nprogressCampaign:" + prgCamp + ";\nprogressLevel:" + prgLvl + ";\nend,of,file.");
         writer.Close();
@@ -30,9 +31,14 @@ public class ChooseLevel : MonoBehaviour
     }
 
     void Start() {
+        if (Application.platform == RuntimePlatform.Android) {
+            platform = Application.persistentDataPath;
+        } else {
+            platform = "Assets";
+        }
         UpdateValues();
 
-        string file = Application.persistentDataPath + "/openCampaign.txt";
+        string file = platform + "/openCampaign.txt";
         StreamReader reader = new StreamReader(file);
         curCamp = int.Parse(reader.ReadToEnd());
         reader.Close();
@@ -62,7 +68,7 @@ public class ChooseLevel : MonoBehaviour
             textLevelButton.GetComponent<Text>().text = curCamp + "-" + i;
             textLevelButton.GetComponent<Text>().font = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
             textLevelButton.GetComponent<Text>().fontStyle = FontStyle.Bold;
-            textLevelButton.GetComponent<Text>().fontSize = 40;
+            textLevelButton.GetComponent<Text>().fontSize = 35;
             textLevelButton.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
             textLevelButton.transform.SetParent(levelButton.transform, false);
 
@@ -93,7 +99,7 @@ public class ChooseLevel : MonoBehaviour
     }
 
     public void UpdateValues() {
-        string file = Application.persistentDataPath + "/current.txt";
+        string file = platform + "/current.txt";
 
         StreamReader reader = new StreamReader(file);
         string text = reader.ReadToEnd();

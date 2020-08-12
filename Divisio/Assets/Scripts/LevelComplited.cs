@@ -12,9 +12,15 @@ public class LevelComplited : MonoBehaviour
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
     private int c0, l0, c1, l1;
     private string file;
+    private string platform;
 
     void Start() {
-        file = Application.persistentDataPath + "/current.txt";
+        if (Application.platform == RuntimePlatform.Android) {
+            platform = Application.persistentDataPath;
+        } else {
+            platform = "Assets";
+        }
+        file = platform + "/current.txt";
     }
 
     public void NextLevel() {
