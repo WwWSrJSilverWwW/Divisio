@@ -17,9 +17,10 @@ public class ChooseCampaign : MonoBehaviour
 
     void Start() {
         GameObject Canvas = GameObject.Find("Canvas");
-        UpdateValues();
-
-        campNames.Add("White and Black");
+        UpdateValues(); 
+        
+        campNames.Add("Find your path");
+        campNames.Add("White and black");
 
         int x = 0;
 

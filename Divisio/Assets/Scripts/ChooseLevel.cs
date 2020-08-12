@@ -22,8 +22,11 @@ public class ChooseLevel : MonoBehaviour
         StreamWriter writer = new StreamWriter(file);
         writer.Write("currentCampaign:" + c + ";\ncurrentLevel:" + l + ";\nprogressCampaign:" + prgCamp + ";\nprogressLevel:" + prgLvl + ";\nend,of,file.");
         writer.Close();
-
-        SceneManager.LoadScene("GameScene");
+        if (l != 1) {
+            SceneManager.LoadScene("GameScene");
+        } else {
+            SceneManager.LoadScene("TutorialScene");
+        }
     }
 
     void Start() {

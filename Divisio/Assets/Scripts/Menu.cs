@@ -9,8 +9,10 @@ using System.IO;
 public class Menu : MonoBehaviour
 {
     private string file;
+    private int curCamp, curLvl, prgCamp, prgLvl;
 
     void Start() {
+        UpdateValues();
         file = Application.persistentDataPath + "/current.txt";
         if (!File.Exists(file)) {
             File.CreateText(file).Close();
@@ -19,7 +21,11 @@ public class Menu : MonoBehaviour
     }
 
     public void Play() {
-        SceneManager.LoadScene("GameScene");
+        if (curLvl != 1) {
+            SceneManager.LoadScene("GameScene");
+        } else {
+            SceneManager.LoadScene("TutorialScene");
+        }
     }
 
     public void Exit() {
@@ -34,5 +40,16 @@ public class Menu : MonoBehaviour
         StreamWriter writer = new StreamWriter(file);
         writer.Write("currentCampaign:1;\ncurrentLevel:1;\nprogressCampaign:1;\nprogressLevel:1;\nend,of,file.");
         writer.Close();
+    }
+
+    public void UpdateValues() {
+        string file = Application.persistentDataPath + "/current.txt";
+        StreamReader reader = new StreamReader(file);
+        string text = reader.ReadToEnd();
+        curCamp = int.Parse(text.Split(new char[] { ';' })[0].Split(new char[] { ':' })[1]);
+        curLvl = int.Parse(text.Split(new char[] { ';' })[1].Split(new char[] { ':' })[1]);
+        prgCamp = int.Parse(text.Split(new char[] { ';' })[2].Split(new char[] { ':' })[1]);
+        prgLvl = int.Parse(text.Split(new char[] { ';' })[3].Split(new char[] { ':' })[1]);
+        reader.Close();
     }
 }

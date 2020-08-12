@@ -1,12 +1,6 @@
 {
-  "N": 2,
+  "N": 1,
   "M": 1,
-  "enter": "0,1",
-  "exit": "1,1",
-  "whiteSquare": [
-    "0,0"
-  ],
-  "blackSquare": [
-    "0,1"
-  ]
+  "enter": "0,0",
+  "exit": "1,1"
 }

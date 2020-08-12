@@ -40,14 +40,18 @@ public class LevelComplited : MonoBehaviour
             c1 = prgCamp;
             l1 = prgLvl;
         }
-        if (curLvl == stopEndOfLevels && curCamp == 1) { 
+        if (curLvl == stopEndOfLevels && curCamp == 2) { 
             SceneManager.LoadScene("EndScene");
         }
         else {
             StreamWriter writer = new StreamWriter(file);
             writer.Write("currentCampaign:" + c0 + ";\ncurrentLevel:" + l0 + ";\nprogressCampaign:" + c1 + ";\nprogressLevel:" + l1 + ";\nend,of,file.");
             writer.Close();
-            SceneManager.LoadScene("GameScene");
+            if (l0 != 1) {
+                SceneManager.LoadScene("GameScene");
+            } else {
+                SceneManager.LoadScene("TutorialScene");
+            }
         }
     }
 
