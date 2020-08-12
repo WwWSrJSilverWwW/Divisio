@@ -40,9 +40,10 @@ public class Game : MonoBehaviour
     private float k = 0.5f;
     private int curCamp, curLvl, prgCamp, prgLvl;
     private int moveX = 0, moveY = 90;
-    private int w = 60;
+    private int w;
     private int tX, tY;
     private List<List<int>> infoPlanes;
+    private List<int> ws = new List<int>() { 160, 108, 80, 64, 52, 44 };
 
     public class LevelStructure {
         public List<string> whiteSquare = new List<string>();
@@ -62,6 +63,7 @@ public class Game : MonoBehaviour
         string settings = txt.text;
         curLevelStruct = JsonUtility.FromJson<LevelStructure>(settings);
         SetEnterExitSettings();
+        SetWalls();
         AddWhiteSquare();
         AddBlackSquare();
         AddNoWay();
@@ -79,6 +81,7 @@ public class Game : MonoBehaviour
         GameObject.Find("LevelText").GetComponent<Text>().text = "Level " + curCamp + "-" + curLvl;
         N = curLevelStruct.N;
         M = curLevelStruct.M;
+        w = ws[Mathf.Max(N, M) - 1];
         if (M % 2 == 0) {
             tX = -(M / 2) * w + w / 2 + moveX;
         } else {
@@ -109,6 +112,53 @@ public class Game : MonoBehaviour
         inPanel = GameObject.Find("InPanel").GetComponent<RectTransform>();
         inPanel.anchoredPosition = new Vector2(tX + w * enterX - w / 2, tY + w * enterY - w / 2);
         inPanel.sizeDelta = new Vector2(w / 2, w / 2);
+    }
+    
+    public void SetWalls() {
+        GameObject cornerUL = Instantiate(Resources.Load("Prefabs/cornerUL")) as GameObject;
+        GameObject cornerUR = Instantiate(Resources.Load("Prefabs/cornerUR")) as GameObject;
+        cornerUL.transform.SetParent(Canvas.transform, false);
+        cornerUR.transform.SetParent(Canvas.transform, false);
+        cornerUL.GetComponent<RectTransform>().anchoredPosition = new Vector2(tX - w / 2 - w / 4 - 2 * moveX, -(tY - w / 2 - w / 4 - 2 * moveY));
+        cornerUR.GetComponent<RectTransform>().anchoredPosition = new Vector2(-(tX - w / 2 - w / 4 - 2 * moveX), -(tY - w / 2 - w / 4 - 2 * moveY));
+        cornerUL.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
+        cornerUR.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
+        cornerUL.transform.SetSiblingIndex(0);
+        cornerUR.transform.SetSiblingIndex(0);
+        GameObject cornerDL = Instantiate(Resources.Load("Prefabs/cornerDL")) as GameObject;
+        GameObject cornerDR = Instantiate(Resources.Load("Prefabs/cornerDR")) as GameObject;
+        cornerDL.transform.SetParent(Canvas.transform, false);
+        cornerDR.transform.SetParent(Canvas.transform, false);
+        cornerDL.GetComponent<RectTransform>().anchoredPosition = new Vector2(tX - w / 2 - w / 4, tY - w / 2 - w / 4);
+        cornerDR.GetComponent<RectTransform>().anchoredPosition = new Vector2(-(tX - w / 2 - w / 4), tY - w / 2 - w / 4);
+        cornerDL.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
+        cornerDR.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
+        cornerDL.transform.SetSiblingIndex(0);
+        cornerDR.transform.SetSiblingIndex(0);
+        for (int i = 0; i < N; i++) {
+            GameObject wallL = Instantiate(Resources.Load("Prefabs/wallL")) as GameObject;
+            GameObject wallR = Instantiate(Resources.Load("Prefabs/wallR")) as GameObject; 
+            wallL.transform.SetParent(Canvas.transform, false);
+            wallR.transform.SetParent(Canvas.transform, false);
+            wallL.GetComponent<RectTransform>().anchoredPosition = new Vector2(tX - w / 2 - w / 4, tY - w + (i + 1) * w);
+            wallR.GetComponent<RectTransform>().anchoredPosition = new Vector2(-(tX - w / 2 - w / 4), tY - w + (i + 1) * w);
+            wallL.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w);
+            wallR.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w);
+            wallL.transform.SetSiblingIndex(0);
+            wallR.transform.SetSiblingIndex(0);
+        }
+        for (int i = 0; i < M; i++) {
+            GameObject wallU = Instantiate(Resources.Load("Prefabs/wallU")) as GameObject;
+            GameObject wallD = Instantiate(Resources.Load("Prefabs/wallD")) as GameObject; 
+            wallU.transform.SetParent(Canvas.transform, false);
+            wallD.transform.SetParent(Canvas.transform, false);
+            wallU.GetComponent<RectTransform>().anchoredPosition = new Vector2(-tX + w - (i + 1) * w, -tY + moveY * 2 + w / 2 + w / 4);
+            wallD.GetComponent<RectTransform>().anchoredPosition = new Vector2(-tX + w - (i + 1) * w, tY - w / 2 - w / 4);
+            wallU.GetComponent<RectTransform>().sizeDelta = new Vector2(w, w / 2);
+            wallD.GetComponent<RectTransform>().sizeDelta = new Vector2(w, w / 2);
+            wallU.transform.SetSiblingIndex(0);
+            wallD.transform.SetSiblingIndex(0);
+        }
     }
 
     public void AddWhiteSquare() {

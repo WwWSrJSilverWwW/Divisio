@@ -25,6 +25,7 @@ public class DrawLine : MonoBehaviour
     private int w = 60;
     private int tX, tY;
     public int N, M;
+    private List<int> ws = new List<int>() { 160, 108, 80, 64, 52, 44 };
 
     public class LevelStructure {
         public List<string> whiteSquare = new List<string>();
@@ -48,6 +49,7 @@ public class DrawLine : MonoBehaviour
         LevelStructure curLevelStruct = JsonUtility.FromJson<LevelStructure>(settings);
         N = curLevelStruct.N;
         M = curLevelStruct.M;
+        w = ws[Mathf.Max(N, M) - 1];
         if (M % 2 == 0) {
             tX = -(M / 2) * w + w / 2 + moveX;
         } else {
