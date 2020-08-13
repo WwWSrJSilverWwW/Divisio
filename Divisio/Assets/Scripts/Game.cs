@@ -27,7 +27,7 @@ public class Game : MonoBehaviour
     private GameObject takePanel;
     private GameObject Canvas;
     private GameObject newGameObj;
-    private List<Vector3> pointsList;
+    private List<Vector3> pointsList = new List<Vector3>();
     public List<List<int>> splittedPlane;
     private Vector2 pub;
     public int N;
@@ -45,6 +45,9 @@ public class Game : MonoBehaviour
     private List<List<int>> infoPlanes;
     private List<int> ws = new List<int>() { 160, 108, 80, 64, 52, 44, 40, 36, 32, 28 };
     private string platform;
+    private LineRenderer line;
+    private Vector3 newPoint = new Vector3(0,0,0);
+    private Vector3 startPoint;
 
     public class LevelStructure {
         public List<string> whiteSquare = new List<string>();
@@ -70,6 +73,7 @@ public class Game : MonoBehaviour
         curLevelStruct = JsonUtility.FromJson<LevelStructure>(settings);
         SetEnterExitSettings();
         SetWalls();
+        SetLine();
         AddWhiteSquare();
         AddBlackSquare();
         AddNoWay();
@@ -78,7 +82,35 @@ public class Game : MonoBehaviour
     }
 
     void Update() {
+        HelpOnComputer();
         //ShowWrongSquares();
+    }
+
+    public void HelpOnComputer() { 
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (line.positionCount > 1) {
+                line.positionCount--;
+                pointsList.RemoveAt(pointsList.Count - 1);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+            LeftPressed();
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) {
+            RightPressed();
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow)) {
+            UpPressed();
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+            DownPressed();
+        }
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            MakeBFSSplitPlane();
+        }
+        if (Input.GetKeyDown(KeyCode.R)) {
+            Reset();
+        }
     }
 
     public void SetEnterExitSettings() {
@@ -100,7 +132,7 @@ public class Game : MonoBehaviour
         }
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                GameObject cell = Instantiate(Resources.Load("Prefabs/Cell")) as GameObject;
+                GameObject cell = Instantiate(Resources.Load("Prefabs/Backgrounds/Cell")) as GameObject;
                 cell.name = "cellPanel" + i + j;
                 cell.transform.SetParent(Canvas.transform, false);
                 cell.transform.SetSiblingIndex(0);
@@ -121,8 +153,8 @@ public class Game : MonoBehaviour
     }
     
     public void SetWalls() {
-        GameObject cornerUL = Instantiate(Resources.Load("Prefabs/cornerUL")) as GameObject;
-        GameObject cornerUR = Instantiate(Resources.Load("Prefabs/cornerUR")) as GameObject;
+        GameObject cornerUL = Instantiate(Resources.Load("Prefabs/Backgrounds/cornerUL")) as GameObject;
+        GameObject cornerUR = Instantiate(Resources.Load("Prefabs/Backgrounds/cornerUR")) as GameObject;
         cornerUL.transform.SetParent(Canvas.transform, false);
         cornerUR.transform.SetParent(Canvas.transform, false);
         cornerUL.GetComponent<RectTransform>().anchoredPosition = new Vector2(tX - w / 2 - w / 4 - 2 * moveX, -(tY - w / 2 - w / 4 - 2 * moveY));
@@ -131,8 +163,8 @@ public class Game : MonoBehaviour
         cornerUR.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
         cornerUL.transform.SetSiblingIndex(0);
         cornerUR.transform.SetSiblingIndex(0);
-        GameObject cornerDL = Instantiate(Resources.Load("Prefabs/cornerDL")) as GameObject;
-        GameObject cornerDR = Instantiate(Resources.Load("Prefabs/cornerDR")) as GameObject;
+        GameObject cornerDL = Instantiate(Resources.Load("Prefabs/Backgrounds/cornerDL")) as GameObject;
+        GameObject cornerDR = Instantiate(Resources.Load("Prefabs/Backgrounds/cornerDR")) as GameObject;
         cornerDL.transform.SetParent(Canvas.transform, false);
         cornerDR.transform.SetParent(Canvas.transform, false);
         cornerDL.GetComponent<RectTransform>().anchoredPosition = new Vector2(tX - w / 2 - w / 4, tY - w / 2 - w / 4);
@@ -142,8 +174,8 @@ public class Game : MonoBehaviour
         cornerDL.transform.SetSiblingIndex(0);
         cornerDR.transform.SetSiblingIndex(0);
         for (int i = 0; i < N; i++) {
-            GameObject wallL = Instantiate(Resources.Load("Prefabs/wallL")) as GameObject;
-            GameObject wallR = Instantiate(Resources.Load("Prefabs/wallR")) as GameObject; 
+            GameObject wallL = Instantiate(Resources.Load("Prefabs/Backgrounds/wallL")) as GameObject;
+            GameObject wallR = Instantiate(Resources.Load("Prefabs/Backgrounds/wallR")) as GameObject; 
             wallL.transform.SetParent(Canvas.transform, false);
             wallR.transform.SetParent(Canvas.transform, false);
             wallL.GetComponent<RectTransform>().anchoredPosition = new Vector2(tX - w / 2 - w / 4, tY - w + (i + 1) * w);
@@ -154,8 +186,8 @@ public class Game : MonoBehaviour
             wallR.transform.SetSiblingIndex(0);
         }
         for (int i = 0; i < M; i++) {
-            GameObject wallU = Instantiate(Resources.Load("Prefabs/wallU")) as GameObject;
-            GameObject wallD = Instantiate(Resources.Load("Prefabs/wallD")) as GameObject; 
+            GameObject wallU = Instantiate(Resources.Load("Prefabs/Backgrounds/wallU")) as GameObject;
+            GameObject wallD = Instantiate(Resources.Load("Prefabs/Backgrounds/wallD")) as GameObject; 
             wallU.transform.SetParent(Canvas.transform, false);
             wallD.transform.SetParent(Canvas.transform, false);
             wallU.GetComponent<RectTransform>().anchoredPosition = new Vector2(-tX + w - (i + 1) * w, -tY + moveY * 2 + w / 2 + w / 4);
@@ -165,6 +197,20 @@ public class Game : MonoBehaviour
             wallU.transform.SetSiblingIndex(0);
             wallD.transform.SetSiblingIndex(0);
         }
+    }
+
+    public void SetLine() {
+        string file = platform + "/current.txt";
+        UpdateValues();
+        line = GameObject.Find("Line").GetComponent<LineRenderer>();
+        TextAsset txt = (TextAsset)Resources.Load("Levels/" + curCamp + "/" + curLvl, typeof(TextAsset));
+        string settings = txt.text;
+        int x0 = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[0]);
+        int y0 = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[1]);
+        startPoint = new Vector3(tX + x0 * w - w / 2, tY + y0 * w - w / 2, 0);
+        pointsList.Add(startPoint);
+        line.positionCount = 1;
+        line.SetPosition(pointsList.Count - 1, (Vector3)pointsList[pointsList.Count - 1]);
     }
 
     public void AddWhiteSquare() {
@@ -254,9 +300,58 @@ public class Game : MonoBehaviour
             rect.sizeDelta = new Vector2(w / 3, w / 3);
         }
     }
+    
+    public void UpPressed() {
+        newPoint.x = pointsList[pointsList.Count - 1].x;
+        newPoint.y = pointsList[pointsList.Count - 1].y + w;
+        newPoint.z = 0;
+        AddPointToList();
+    }
+
+    public void LeftPressed() {
+        newPoint.x = pointsList[pointsList.Count - 1].x - w;
+        newPoint.y = pointsList[pointsList.Count - 1].y;
+        newPoint.z = 0;
+        AddPointToList();
+    }
+
+    public void RightPressed() {
+        newPoint.x = pointsList[pointsList.Count - 1].x + w;
+        newPoint.y = pointsList[pointsList.Count - 1].y;
+        newPoint.z = 0;
+        AddPointToList();
+    }
+
+    public void DownPressed() {
+        newPoint.x = pointsList[pointsList.Count - 1].x;
+        newPoint.y = pointsList[pointsList.Count - 1].y - w;
+        newPoint.z = 0;
+        AddPointToList();
+    }
+
+    public void AddPointToList() {
+        Vector3 lastPoint = pointsList[pointsList.Count - 1];
+        int X, Y;
+        if (M % 2 == 0) {
+            X = (M / 2) * w;
+        } else {
+            X = (int)(M / 2) * w + w / 2;
+        }
+        if (N % 2 == 0) {
+            Y = (N / 2) * w;
+        } else {
+            Y = (int)(N / 2) * w + w / 2;
+        }
+        float x1 = ((newPoint.x + lastPoint.x) / 2 - tX + w / 2) / (w / 2);
+        float y1 = ((newPoint.y + lastPoint.y) / 2 - tY + w / 2) / (w / 2);
+        if (-X + moveX <= newPoint.x && newPoint.x <= X + moveX && -Y + moveY <= newPoint.y && newPoint.y <= Y + moveY && !pointsList.Contains(newPoint) && !noWay.Contains(new Vector2(x1, y1))) {
+            pointsList.Add(newPoint);
+            line.positionCount = pointsList.Count;
+            line.SetPosition(pointsList.Count - 1, (Vector3)pointsList[pointsList.Count - 1]);
+        }
+    }
 
     public void MakeBFSSplitPlane() {
-        pointsList = GameObject.Find("Line").GetComponent<DrawLine>().pointsList;
         float lineExitX = pointsList[pointsList.Count - 1].x;
         float lineExitY = pointsList[pointsList.Count - 1].y;
         if (lineExitX != tX + w * exitX - w / 2 || lineExitY != tY + w * exitY - w / 2) {
@@ -411,6 +506,10 @@ public class Game : MonoBehaviour
             white.sizeDelta = new Vector2(white.sizeDelta.x + k, white.sizeDelta.y + k);
             black.sizeDelta = new Vector2(black.sizeDelta.x + k, black.sizeDelta.y + k);
         }
+    }
+
+    public void Reset() {
+        SceneManager.LoadScene("GameScene");
     }
 
     public void Menu() {

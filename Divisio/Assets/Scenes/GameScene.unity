@@ -991,7 +991,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1734944858}
+      - m_Target: {fileID: 519420030}
         m_MethodName: UpPressed
         m_Mode: 1
         m_Arguments:
@@ -1199,7 +1199,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1734944858}
+      - m_Target: {fileID: 519420030}
         m_MethodName: Reset
         m_Mode: 1
         m_Arguments:
@@ -1329,7 +1329,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1734944858}
+      - m_Target: {fileID: 519420030}
         m_MethodName: RightPressed
         m_Mode: 1
         m_Arguments:
@@ -1612,7 +1612,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1734944858}
+      - m_Target: {fileID: 519420030}
         m_MethodName: DownPressed
         m_Mode: 1
         m_Arguments:
@@ -1748,7 +1748,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1734944857}
   - component: {fileID: 1734944859}
-  - component: {fileID: 1734944858}
   m_Layer: 5
   m_Name: Line
   m_TagString: Untagged
@@ -1770,21 +1769,6 @@ Transform:
   m_Father: {fileID: 116930386}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1734944858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734944856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c42d08a1ff1a0c840b4084b6e149d258, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointsList: []
-  N: 0
-  M: 0
 --- !u!120 &1734944859
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -2259,7 +2243,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1734944858}
+      - m_Target: {fileID: 519420030}
         m_MethodName: LeftPressed
         m_Mode: 1
         m_Arguments:
