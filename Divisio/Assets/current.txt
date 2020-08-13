@@ -1,5 +1,5 @@
 currentCampaign:1;
-currentLevel:1;
-progressCampaign:2;
-progressLevel:9;
+currentLevel:6;
+progressCampaign:1;
+progressLevel:6;
 end,of,file.

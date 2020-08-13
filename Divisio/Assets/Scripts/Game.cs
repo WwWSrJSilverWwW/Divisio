@@ -46,8 +46,9 @@ public class Game : MonoBehaviour
     private List<int> ws = new List<int>() { 160, 108, 80, 64, 52, 44, 40, 36, 32, 28 };
     private string platform;
     private LineRenderer line;
-    private Vector3 newPoint = new Vector3(0,0,0);
+    private Vector3 newPoint = new Vector3(0, 0, 0);
     private Vector3 startPoint;
+    private bool mousePressed = false;
 
     public class LevelStructure {
         public List<string> whiteSquare = new List<string>();
@@ -82,8 +83,29 @@ public class Game : MonoBehaviour
     }
 
     void Update() {
+        DrawLine();
         HelpOnComputer();
         //ShowWrongSquares();
+    }
+
+    public void DrawLine() { 
+        if (Input.GetMouseButtonDown(0)) {
+            mousePressed = true;
+        }
+        if (Input.GetMouseButtonUp(0)) {
+            mousePressed = false;
+        }
+        if (mousePressed) {
+            Vector3 v = Input.mousePosition;
+            v.x -= Screen.width / 2;
+            v.y -= Screen.height / 2;
+            v.z = 0;
+            if (v.y >= -128 && v.y <= 448) {
+                pointsList.Add(v);
+                line.positionCount = pointsList.Count;
+                line.SetPosition(pointsList.Count - 1, (Vector3)pointsList[pointsList.Count - 1]);
+            }
+        }
     }
 
     public void HelpOnComputer() { 
