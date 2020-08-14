@@ -39,11 +39,11 @@ public class Game : MonoBehaviour
     private int x = 5;
     private float k = 0.5f;
     private int curCamp, curLvl, prgCamp, prgLvl;
-    private int moveX = 0, moveY = 90;
+    private int moveX = 0, moveY = 160;
     private int w;
     private int tX, tY;
     private List<List<int>> infoPlanes;
-    private List<int> ws = new List<int>() { 160, 108, 80, 64, 52, 44, 40, 36, 32, 28 };
+    private List<int> ws = new List<int>() { 256, 176, 128, 104, 88, 72, 100, 100, 100, 100 };
     private string platform;
     private LineRenderer line;
     private Vector3 newPoint = new Vector3(0, 0, 0);
@@ -83,23 +83,28 @@ public class Game : MonoBehaviour
     }
 
     void Update() {
-        DrawLine();
+        //DrawLine();
         HelpOnComputer();
         //ShowWrongSquares();
     }
 
-    public void DrawLine() { 
+    public void DrawLine() {
+        Vector3 v = Input.mousePosition;
+        v.x -= Screen.width / 2;
+        v.y -= Screen.height / 2;
+        v.z = 0;
         if (Input.GetMouseButtonDown(0)) {
-            mousePressed = true;
+            if (v.y >= -128 && v.y <= 448) {
+                mousePressed = true;
+            }
         }
         if (Input.GetMouseButtonUp(0)) {
-            mousePressed = false;
+            if (v.y >= -128 && v.y <= 448) {
+                mousePressed = false;
+                SetLine();
+            }
         }
         if (mousePressed) {
-            Vector3 v = Input.mousePosition;
-            v.x -= Screen.width / 2;
-            v.y -= Screen.height / 2;
-            v.z = 0;
             if (v.y >= -128 && v.y <= 448) {
                 pointsList.Add(v);
                 line.positionCount = pointsList.Count;
@@ -172,6 +177,8 @@ public class Game : MonoBehaviour
         inPanel = GameObject.Find("InPanel").GetComponent<RectTransform>();
         inPanel.anchoredPosition = new Vector2(tX + w * enterX - w / 2, tY + w * enterY - w / 2);
         inPanel.sizeDelta = new Vector2(w / 2, w / 2);
+        GameObject.Find("OutPanel").transform.GetChild(0).gameObject.GetComponent<Text>().fontSize = (int)(1.5f * (w / 4));
+        GameObject.Find("InPanel").transform.GetChild(0).gameObject.GetComponent<Text>().fontSize = (int)(1.5f * (w / 4));
     }
     
     public void SetWalls() {
@@ -222,9 +229,12 @@ public class Game : MonoBehaviour
     }
 
     public void SetLine() {
-        string file = platform + "/current.txt";
         UpdateValues();
+        pointsList = new List<Vector3>();
+        string file = platform + "/current.txt";
         line = GameObject.Find("Line").GetComponent<LineRenderer>();
+        line.startWidth = 0.003f * w;
+        line.endWidth = 0.003f * w; 
         TextAsset txt = (TextAsset)Resources.Load("Levels/" + curCamp + "/" + curLvl, typeof(TextAsset));
         string settings = txt.text;
         int x0 = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[0]);
