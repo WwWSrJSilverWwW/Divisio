@@ -23,6 +23,12 @@ public class LevelComplited : MonoBehaviour
         file = platform + "/current.txt";
     }
 
+    void Update() { 
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton5)) {
+            NextLevel();
+        }
+    }
+
     public void NextLevel() {
         UpdateValues();
         stopEndOfLevels = stopEnd(curCamp);
