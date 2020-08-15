@@ -38,8 +38,9 @@ public class Game : MonoBehaviour
     private GameObject wrongBlackSquare;
     private int x = 5;
     private float k = 0.5f;
-    private int curCamp, curLvl, prgCamp, prgLvl;
-    private int moveX = 0, moveY = 160;
+    private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
+    private int c0, l0, c1, l1;
+    private int moveX = 0, moveY = 135;
     private int w;
     private int tX, tY;
     private List<List<int>> infoPlanes;
@@ -49,6 +50,7 @@ public class Game : MonoBehaviour
     private Vector3 newPoint = new Vector3(0, 0, 0);
     private Vector3 startPoint;
     private bool mousePressed = false;
+    private Vector3 checkExit;
 
     public class LevelStructure {
         public List<string> whiteSquare = new List<string>();
@@ -72,6 +74,7 @@ public class Game : MonoBehaviour
         TextAsset txt = (TextAsset)Resources.Load("Levels/" + curCamp + "/" + curLvl, typeof(TextAsset));
         string settings = txt.text;
         curLevelStruct = JsonUtility.FromJson<LevelStructure>(settings);
+
         SetEnterExitSettings();
         SetWalls();
         SetLine();
@@ -83,6 +86,9 @@ public class Game : MonoBehaviour
     }
 
     void Update() {
+        if (pointsList[pointsList.Count - 1] == checkExit) {
+            MakeBFSSplitPlane();
+        }
         //DrawLine();
         HelpOnComputer();
         //ShowWrongSquares();
@@ -114,7 +120,7 @@ public class Game : MonoBehaviour
     }
 
     public void HelpOnComputer() { 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton6)) {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton5)) {
             if (line.positionCount > 1) {
                 line.positionCount--;
                 pointsList.RemoveAt(pointsList.Count - 1);
@@ -132,13 +138,13 @@ public class Game : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.JoystickButton0)) {
             DownPressed();
         }
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton5)) {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton7)) {
             MakeBFSSplitPlane();
         }
-        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.JoystickButton4)) {
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.JoystickButton6)) {
             Reset();
         }
-        if (Input.GetKeyDown(KeyCode.JoystickButton7)) {
+        if (Input.GetKeyDown(KeyCode.JoystickButton4)) {
             SceneManager.LoadScene("MenuScene");
         }
     }
@@ -176,6 +182,7 @@ public class Game : MonoBehaviour
         enterY = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[1]);
         outPanel = GameObject.Find("OutPanel").GetComponent<RectTransform>();
         outPanel.anchoredPosition = new Vector2(tX + w * exitX - w / 2, tY + w * exitY - w / 2);
+        checkExit = new Vector3(outPanel.anchoredPosition.x, outPanel.anchoredPosition.y, 0);
         outPanel.sizeDelta = new Vector2(w / 2, w / 2);
         inPanel = GameObject.Find("InPanel").GetComponent<RectTransform>();
         inPanel.anchoredPosition = new Vector2(tX + w * enterX - w / 2, tY + w * enterY - w / 2);
@@ -292,7 +299,7 @@ public class Game : MonoBehaviour
             passWay.AddComponent<CanvasRenderer>();
             passWay.AddComponent<RectTransform>();
             passWay.AddComponent<Image>();
-            passWay.GetComponent<Image>().color = new Color(0.247058f, 0.282352f, 0.8f, 1);
+            passWay.GetComponent<Image>().color = new Color(0.8627f, 0.0784f, 0.0784f, 1);
             passWay.transform.SetParent(Canvas.transform, false);
             rect = passWay.GetComponent<RectTransform>();
             rect.anchoredPosition = new Vector2(tX + w / 2 * noWay[i].x - w / 2, tY + w / 2 * noWay[i].y - w / 2);
@@ -387,50 +394,43 @@ public class Game : MonoBehaviour
     }
 
     public void MakeBFSSplitPlane() {
-        float lineExitX = pointsList[pointsList.Count - 1].x;
-        float lineExitY = pointsList[pointsList.Count - 1].y;
-        if (lineExitX != tX + w * exitX - w / 2 || lineExitY != tY + w * exitY - w / 2) {
-            Debug.Log("CheckError 1: The line doesn't connect to the exit.");
+        splittedPlane = new List<List<int>>();
+        for (int i = 0; i < N; i++) {
+            List<int> newList = new List<int>();
+            for (int j = 0; j < M; j++) {
+                newList.Add(-1);
+            }
+            splittedPlane.Add(newList);
         }
-        else {
-            splittedPlane = new List<List<int>>();
-            for (int i = 0; i < N; i++) {
-                List<int> newList = new List<int>();
-                for (int j = 0; j < M; j++) {
-                    newList.Add(-1);
-                }
-                splittedPlane.Add(newList);
-            }
-            int curPlane = 0;
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < M; j++) {
-                    if (splittedPlane[i][j] == -1) {
-                        StartBFS(j, i, curPlane);
-                        curPlane++;
-                    }
+        int curPlane = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (splittedPlane[i][j] == -1) {
+                    StartBFS(j, i, curPlane);
+                    curPlane++;
                 }
             }
-            infoPlanes = new List<List<int>>();
-            for (int i = 0; i < curPlane; i++) {
-                List<int> add = new List<int>();
-                add.Add(0);
-                add.Add(0);
-                add.Add(0);
-                infoPlanes.Add(add);
-            }
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < M; j++) { 
-                    if (GameObject.Find("whitePanel" + j + i) != null) {
-                        infoPlanes[splittedPlane[i][j]][0]++;
-                    } else if (GameObject.Find("blackPanel" + j + i) != null) {
-                        infoPlanes[splittedPlane[i][j]][1]++;
-                    } else if (GameObject.Find("deletePanel" + j + i) != null) {
-                        infoPlanes[splittedPlane[i][j]][2]++;
-                    }
-                }
-            }
-            CheckAll();
         }
+        infoPlanes = new List<List<int>>();
+        for (int i = 0; i < curPlane; i++) {
+            List<int> add = new List<int>();
+            add.Add(0);
+            add.Add(0);
+            add.Add(0);
+            infoPlanes.Add(add);
+        }
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) { 
+                if (GameObject.Find("whitePanel" + j + i) != null) {
+                    infoPlanes[splittedPlane[i][j]][0]++;
+                } else if (GameObject.Find("blackPanel" + j + i) != null) {
+                    infoPlanes[splittedPlane[i][j]][1]++;
+                } else if (GameObject.Find("deletePanel" + j + i) != null) {
+                    infoPlanes[splittedPlane[i][j]][2]++;
+                }
+            }
+        }
+        CheckAll();
     }
 
     public void StartBFS(int x0, int y0, int plane) {
@@ -490,11 +490,12 @@ public class Game : MonoBehaviour
     public void CheckAll() {
         if (!CheckSquares()) {
             x = 0;
-            Debug.Log("CheckError2: White and black squares aren't splitted.");
+            Debug.Log("CheckError1: White and black squares aren't splitted.");
         } else if (!CheckTakePoints()) {
-            Debug.Log("CheckError3: Some points aren't taken.");
+            Debug.Log("CheckError2: Some points aren't taken.");
         } else {
             Debug.Log("You won!");
+            NextLevel();
             SceneManager.LoadScene("LevelComplitedScene");
         }
     }
@@ -540,6 +541,50 @@ public class Game : MonoBehaviour
             }
             white.sizeDelta = new Vector2(white.sizeDelta.x + k, white.sizeDelta.y + k);
             black.sizeDelta = new Vector2(black.sizeDelta.x + k, black.sizeDelta.y + k);
+        }
+    }
+
+    public void NextLevel() {
+        UpdateValues();
+        stopEndOfLevels = stopEnd(curCamp);
+        if (curLvl != stopEndOfLevels) {
+            c0 = curCamp;
+            l0 = curLvl + 1;
+        }
+        else {
+            c0 = curCamp + 1;
+            l0 = 1;
+        }
+        if (c0 > prgCamp) {
+            c1 = c0;
+            l1 = l0;
+        }
+        else if (c0 == prgCamp) {
+            c1 = c0;
+            l1 = Mathf.Max(l0, prgLvl);
+        }
+        else {
+            c1 = prgCamp;
+            l1 = prgLvl;
+        }
+        string file = platform + "/current.txt";
+        StreamWriter writer = new StreamWriter(file);
+        writer.Write("currentCampaign:" + c0 + ";\ncurrentLevel:" + l0 + ";\nprogressCampaign:" + c1 + ";\nprogressLevel:" + l1 + ";\nend,of,file.");
+        writer.Close();
+    }
+
+    public int stopEnd(int cc) {
+        int i = 1;
+        try {
+            while (true) {
+                TextAsset txt = (TextAsset)Resources.Load("Levels/" + cc + "/" + i, typeof(TextAsset));
+                string s = txt.text;
+                i++;
+            }
+        }
+        catch (Exception) {
+            return i - 1;
+            throw;
         }
     }
 

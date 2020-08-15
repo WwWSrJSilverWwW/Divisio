@@ -33,38 +33,28 @@ public class ChooseCampaign : MonoBehaviour
         for (int i = 1; i <= campNames.Count; i++)
         {
             int v = i;
+                
+            if (v <= prgCamp) {
+                levelButton = Instantiate(Resources.Load("Prefabs/Objects/StandartButton")) as GameObject;
+                levelButton.GetComponent<Button>().onClick.AddListener(() => ButtonClick(v));
+            } else {
+                levelButton = Instantiate(Resources.Load("Prefabs/Objects/CampaignClosedButton")) as GameObject;
+            }
 
-            levelButton = new GameObject("CampaignButton" + i);
-
-            levelButton.AddComponent<CanvasRenderer>();
-            levelButton.AddComponent<RectTransform>();
-            levelButton.AddComponent<Image>();
             levelButton.transform.SetParent(Canvas.transform, false);
 
-            levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 240 - 100 * x);
+            levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 200 - 100 * x);
             levelButton.GetComponent<RectTransform>().sizeDelta = new Vector2(320, 80);
 
-            textLevelButton = new GameObject("TextCampaignButton" + i);
-            textLevelButton.AddComponent<Text>();
-            textLevelButton.GetComponent<RectTransform>().sizeDelta = new Vector2(320, 80);
+            textLevelButton = levelButton.transform.GetChild(0).gameObject;
             textLevelButton.GetComponent<Text>().text = campNames[i - 1];
-            textLevelButton.GetComponent<Text>().font = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
-            textLevelButton.GetComponent<Text>().fontStyle = FontStyle.Bold;
             textLevelButton.GetComponent<Text>().fontSize = 35;
-            textLevelButton.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
-            textLevelButton.transform.SetParent(levelButton.transform, false);
 
-            if (i <= prgCamp)
-            {
-                levelButton.AddComponent<Button>();
-                levelButton.GetComponent<Image>().color = new Color(0.86f, 0.86f, 0.86f, 1f);
-                textLevelButton.GetComponent<Text>().color = new Color(0.47f, 0.47f, 0.47f, 1f);
+            if (i <= prgCamp) {
                 levelButton.GetComponent<Button>().onClick.AddListener(() => ButtonClick(v));
             }
-            else
-            {
-                levelButton.GetComponent<Image>().color = new Color(0.47f, 0.47f, 0.47f, 1f);
-                textLevelButton.GetComponent<Text>().color = new Color(0.86f, 0.86f, 0.86f, 1f);
+            else { 
+            
             }
 
             x++;

@@ -23,6 +23,7 @@ public class Tutorial : MonoBehaviour
         UpdateValues();
         GameObject t = Instantiate(Resources.Load("Prefabs/Tutorials/" + curCamp)) as GameObject;
         t.transform.SetParent(Canvas.transform, false);
+        t.transform.SetSiblingIndex(0);
         t.transform.GetChild(0).gameObject.GetComponent<Button>().onClick.AddListener(() => ButtonClick());
     }
 

@@ -53,37 +53,20 @@ public class ChooseLevel : MonoBehaviour
         {
             int v = i;
             int r = curCamp;
-            levelButton = new GameObject("LevelButton" + i);
 
-            levelButton.AddComponent<CanvasRenderer>();
-            levelButton.AddComponent<RectTransform>();
-            levelButton.AddComponent<Image>();
+            if (i <= prgLvl && curCamp == prgCamp || curCamp < prgCamp) {
+                levelButton = Instantiate(Resources.Load("Prefabs/Objects/StandartButton")) as GameObject;
+                levelButton.GetComponent<Button>().onClick.AddListener(() => ButtonClick(r, v));
+            } else {
+                levelButton = Instantiate(Resources.Load("Prefabs/Objects/LevelClosedButton")) as GameObject;
+            }
             levelButton.transform.SetParent(Canvas.transform, false);
-            
-            levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-140 + 140 * x, 240 + 120 * y);
+            levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-140 + 140 * x, 200 + 120 * y);
             levelButton.GetComponent<RectTransform>().sizeDelta = new Vector2(80, 80);
 
-            textLevelButton = new GameObject("TextLevelButton" + i);
-            textLevelButton.AddComponent<Text>();
+            textLevelButton = levelButton.transform.GetChild(0).gameObject;
             textLevelButton.GetComponent<Text>().text = curCamp + "-" + i;
-            textLevelButton.GetComponent<Text>().font = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
-            textLevelButton.GetComponent<Text>().fontStyle = FontStyle.Bold;
             textLevelButton.GetComponent<Text>().fontSize = 35;
-            textLevelButton.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
-            textLevelButton.transform.SetParent(levelButton.transform, false);
-
-            if (i <= prgLvl && curCamp == prgCamp || curCamp < prgCamp)
-            {
-                levelButton.AddComponent<Button>();
-                levelButton.GetComponent<Image>().color = new Color(0.86f, 0.86f, 0.86f, 1f);
-                textLevelButton.GetComponent<Text>().color = new Color(0.47f, 0.47f, 0.47f, 1f);
-                levelButton.GetComponent<Button>().onClick.AddListener(() => ButtonClick(r, v));
-            }
-            else
-            {
-                levelButton.GetComponent<Image>().color = new Color(0.47f, 0.47f, 0.47f, 1f);
-                textLevelButton.GetComponent<Text>().color = new Color(0.86f, 0.86f, 0.86f, 1f);
-            }
 
             x++;
             if (x == 3) 

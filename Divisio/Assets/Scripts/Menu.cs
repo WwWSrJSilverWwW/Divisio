@@ -18,7 +18,6 @@ public class Menu : MonoBehaviour
         } else {
             platform = "Assets";
         }
-        UpdateValues();
         file = platform + "/current.txt";
         if (!File.Exists(file)) {
             File.CreateText(file).Close();
@@ -27,6 +26,7 @@ public class Menu : MonoBehaviour
     }
 
     public void Play() {
+        UpdateValues();
         if (curLvl != 1) {
             SceneManager.LoadScene("GameScene");
         } else {

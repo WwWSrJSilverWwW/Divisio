@@ -24,7 +24,7 @@ public class LevelComplited : MonoBehaviour
     }
 
     void Update() { 
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton5)) {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton7)) {
             NextLevel();
         }
     }
@@ -32,34 +32,10 @@ public class LevelComplited : MonoBehaviour
     public void NextLevel() {
         UpdateValues();
         stopEndOfLevels = stopEnd(curCamp);
-        if (curLvl != stopEndOfLevels) {
-            c0 = curCamp;
-            l0 = curLvl + 1;
-        }
-        else {
-            c0 = curCamp + 1;
-            l0 = 1;
-        }
-        if (c0 > prgCamp) {
-            c1 = c0;
-            l1 = l0;
-        }
-        else if (c0 == prgCamp) {
-            c1 = c0;
-            l1 = Mathf.Max(l0, prgLvl);
-        }
-        else {
-            c1 = prgCamp;
-            l1 = prgLvl;
-        }
         if (curLvl == stopEndOfLevels && curCamp == 2) { 
             SceneManager.LoadScene("EndScene");
-        }
-        else {
-            StreamWriter writer = new StreamWriter(file);
-            writer.Write("currentCampaign:" + c0 + ";\ncurrentLevel:" + l0 + ";\nprogressCampaign:" + c1 + ";\nprogressLevel:" + l1 + ";\nend,of,file.");
-            writer.Close();
-            if (l0 != 1) {
+        } else {
+            if (curLvl != 1) {
                 SceneManager.LoadScene("GameScene");
             } else {
                 SceneManager.LoadScene("TutorialScene");
@@ -75,6 +51,14 @@ public class LevelComplited : MonoBehaviour
         prgCamp = int.Parse(text.Split(new char[] { ';' })[2].Split(new char[] { ':' })[1]);
         prgLvl = int.Parse(text.Split(new char[] { ';' })[3].Split(new char[] { ':' })[1]);
         reader.Close();
+    }
+
+    public void Menu() {
+        SceneManager.LoadScene("MenuScene");
+    }
+
+    public void ChooseCampaign() {
+        SceneManager.LoadScene("ChooseCampaignScene");
     }
 
     public int stopEnd(int cc) {
