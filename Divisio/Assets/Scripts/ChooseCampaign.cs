@@ -17,6 +17,7 @@ public class ChooseCampaign : MonoBehaviour
     private string platform;
 
     void Start() {
+        ScrollRect scroll = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         if (Application.platform == RuntimePlatform.Android) {
             platform = Application.persistentDataPath;
         } else {
@@ -41,9 +42,9 @@ public class ChooseCampaign : MonoBehaviour
                 levelButton = Instantiate(Resources.Load("Prefabs/Objects/CampaignClosedButton")) as GameObject;
             }
 
-            levelButton.transform.SetParent(Canvas.transform, false);
+            levelButton.transform.SetParent(scroll.content, false);
 
-            levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 392 - 160 * x);
+            //levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(Screen.width / 2, 0 - 160 * x);
             levelButton.GetComponent<RectTransform>().sizeDelta = new Vector2(416, 128);
 
             textLevelButton = levelButton.transform.GetChild(0).gameObject;
@@ -52,9 +53,6 @@ public class ChooseCampaign : MonoBehaviour
 
             if (i <= prgCamp) {
                 levelButton.GetComponent<Button>().onClick.AddListener(() => ButtonClick(v));
-            }
-            else { 
-            
             }
 
             x++;
