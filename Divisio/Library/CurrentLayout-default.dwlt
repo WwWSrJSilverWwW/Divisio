@@ -73,10 +73,10 @@ MonoBehaviour:
     y: 30
     width: 1600
     height: 767
-  m_MinSize: {x: 679, y: 492}
-  m_MaxSize: {x: 14002, y: 14042}
+  m_MinSize: {x: 677, y: 492}
+  m_MaxSize: {x: 14001, y: 14042}
   vertical: 0
-  controlID: 57
+  controlID: 104
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -96,8 +96,8 @@ MonoBehaviour:
     y: 0
     width: 324
     height: 767
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -244,10 +244,10 @@ MonoBehaviour:
     y: 0
     width: 1276
     height: 767
-  m_MinSize: {x: 403, y: 492}
+  m_MinSize: {x: 402, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 98
+  controlID: 105
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -269,10 +269,10 @@ MonoBehaviour:
     y: 0
     width: 1276
     height: 465
-  m_MinSize: {x: 403, y: 221}
-  m_MaxSize: {x: 8003, y: 4021}
+  m_MinSize: {x: 402, y: 221}
+  m_MaxSize: {x: 8002, y: 4021}
   vertical: 0
-  controlID: 99
+  controlID: 106
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -338,20 +338,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Resources/Prefabs/Tutorials
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Resources/Prefabs/Tutorials
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\SrJSi\MyGitRepositories\Divisio\Divisio
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 78390000
-    m_LastClickedID: 14712
-    m_ExpandedIDs: 00000000483900004a3900004c3900004e39000000ca9a3b
+    m_SelectedIDs: ca390000
+    m_LastClickedID: 14794
+    m_ExpandedIDs: 00000000ae390000b0390000b2390000b439000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -379,7 +379,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000483900004a3900004c3900004e390000
+    m_ExpandedIDs: 00000000ae390000b0390000b2390000b4390000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -504,7 +504,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 7e5effff905effff3e5fffff585fffff725fffff8c5fffffc65fffffce5fffff0860ffff4c6dffffd486ffffe486ffffe886ffff2287ffff5c87ffff6687ffffa087ffffda87ffff0c8affff1c8affff308affff988bffffc88cffff468dffff4093ffff5093ffffd094ffff0a95ffff2495ffff3e95ffff5895ffff7295ffffb495ffff0696ffff4096ffffb896ffffd296ffffec96ffff2697ffff3aa5ffff3ea5ffff02a6ffff42a6ffff96a7ffffa8a7fffff8aaffff28acffffb4caffffd0caffff48d2ffffa2d2ffffc2d3ffff54d4ffff2cd6ffff9ad7ffffd8dfffffdcdfffff50e1ffff9ee1ffffece1ffff3ae2ffff8ce2ffffdae2ffff40f7ffff50f7ffff60f7ffff70f7ffffacf7ffffcef7ffff20f8ffff72f8ffffb4f8ffffe6f8ffff18f9ffff4af9ffff5efbffffca380000763c0000843c0000e04000008a410000944100003c440000504500008c450000dc450000184600009c4b0000ba4b0000a45500001e5600002e58000042590000505900007e590000aa590000fc5b0000e05f000060600000b860000060610000b861000044630000526300009c630000
+      m_ExpandedIDs: 3a89ffff4c89fffff689ffff0c8affff228affff388affff6e8affff948affffe892ffffea92ffffdadcffff10ddffff5efbffff88700000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -566,7 +566,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: 0, y: 0, z: 0}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0}
+    m_Value: {x: 360, y: 640, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -618,7 +618,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 5.7367373
     speed: 2
-    m_Value: 5.7367373
+    m_Value: 734.30237
   m_Ortho:
     m_Target: 1
     speed: 2
