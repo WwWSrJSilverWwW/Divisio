@@ -15,6 +15,9 @@ public class LevelComplited : MonoBehaviour
     private string platform;
 
     void Start() {
+        float ratio = (float)(Screen.height / Screen.width);
+        float ortSize = 720f * ratio / 200f;
+        Camera.main.orthographicSize = ortSize;
         if (Application.platform == RuntimePlatform.Android) {
             platform = Application.persistentDataPath;
         } else {

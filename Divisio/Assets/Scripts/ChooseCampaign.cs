@@ -43,12 +43,12 @@ public class ChooseCampaign : MonoBehaviour
 
             levelButton.transform.SetParent(Canvas.transform, false);
 
-            levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 200 - 100 * x);
-            levelButton.GetComponent<RectTransform>().sizeDelta = new Vector2(320, 80);
+            levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 392 - 160 * x);
+            levelButton.GetComponent<RectTransform>().sizeDelta = new Vector2(416, 128);
 
             textLevelButton = levelButton.transform.GetChild(0).gameObject;
             textLevelButton.GetComponent<Text>().text = campNames[i - 1];
-            textLevelButton.GetComponent<Text>().fontSize = 35;
+            textLevelButton.GetComponent<Text>().fontSize = 40;
 
             if (i <= prgCamp) {
                 levelButton.GetComponent<Button>().onClick.AddListener(() => ButtonClick(v));

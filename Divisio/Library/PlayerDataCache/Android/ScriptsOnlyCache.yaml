@@ -53,9 +53,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11154}
     - Class: 114
-      Script: {instanceID: 11176}
+      Script: {instanceID: 11156}
     - Class: 114
-      Script: {instanceID: 11464}
+      Script: {instanceID: 11178}
     - Class: 114
       Script: {instanceID: 12178}
     - Class: 114
@@ -102,9 +102,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11154}
     - Class: 114
-      Script: {instanceID: 11176}
+      Script: {instanceID: 11156}
     - Class: 114
-      Script: {instanceID: 11464}
+      Script: {instanceID: 11178}
     - Class: 114
       Script: {instanceID: 12178}
     - Class: 114
@@ -151,9 +151,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11154}
     - Class: 114
-      Script: {instanceID: 11176}
+      Script: {instanceID: 11156}
     - Class: 114
-      Script: {instanceID: 11464}
+      Script: {instanceID: 11178}
     - Class: 114
       Script: {instanceID: 12178}
     - Class: 114
@@ -200,9 +200,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11154}
     - Class: 114
-      Script: {instanceID: 11176}
+      Script: {instanceID: 11156}
     - Class: 114
-      Script: {instanceID: 11464}
+      Script: {instanceID: 11178}
     - Class: 114
       Script: {instanceID: 12178}
     - Class: 114
@@ -251,9 +251,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11154}
     - Class: 114
-      Script: {instanceID: 11176}
+      Script: {instanceID: 11156}
     - Class: 114
-      Script: {instanceID: 11464}
+      Script: {instanceID: 11178}
     - Class: 114
       Script: {instanceID: 12162}
     - Class: 114
@@ -302,9 +302,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11154}
     - Class: 114
-      Script: {instanceID: 11176}
+      Script: {instanceID: 11156}
     - Class: 114
-      Script: {instanceID: 11464}
+      Script: {instanceID: 11178}
     - Class: 114
       Script: {instanceID: 12178}
     - Class: 114
@@ -345,9 +345,7 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11152}
-    - Class: 114
-      Script: {instanceID: 11176}
+      Script: {instanceID: 11178}
     - Class: 114
       Script: {instanceID: 12178}
     - Class: 114
@@ -361,10 +359,6 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
-      Script: {instanceID: 0}
-    - Class: 213
-      Script: {instanceID: 0}
-    - Class: 222
       Script: {instanceID: 0}
     - Class: 223
       Script: {instanceID: 0}
@@ -383,6 +377,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Button
+  - hash:
+      serializedVersion: 2
+      Hash: aeb62f729c52c814dec86c47dcac1471
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Text
   - hash:
       serializedVersion: 2
       Hash: 4bc4346a71a8df53a6b106f68ef3a190
@@ -431,12 +431,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: ActivationTrack
-  - hash:
-      serializedVersion: 2
-      Hash: aeb62f729c52c814dec86c47dcac1471
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Text
   - hash:
       serializedVersion: 2
       Hash: 499fd23433e68e265d153aa6b95d0047

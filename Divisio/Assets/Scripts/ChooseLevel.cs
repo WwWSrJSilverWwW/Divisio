@@ -31,6 +31,9 @@ public class ChooseLevel : MonoBehaviour
     }
 
     void Start() {
+        float ratio = (float)(Screen.height / Screen.width);
+        float ortSize = 720f * ratio / 200f;
+        Camera.main.orthographicSize = ortSize;
         if (Application.platform == RuntimePlatform.Android) {
             platform = Application.persistentDataPath;
         } else {
@@ -61,12 +64,12 @@ public class ChooseLevel : MonoBehaviour
                 levelButton = Instantiate(Resources.Load("Prefabs/Objects/LevelClosedButton")) as GameObject;
             }
             levelButton.transform.SetParent(Canvas.transform, false);
-            levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-140 + 140 * x, 200 + 120 * y);
-            levelButton.GetComponent<RectTransform>().sizeDelta = new Vector2(80, 80);
+            levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-208 + 208 * x, 392 + 192 * y);
+            levelButton.GetComponent<RectTransform>().sizeDelta = new Vector2(128, 128);
 
             textLevelButton = levelButton.transform.GetChild(0).gameObject;
             textLevelButton.GetComponent<Text>().text = curCamp + "-" + i;
-            textLevelButton.GetComponent<Text>().fontSize = 35;
+            textLevelButton.GetComponent<Text>().fontSize = 50;
 
             x++;
             if (x == 3) 

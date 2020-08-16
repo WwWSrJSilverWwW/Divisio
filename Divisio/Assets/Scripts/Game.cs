@@ -40,7 +40,7 @@ public class Game : MonoBehaviour
     private float k = 0.5f;
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
     private int c0, l0, c1, l1;
-    private int moveX = 0, moveY = 135;
+    private int moveX = 0, moveY = 176;
     private int w;
     private int tX, tY;
     private List<List<int>> infoPlanes;
@@ -64,6 +64,9 @@ public class Game : MonoBehaviour
     }
 
     void Start() {
+        float ratio = (float)(Screen.height / Screen.width);
+        float ortSize = 720f * ratio / 200f;
+        Camera.main.orthographicSize = ortSize;
         if (Application.platform == RuntimePlatform.Android) {
             platform = Application.persistentDataPath;
         } else {
