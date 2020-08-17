@@ -36,7 +36,7 @@ public class ChooseCampaign : MonoBehaviour
             int v = i;
                 
             if (v <= prgCamp) {
-                levelButton = Instantiate(Resources.Load("Prefabs/Objects/StandartButton")) as GameObject;
+                levelButton = Instantiate(Resources.Load("Prefabs/Objects/CampaignOpenedButton")) as GameObject;
                 levelButton.GetComponent<Button>().onClick.AddListener(() => ButtonClick(v));
             } else {
                 levelButton = Instantiate(Resources.Load("Prefabs/Objects/CampaignClosedButton")) as GameObject;

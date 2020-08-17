@@ -58,7 +58,7 @@ public class ChooseLevel : MonoBehaviour
             int r = curCamp;
 
             if (i <= prgLvl && curCamp == prgCamp || curCamp < prgCamp) {
-                levelButton = Instantiate(Resources.Load("Prefabs/Objects/StandartButton")) as GameObject;
+                levelButton = Instantiate(Resources.Load("Prefabs/Objects/LevelOpenedButton")) as GameObject;
                 levelButton.GetComponent<Button>().onClick.AddListener(() => ButtonClick(r, v));
             } else {
                 levelButton = Instantiate(Resources.Load("Prefabs/Objects/LevelClosedButton")) as GameObject;

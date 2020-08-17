@@ -121,6 +121,28 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &51614083 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4944007627415479433, guid: aaed3b67a1978914482008794a6db088,
+    type: 3}
+  m_PrefabInstance: {fileID: 387915203}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &51614087
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51614083}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: b3dcf6b28683d9b4aa9ac75a556b802f, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: b3dcf6b28683d9b4aa9ac75a556b802f, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &109157423
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +505,7 @@ GameObject:
   - component: {fileID: 213507976}
   - component: {fileID: 213507978}
   - component: {fileID: 213507977}
+  - component: {fileID: 213507979}
   m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
@@ -547,6 +570,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213507975}
   m_CullTransparentMesh: 0
+--- !u!111 &213507979
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213507975}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: b4c5e5fbbc7079f4fa548fdddb0cb4bb, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: b4c5e5fbbc7079f4fa548fdddb0cb4bb, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &339165225
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +739,7 @@ PrefabInstance:
     - target: {fileID: 4944007627415479432, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -210.00002
+      value: -210
       objectReference: {fileID: 0}
     - target: {fileID: 4944007627415479432, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
@@ -790,6 +829,28 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 387915203}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &461264437 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4944007627415479433, guid: aaed3b67a1978914482008794a6db088,
+    type: 3}
+  m_PrefabInstance: {fileID: 208562915}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &461264441
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461264437}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: fc045e965e6e92f4fad377b826612915, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: fc045e965e6e92f4fad377b826612915, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,6 +970,7 @@ GameObject:
   - component: {fileID: 615832541}
   - component: {fileID: 615832540}
   - component: {fileID: 615832539}
+  - component: {fileID: 615832542}
   m_Layer: 5
   m_Name: UpButton
   m_TagString: Untagged
@@ -1027,6 +1089,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 615832537}
   m_CullTransparentMesh: 0
+--- !u!111 &615832542
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615832537}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 2430df9215e72834cb5c304de47cdaad, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 2430df9215e72834cb5c304de47cdaad, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1235127081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,6 +1117,7 @@ GameObject:
   - component: {fileID: 1235127085}
   - component: {fileID: 1235127084}
   - component: {fileID: 1235127083}
+  - component: {fileID: 1235127086}
   m_Layer: 5
   m_Name: RightButton
   m_TagString: Untagged
@@ -1157,6 +1236,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235127081}
   m_CullTransparentMesh: 0
+--- !u!111 &1235127086
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235127081}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 2430df9215e72834cb5c304de47cdaad, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 2430df9215e72834cb5c304de47cdaad, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1242337451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,6 +1417,7 @@ GameObject:
   - component: {fileID: 1618331748}
   - component: {fileID: 1618331747}
   - component: {fileID: 1618331746}
+  - component: {fileID: 1618331749}
   m_Layer: 5
   m_Name: DownButton
   m_TagString: Untagged
@@ -1440,6 +1536,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618331744}
   m_CullTransparentMesh: 0
+--- !u!111 &1618331749
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618331744}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 2430df9215e72834cb5c304de47cdaad, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 2430df9215e72834cb5c304de47cdaad, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1725367502
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,6 +2065,7 @@ GameObject:
   - component: {fileID: 2046159042}
   - component: {fileID: 2046159041}
   - component: {fileID: 2046159040}
+  - component: {fileID: 2046159043}
   m_Layer: 5
   m_Name: LeftButton
   m_TagString: Untagged
@@ -2071,6 +2184,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2046159038}
   m_CullTransparentMesh: 0
+--- !u!111 &2046159043
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046159038}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 2430df9215e72834cb5c304de47cdaad, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 2430df9215e72834cb5c304de47cdaad, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &2124200812
 GameObject:
   m_ObjectHideFlags: 0

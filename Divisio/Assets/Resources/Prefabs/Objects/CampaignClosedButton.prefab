@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4944007627415479432}
   - component: {fileID: 4944007627415479429}
   - component: {fileID: 4944007627415479430}
+  - component: {fileID: 7670822670847646307}
   m_Layer: 5
   m_Name: CampaignClosedButton
   m_TagString: Untagged
@@ -76,6 +77,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!111 &7670822670847646307
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4944007627415479433}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: fdab285d5ea42104f9cd31510b4034c6, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: fdab285d5ea42104f9cd31510b4034c6, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &4944007627996736212
 GameObject:
   m_ObjectHideFlags: 0

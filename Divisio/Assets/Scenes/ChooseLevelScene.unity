@@ -199,6 +199,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108894900}
   m_CullTransparentMesh: 0
+--- !u!1 &248579602 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4944007627415479433, guid: aaed3b67a1978914482008794a6db088,
+    type: 3}
+  m_PrefabInstance: {fileID: 2096610036}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &248579603
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248579602}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 4869a0b545b700e4d8bf2617fef1bb95, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 4869a0b545b700e4d8bf2617fef1bb95, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &421752482
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,6 +232,7 @@ GameObject:
   - component: {fileID: 421752483}
   - component: {fileID: 421752485}
   - component: {fileID: 421752484}
+  - component: {fileID: 421752486}
   m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
@@ -274,6 +297,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421752482}
   m_CullTransparentMesh: 0
+--- !u!111 &421752486
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421752482}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: b4c5e5fbbc7079f4fa548fdddb0cb4bb, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: b4c5e5fbbc7079f4fa548fdddb0cb4bb, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &865461908
 GameObject:
   m_ObjectHideFlags: 0

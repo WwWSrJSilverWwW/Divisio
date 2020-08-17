@@ -64,9 +64,6 @@ public class Game : MonoBehaviour
     }
 
     void Start() {
-        float ratio = (float)(Screen.height / Screen.width);
-        float ortSize = 720f * ratio / 200f;
-        Camera.main.orthographicSize = ortSize;
         if (Application.platform == RuntimePlatform.Android) {
             platform = Application.persistentDataPath;
         } else {
@@ -243,8 +240,8 @@ public class Game : MonoBehaviour
         pointsList = new List<Vector3>();
         string file = platform + "/current.txt";
         line = GameObject.Find("Line").GetComponent<LineRenderer>();
-        line.startWidth = 0.003f * w;
-        line.endWidth = 0.003f * w; 
+        line.startWidth = 0.0025f * w;
+        line.endWidth = 0.0025f * w; 
         TextAsset txt = (TextAsset)Resources.Load("Levels/" + curCamp + "/" + curLvl, typeof(TextAsset));
         string settings = txt.text;
         int x0 = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[0]);
@@ -520,7 +517,6 @@ public class Game : MonoBehaviour
         for (int i = 0; i < takePoints.Count; i++) {
             Vector2 g = GameObject.Find("takePanel" + takePoints[i].x + takePoints[i].y).GetComponent<RectTransform>().anchoredPosition;
             Vector3 gg = new Vector3(g.x, g.y, 0);
-            Debug.Log(gg);
             if (!pointsList.Contains(gg) && !e.Contains(gg)) {
                 return false;
             }
@@ -552,8 +548,13 @@ public class Game : MonoBehaviour
             l0 = curLvl + 1;
         }
         else {
-            c0 = curCamp + 1;
-            l0 = 1;
+            if (curCamp < 2) {
+                c0 = curCamp + 1;
+                l0 = 1;
+            } else {
+                c0 = curCamp;
+                l0 = curLvl;
+            }
         }
         if (c0 > prgCamp) {
             c1 = c0;
