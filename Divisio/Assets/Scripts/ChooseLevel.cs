@@ -10,20 +10,26 @@ using System;
 
 public class ChooseLevel : MonoBehaviour
 {
+    delegate void func();
     private GameObject levelButton;
     private GameObject textLevelButton;
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
     private List<string> campaigns;
     private string platform;
+    private int l1;
 
     public void ButtonClick(int c, int l) {
         UpdateValues();
-
         string file = platform + "/current.txt";
         StreamWriter writer = new StreamWriter(file);
         writer.Write("currentCampaign:" + c + ";\ncurrentLevel:" + l + ";\nprogressCampaign:" + prgCamp + ";\nprogressLevel:" + prgLvl + ";\nend,of,file.");
         writer.Close();
-        if (l != 1) {
+        l1 = l;
+        AnimateAll(new func(ButtonClickContinue));
+    }
+
+    public void ButtonClickContinue() {
+        if (l1 != 1) {
             SceneManager.LoadScene("GameScene");
         } else {
             SceneManager.LoadScene("TutorialScene");
@@ -63,6 +69,8 @@ public class ChooseLevel : MonoBehaviour
             } else {
                 levelButton = Instantiate(Resources.Load("Prefabs/Objects/LevelClosedButton")) as GameObject;
             }
+            levelButton.name = "LevelButton" + v;
+
             levelButton.transform.SetParent(Canvas.transform, false);
             levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-208 + 208 * x, 392 + 192 * y);
             levelButton.GetComponent<RectTransform>().sizeDelta = new Vector2(128, 128);
@@ -81,6 +89,10 @@ public class ChooseLevel : MonoBehaviour
     }
 
     public void Menu() {
+        AnimateAll(new func(MenuContinue));
+    }
+
+    public void MenuContinue() {
         SceneManager.LoadScene("MenuScene");
     }
 
@@ -113,5 +125,27 @@ public class ChooseLevel : MonoBehaviour
             throw;
         }
         return 0;
+    }
+
+    private void AnimateAll(func cont) {
+        for (int i = 1; i <= stopEndOfLevels; i++) {
+            StartCoroutine(Animate("LevelButton" + i, "AppearWithScale"));
+        }
+        StartCoroutine(Animate("StandartButton", "UpButton"));
+        StartCoroutine(Animate("Panel", "DownButton", cont, true));
+    }
+
+    private IEnumerator Animate(string obj, string an, func cont = null, bool k = false) {
+        Animation anim = GameObject.Find(obj).GetComponent<Animation>();
+        anim[an].speed = -1;
+        anim[an].time = anim[an].length;
+        anim.CrossFade(an);
+        if (k) {
+            while (anim.isPlaying) {
+                yield return null;
+            }
+            yield return new WaitForSeconds(0.5f);
+            cont.Invoke();
+        }
     }
 }

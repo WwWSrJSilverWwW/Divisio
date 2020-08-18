@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
 {
+    delegate void func();
     private int curCamp, curLvl, prgCamp, prgLvl;
     private string platform;
 
@@ -45,6 +46,30 @@ public class Tutorial : MonoBehaviour
     }
 
     public void ButtonClick() {
+        AnimateAll(new func(ButtonClickContinue));
+    }
+
+    public void ButtonClickContinue() {
         SceneManager.LoadScene("GameScene");
+    }
+
+    private void AnimateAll(func cont) {
+        StartCoroutine(Animate("Text", "TutorialText"));
+        StartCoroutine(Animate("StandartButton", "UpButton"));
+        StartCoroutine(Animate("Panel", "TutorialCampText", cont, true));
+    }
+
+    private IEnumerator Animate(string obj, string an, func cont = null, bool k = false) {
+        Animation anim = GameObject.Find(obj).GetComponent<Animation>();
+        anim[an].speed = -1;
+        anim[an].time = anim[an].length;
+        anim.CrossFade(an);
+        if (k) {
+            while (anim.isPlaying) {
+                yield return null;
+            }
+            yield return new WaitForSeconds(0.5f);
+            cont.Invoke();
+        }
     }
 }

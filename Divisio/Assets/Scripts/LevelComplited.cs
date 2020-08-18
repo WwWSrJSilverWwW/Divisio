@@ -9,6 +9,7 @@ using System;
 
 public class LevelComplited : MonoBehaviour
 {
+    delegate void func();
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
     private int c0, l0, c1, l1;
     private string file;
@@ -27,7 +28,7 @@ public class LevelComplited : MonoBehaviour
     }
 
     void Update() { 
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton7)) {
+        if (Input.GetKeyDown(KeyCode.Return)) {
             NextLevel();
         }
     }
@@ -35,6 +36,10 @@ public class LevelComplited : MonoBehaviour
     public void NextLevel() {
         UpdateValues();
         stopEndOfLevels = stopEnd(curCamp);
+        AnimateAll(new func(NextLevelContinue));
+    }
+
+    public void NextLevelContinue() { 
         if (curLvl == stopEndOfLevels && curCamp == 2) { 
             SceneManager.LoadScene("EndScene");
         } else {
@@ -57,10 +62,18 @@ public class LevelComplited : MonoBehaviour
     }
 
     public void Menu() {
+        AnimateAll(new func(MenuContinue));
+    }
+
+    public void MenuContinue() {
         SceneManager.LoadScene("MenuScene");
     }
 
     public void ChooseCampaign() {
+        AnimateAll(new func(ChooseCampaignContinue));
+    }
+
+    public void ChooseCampaignContinue() {
         SceneManager.LoadScene("ChooseCampaignScene");
     }
 
@@ -76,6 +89,28 @@ public class LevelComplited : MonoBehaviour
         catch (Exception) {
             return i - 1;
             throw;
+        }
+    }
+
+    private void AnimateAll(func cont) {
+        StartCoroutine(Animate("StandartButton (2)", "UpButton"));
+        StartCoroutine(Animate("StandartButton (1)", "CampaignsButton"));
+        StartCoroutine(Animate("StandartButton", "PlayButton"));
+        StartCoroutine(Animate("LevelComplitedText", "GameText"));
+        StartCoroutine(Animate("Panel", "DownPanel", cont, true));
+    }
+
+    private IEnumerator Animate(string obj, string an, func cont = null, bool k = false) {
+        Animation anim = GameObject.Find(obj).GetComponent<Animation>();
+        anim[an].speed = -1;
+        anim[an].time = anim[an].length;
+        anim.CrossFade(an);
+        if (k) {
+            while (anim.isPlaying) {
+                yield return null;
+            }
+            yield return new WaitForSeconds(0.5f);
+            cont.Invoke();
         }
     }
 }

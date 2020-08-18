@@ -388,7 +388,7 @@ PrefabInstance:
     - target: {fileID: 4944007627415479432, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4944007627415479432, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
@@ -413,7 +413,7 @@ PrefabInstance:
     - target: {fileID: 4944007627415479432, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -610
+      value: 9838080
       objectReference: {fileID: 0}
     - target: {fileID: 4944007627415479432, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
@@ -473,7 +473,7 @@ PrefabInstance:
     - target: {fileID: 4944007627415479433, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
       propertyPath: m_Name
-      value: StandartButton
+      value: StandartButton (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4944007627996736210, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
@@ -630,9 +630,9 @@ RectTransform:
   m_Children:
   - {fileID: 1824967671}
   - {fileID: 1317301531}
-  - {fileID: 956857274}
   - {fileID: 1789563989}
   - {fileID: 918379303}
+  - {fileID: 956857274}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -841,7 +841,7 @@ PrefabInstance:
     - target: {fileID: 4944007627415479433, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
       propertyPath: m_Name
-      value: StandartButton (1)
+      value: StandartButton
       objectReference: {fileID: 0}
     - target: {fileID: 4944007627996736210, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
@@ -1097,7 +1097,7 @@ PrefabInstance:
     - target: {fileID: 4944007627415479433, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
       propertyPath: m_Name
-      value: StandartButton (2)
+      value: StandartButton (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4944007627996736210, guid: aaed3b67a1978914482008794a6db088,
         type: 3}

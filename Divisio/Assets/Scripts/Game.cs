@@ -10,6 +10,7 @@ using System.IO;
 
 public class Game : MonoBehaviour
 {
+    delegate void func();
     private RectTransform outPanel;
     private RectTransform inPanel;
     private LevelStructure curLevelStruct;
@@ -51,6 +52,7 @@ public class Game : MonoBehaviour
     private Vector3 startPoint;
     private bool mousePressed = false;
     private Vector3 checkExit;
+    private bool fg = true;
 
     public class LevelStructure {
         public List<string> whiteSquare = new List<string>();
@@ -86,7 +88,8 @@ public class Game : MonoBehaviour
     }
 
     void Update() {
-        if (pointsList[pointsList.Count - 1] == checkExit) {
+        if (pointsList[pointsList.Count - 1] == checkExit && fg) {
+            fg = false;
             MakeBFSSplitPlane();
         }
         //DrawLine();
@@ -120,29 +123,26 @@ public class Game : MonoBehaviour
     }
 
     public void HelpOnComputer() { 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton5)) {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
             if (line.positionCount > 1) {
                 line.positionCount--;
                 pointsList.RemoveAt(pointsList.Count - 1);
             }
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.JoystickButton2)) {
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
             LeftPressed();
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.JoystickButton1)) {
+        if (Input.GetKeyDown(KeyCode.RightArrow)) {
             RightPressed();
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.JoystickButton3)) {
+        if (Input.GetKeyDown(KeyCode.UpArrow)) {
             UpPressed();
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.JoystickButton0)) {
+        if (Input.GetKeyDown(KeyCode.DownArrow)) {
             DownPressed();
         }
-        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.JoystickButton6)) {
+        if (Input.GetKeyDown(KeyCode.R)) {
             Reset();
-        }
-        if (Input.GetKeyDown(KeyCode.JoystickButton4)) {
-            SceneManager.LoadScene("MenuScene");
         }
     }
 
@@ -488,13 +488,19 @@ public class Game : MonoBehaviour
         if (!CheckSquares()) {
             x = 0;
             Debug.Log("CheckError1: White and black squares aren't splitted.");
+            fg = true;
         } else if (!CheckTakePoints()) {
             Debug.Log("CheckError2: Some points aren't taken.");
+            fg = true;
         } else {
             Debug.Log("You won!");
             NextLevel();
-            SceneManager.LoadScene("LevelComplitedScene");
+            AnimateAll(new func(CheckAllContinue));
         }
+    }
+
+    public void CheckAllContinue() {
+        SceneManager.LoadScene("LevelComplitedScene");
     }
 
     public bool CheckSquares() {
@@ -590,10 +596,18 @@ public class Game : MonoBehaviour
     }
 
     public void Reset() {
+        AnimateAll(new func(ResetContinue));
+    }
+
+    public void ResetContinue() {
         SceneManager.LoadScene("GameScene");
     }
 
     public void Menu() {
+        AnimateAll(new func(MenuContinue));
+    }
+
+    public void MenuContinue() {
         SceneManager.LoadScene("MenuScene");
     }
 
@@ -606,5 +620,29 @@ public class Game : MonoBehaviour
         prgCamp = int.Parse(text.Split(new char[] { ';' })[2].Split(new char[] { ':' })[1]);
         prgLvl = int.Parse(text.Split(new char[] { ';' })[3].Split(new char[] { ':' })[1]);
         reader.Close();
+    }
+
+    private void AnimateAll(func cont) {
+        StartCoroutine(Animate("UpButton", "Appear"));
+        StartCoroutine(Animate("DownButton", "Appear"));
+        StartCoroutine(Animate("RightButton", "Appear"));
+        StartCoroutine(Animate("LeftButton", "Appear"));
+        StartCoroutine(Animate("StandartButton", "FromLeft"));
+        StartCoroutine(Animate("StandartButton (1)", "FromRight"));
+        StartCoroutine(Animate("Panel", "DownButton", cont, true));
+    }
+
+    private IEnumerator Animate(string obj, string an, func cont = null, bool k = false) {
+        Animation anim = GameObject.Find(obj).GetComponent<Animation>();
+        anim[an].speed = -1;
+        anim[an].time = anim[an].length;
+        anim.CrossFade(an);
+        if (k) {
+            while (anim.isPlaying) {
+                yield return null;
+            }
+            yield return new WaitForSeconds(0.5f);
+            cont.Invoke();
+        }
     }
 }
