@@ -43,6 +43,15 @@ public class Menu : MonoBehaviour
     }
 
     public void Exit() {
+        AnimateAll(new func(ExitContinue));
+    }
+
+    public void ExitContinue() {
+        StartCoroutine(AnimateNormal("UpBlackPanel", "UpBlackPanel"));
+        StartCoroutine(AnimateNormal("DownBlackPanel", "DownBlackPanel", new func(ExitContinue1), true));
+    }
+
+    public void ExitContinue1() {
         Application.Quit();
     }
 
@@ -83,6 +92,18 @@ public class Menu : MonoBehaviour
         Animation anim = GameObject.Find(obj).GetComponent<Animation>();
         anim[an].speed = -1;
         anim[an].time = anim[an].length;
+        anim.CrossFade(an);
+        if (k) {
+            while (anim.isPlaying) {
+                yield return null;
+            }
+            yield return new WaitForSeconds(0.5f);
+            cont.Invoke();
+        }
+    }   
+
+    private IEnumerator AnimateNormal(string obj, string an, func cont = null, bool k = false) {
+        Animation anim = GameObject.Find(obj).GetComponent<Animation>();
         anim.CrossFade(an);
         if (k) {
             while (anim.isPlaying) {
