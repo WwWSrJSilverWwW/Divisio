@@ -37,6 +37,7 @@ public class ChooseLevel : MonoBehaviour
     }
 
     void Start() {
+        ScrollRect scroll = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         float ratio = (float)(Screen.height / Screen.width);
         float ortSize = 720f * ratio / 200f;
         Camera.main.orthographicSize = ortSize;
@@ -58,11 +59,18 @@ public class ChooseLevel : MonoBehaviour
 
         int x = 0;
         int y = 0;
-        for (int i = 1; i <= stopEndOfLevels; i++)
-        {
+        GameObject three = null;
+        for (int i = 1; i <= stopEndOfLevels; i++) {
             int v = i;
             int r = curCamp;
 
+            if ((v - 1) % 3 == 0) {
+                int g = (v - 1) / 3 + 1;
+                three = new GameObject("LevelThree" + g);
+                three.AddComponent<RectTransform>();
+                three.transform.SetParent(scroll.content, false);
+            }
+            
             if (i <= prgLvl && curCamp == prgCamp || curCamp < prgCamp) {
                 levelButton = Instantiate(Resources.Load("Prefabs/Objects/LevelOpenedButton")) as GameObject;
                 levelButton.GetComponent<Button>().onClick.AddListener(() => ButtonClick(r, v));
@@ -71,9 +79,9 @@ public class ChooseLevel : MonoBehaviour
             }
             levelButton.name = "LevelButton" + v;
 
-            levelButton.transform.SetParent(Canvas.transform, false);
-            levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-208 + 208 * x, 392 + 192 * y);
-            levelButton.GetComponent<RectTransform>().sizeDelta = new Vector2(128, 128);
+            levelButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-208 + 208 * x, 0);
+
+            levelButton.transform.SetParent(three.transform, false);
 
             textLevelButton = levelButton.transform.GetChild(0).gameObject;
             textLevelButton.GetComponent<Text>().text = curCamp + "-" + i;
