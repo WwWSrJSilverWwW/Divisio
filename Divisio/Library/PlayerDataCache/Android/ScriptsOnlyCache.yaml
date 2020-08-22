@@ -94,8 +94,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
-    - Class: 850595691
-      Script: {instanceID: 0}
     Assets/Scenes/ChooseLevelScene.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -203,8 +201,6 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
-      Script: {instanceID: 0}
-    - Class: 850595691
       Script: {instanceID: 0}
     Assets/Scenes/GameScene.unity:
     - Class: 1
@@ -415,8 +411,6 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
-      Script: {instanceID: 0}
-    - Class: 212
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}

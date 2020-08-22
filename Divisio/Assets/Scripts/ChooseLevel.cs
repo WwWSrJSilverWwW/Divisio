@@ -88,12 +88,12 @@ public class ChooseLevel : MonoBehaviour
         }
     }
 
-    public void Menu() {
-        AnimateAll(new func(MenuContinue));
+    public void Campaigns() {
+        AnimateAll(new func(CampaignsContinue));
     }
 
-    public void MenuContinue() {
-        SceneManager.LoadScene("MenuScene");
+    public void CampaignsContinue() {
+        SceneManager.LoadScene("ChooseCampaignScene");
     }
 
     public void UpdateValues() {

@@ -167,25 +167,40 @@ public class Game : MonoBehaviour
             for (int j = 0; j < M; j++) {
                 GameObject cell = Instantiate(Resources.Load("Prefabs/Backgrounds/Cell")) as GameObject;
                 cell.name = "cellPanel" + i + j;
+                cell.transform.GetChild(0).name = "cellPanelChild" + i + j;
                 cell.transform.SetParent(Canvas.transform, false);
                 cell.transform.SetSiblingIndex(0);
                 cell.GetComponent<RectTransform>().anchoredPosition = new Vector2(tX + j * w, tY + i * w);
                 cell.GetComponent<RectTransform>().sizeDelta = new Vector2(w, w);
+                cell.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w, w);
             }
         }
         exitX = int.Parse(curLevelStruct.exit.Split(new char[] { ',' })[0]);
         exitY = int.Parse(curLevelStruct.exit.Split(new char[] { ',' })[1]);
         enterX = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[0]);
         enterY = int.Parse(curLevelStruct.enter.Split(new char[] { ',' })[1]);
-        outPanel = GameObject.Find("OutPanel").GetComponent<RectTransform>();
+
+        GameObject outt = Instantiate(Resources.Load("Prefabs/Objects/OutPanel")) as GameObject;
+        GameObject inn = Instantiate(Resources.Load("Prefabs/Objects/InPanel")) as GameObject;
+        outt.name = "OutPanel";
+        inn.name = "InPanel";
+        outt.transform.SetParent(Canvas.transform, false);
+        inn.transform.SetParent(Canvas.transform, false);
+
+        outPanel = outt.GetComponent<RectTransform>();
         outPanel.anchoredPosition = new Vector2(tX + w * exitX - w / 2, tY + w * exitY - w / 2);
-        checkExit = new Vector3(outPanel.anchoredPosition.x, outPanel.anchoredPosition.y, 0);
         outPanel.sizeDelta = new Vector2(w / 2, w / 2);
-        inPanel = GameObject.Find("InPanel").GetComponent<RectTransform>();
+        outt.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
+
+        inPanel = inn.GetComponent<RectTransform>();
         inPanel.anchoredPosition = new Vector2(tX + w * enterX - w / 2, tY + w * enterY - w / 2);
         inPanel.sizeDelta = new Vector2(w / 2, w / 2);
-        GameObject.Find("OutPanel").transform.GetChild(0).gameObject.GetComponent<Text>().fontSize = (int)(1.5f * (w / 4));
-        GameObject.Find("InPanel").transform.GetChild(0).gameObject.GetComponent<Text>().fontSize = (int)(1.5f * (w / 4));
+        inn.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
+
+        outt.transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<Text>().fontSize = (int)(1.5f * (w / 4));
+        inn.transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<Text>().fontSize = (int)(1.5f * (w / 4));
+
+        checkExit = new Vector3(outPanel.anchoredPosition.x, outPanel.anchoredPosition.y, 0);
     }
     
     public void SetWalls() {
@@ -196,7 +211,9 @@ public class Game : MonoBehaviour
         cornerUL.GetComponent<RectTransform>().anchoredPosition = new Vector2(tX - w / 2 - w / 4 - 2 * moveX, -(tY - w / 2 - w / 4 - 2 * moveY));
         cornerUR.GetComponent<RectTransform>().anchoredPosition = new Vector2(-(tX - w / 2 - w / 4 - 2 * moveX), -(tY - w / 2 - w / 4 - 2 * moveY));
         cornerUL.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
+        cornerUL.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
         cornerUR.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
+        cornerUR.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
         cornerUL.transform.SetSiblingIndex(0);
         cornerUR.transform.SetSiblingIndex(0);
         GameObject cornerDL = Instantiate(Resources.Load("Prefabs/Backgrounds/cornerDL")) as GameObject;
@@ -206,30 +223,40 @@ public class Game : MonoBehaviour
         cornerDL.GetComponent<RectTransform>().anchoredPosition = new Vector2(tX - w / 2 - w / 4, tY - w / 2 - w / 4);
         cornerDR.GetComponent<RectTransform>().anchoredPosition = new Vector2(-(tX - w / 2 - w / 4), tY - w / 2 - w / 4);
         cornerDL.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
+        cornerDL.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
         cornerDR.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
+        cornerDR.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
         cornerDL.transform.SetSiblingIndex(0);
         cornerDR.transform.SetSiblingIndex(0);
         for (int i = 0; i < N; i++) {
             GameObject wallL = Instantiate(Resources.Load("Prefabs/Backgrounds/wallL")) as GameObject;
-            GameObject wallR = Instantiate(Resources.Load("Prefabs/Backgrounds/wallR")) as GameObject; 
+            GameObject wallR = Instantiate(Resources.Load("Prefabs/Backgrounds/wallR")) as GameObject;
+            wallL.transform.GetChild(0).name = "wallLChild" + i;
+            wallR.transform.GetChild(0).name = "wallRChild" + i;
             wallL.transform.SetParent(Canvas.transform, false);
             wallR.transform.SetParent(Canvas.transform, false);
             wallL.GetComponent<RectTransform>().anchoredPosition = new Vector2(tX - w / 2 - w / 4, tY - w + (i + 1) * w);
             wallR.GetComponent<RectTransform>().anchoredPosition = new Vector2(-(tX - w / 2 - w / 4), tY - w + (i + 1) * w);
             wallL.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w);
+            wallL.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w);
+            wallR.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w);
             wallR.GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w);
             wallL.transform.SetSiblingIndex(0);
             wallR.transform.SetSiblingIndex(0);
         }
         for (int i = 0; i < M; i++) {
             GameObject wallU = Instantiate(Resources.Load("Prefabs/Backgrounds/wallU")) as GameObject;
-            GameObject wallD = Instantiate(Resources.Load("Prefabs/Backgrounds/wallD")) as GameObject; 
+            GameObject wallD = Instantiate(Resources.Load("Prefabs/Backgrounds/wallD")) as GameObject;
+            wallU.transform.GetChild(0).name = "wallUChild" + i;
+            wallD.transform.GetChild(0).name = "wallDChild" + i;
             wallU.transform.SetParent(Canvas.transform, false);
             wallD.transform.SetParent(Canvas.transform, false);
             wallU.GetComponent<RectTransform>().anchoredPosition = new Vector2(-tX + w - (i + 1) * w, -tY + moveY * 2 + w / 2 + w / 4);
             wallD.GetComponent<RectTransform>().anchoredPosition = new Vector2(-tX + w - (i + 1) * w, tY - w / 2 - w / 4);
             wallU.GetComponent<RectTransform>().sizeDelta = new Vector2(w, w / 2);
+            wallU.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w, w / 2);
             wallD.GetComponent<RectTransform>().sizeDelta = new Vector2(w, w / 2);
+            wallD.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w, w / 2);
             wallU.transform.SetSiblingIndex(0);
             wallD.transform.SetSiblingIndex(0);
         }
@@ -257,15 +284,14 @@ public class Game : MonoBehaviour
             whitePoints.Add(new Vector2(int.Parse(curLevelStruct.whiteSquare[i].Split(new char[] { ',' })[0]), int.Parse(curLevelStruct.whiteSquare[i].Split(new char[] { ',' })[1])));
         }
         for (int i = 0; i < whitePoints.Count; i++) {
-            whitePanel = new GameObject("whitePanel" + whitePoints[i].x + whitePoints[i].y);
-            whitePanel.AddComponent<CanvasRenderer>();
-            whitePanel.AddComponent<RectTransform>();
-            whitePanel.AddComponent<Image>();
-            whitePanel.GetComponent<Image>().color = Color.white;
+            whitePanel = Instantiate(Resources.Load("Prefabs/Objects/WhiteSquare")) as GameObject;
+            whitePanel.name = "whitePanel" + whitePoints[i].x + whitePoints[i].y;
+            whitePanel.transform.GetChild(0).name = "whitePanelChild" + whitePoints[i].x + whitePoints[i].y;
             whitePanel.transform.SetParent(Canvas.transform, false);
-            rect = GameObject.Find("whitePanel" + whitePoints[i].x + whitePoints[i].y).GetComponent<RectTransform>();
+            rect = whitePanel.GetComponent<RectTransform>();
             rect.anchoredPosition = new Vector2(tX + w * whitePoints[i].x, tY + w * whitePoints[i].y);
             rect.sizeDelta = new Vector2(w / 4, w / 4);
+            whitePanel.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 4, w / 4);
         }
     }
 
@@ -274,15 +300,14 @@ public class Game : MonoBehaviour
             blackPoints.Add(new Vector2(int.Parse(curLevelStruct.blackSquare[i].Split(new char[] { ',' })[0]), int.Parse(curLevelStruct.blackSquare[i].Split(new char[] { ',' })[1])));
         }
         for (int i = 0; i < blackPoints.Count; i++) {
-            blackPanel = new GameObject("blackPanel" + blackPoints[i].x + blackPoints[i].y);
-            blackPanel.AddComponent<CanvasRenderer>();
-            blackPanel.AddComponent<RectTransform>();
-            blackPanel.AddComponent<Image>();
-            blackPanel.GetComponent<Image>().color = Color.black;
+            blackPanel = Instantiate(Resources.Load("Prefabs/Objects/BlackSquare")) as GameObject;
+            blackPanel.name = "blackPanel" + blackPoints[i].x + blackPoints[i].y;
+            blackPanel.transform.GetChild(0).name = "blackPanelChild" + blackPoints[i].x + blackPoints[i].y;
             blackPanel.transform.SetParent(Canvas.transform, false);
-            rect = GameObject.Find("blackPanel" + blackPoints[i].x + blackPoints[i].y).GetComponent<RectTransform>();
+            rect = blackPanel.GetComponent<RectTransform>();
             rect.anchoredPosition = new Vector2(tX + w * blackPoints[i].x, tY + w * blackPoints[i].y);
             rect.sizeDelta = new Vector2(w / 4, w / 4);
+            blackPanel.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 4, w / 4);
         }
     }
 
@@ -292,22 +317,23 @@ public class Game : MonoBehaviour
         }
         RectTransform rect;
         for (int i = 0; i < noWay.Count; i++) {
-            GameObject passWay = new GameObject("noWay" + noWay[i].x + noWay[i].y);
-            passWay.AddComponent<CanvasRenderer>();
-            passWay.AddComponent<RectTransform>();
-            passWay.AddComponent<Image>();
-            passWay.GetComponent<Image>().color = new Color(0.8627f, 0.0784f, 0.0784f, 1);
+            GameObject passWay = Instantiate(Resources.Load("Prefabs/Objects/NoWay")) as GameObject;
+            passWay.name = "noWay" + noWay[i].x + noWay[i].y;
+            passWay.transform.GetChild(0).name = "noWayChild" + noWay[i].x + noWay[i].y;
             passWay.transform.SetParent(Canvas.transform, false);
             rect = passWay.GetComponent<RectTransform>();
             rect.anchoredPosition = new Vector2(tX + w / 2 * noWay[i].x - w / 2, tY + w / 2 * noWay[i].y - w / 2);
             if (noWay[i].x % 2 == 0 && noWay[i].y % 2 != 0) {
                 rect.sizeDelta = new Vector2(w / 2, w / 4);
+                passWay.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 4);
             }
             else if (noWay[i].x % 2 != 0 && noWay[i].y % 2 == 0) {
                 rect.sizeDelta = new Vector2(w / 4, w / 2);
+                passWay.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 4, w / 2);
             }
             else {
                 rect.sizeDelta = new Vector2(w / 2, w / 2);
+                passWay.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2    );
             }
         }
     }
@@ -623,12 +649,41 @@ public class Game : MonoBehaviour
     }
 
     private void AnimateAll(func cont) {
+        for (int i = 0; i < blackPoints.Count; i++) {
+            StartCoroutine(Animate("blackPanelChild" + blackPoints[i].x + blackPoints[i].y, "MoveLinePanel1"));
+        }
+        for (int i = 0; i < whitePoints.Count; i++) {
+            StartCoroutine(Animate("whitePanelChild" + whitePoints[i].x + whitePoints[i].y, "MoveLinePanel1"));
+        }
+        for (int i = 0; i < noWay.Count; i++) {
+            StartCoroutine(Animate("noWayChild" + noWay[i].x + noWay[i].y, "MoveLinePanel1"));
+        }
+        StartCoroutine(Animate("InPanelChild", "MoveLinePanel1"));
+        StartCoroutine(Animate("OutPanelChild", "MoveLinePanel1"));
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                StartCoroutine(Animate("cellPanelChild" + i + j, "MoveLinePanel1"));
+            }
+        }
+        for (int i = 0; i < N; i++) {
+            StartCoroutine(Animate("wallLChild" + i, "MoveLinePanel1"));
+            StartCoroutine(Animate("wallRChild" + i, "MoveLinePanel1"));
+        }
+        for (int i = 0; i < M; i++) { 
+            StartCoroutine(Animate("wallUChild" + i, "MoveLinePanel1"));
+            StartCoroutine(Animate("wallDChild" + i, "MoveLinePanel1"));
+        }
+        StartCoroutine(Animate("CornerDLChild", "MoveLinePanel1"));
+        StartCoroutine(Animate("CornerDRChild", "MoveLinePanel1"));
+        StartCoroutine(Animate("CornerULChild", "MoveLinePanel1"));
+        StartCoroutine(Animate("CornerURChild", "MoveLinePanel1"));
         StartCoroutine(Animate("UpButton", "Appear"));
         StartCoroutine(Animate("DownButton", "Appear"));
         StartCoroutine(Animate("RightButton", "Appear"));
         StartCoroutine(Animate("LeftButton", "Appear"));
         StartCoroutine(Animate("StandartButton", "FromLeft"));
         StartCoroutine(Animate("StandartButton (1)", "FromRight"));
+        StartCoroutine(Animate("Line", "MoveLine"));
         StartCoroutine(Animate("Panel", "DownButton", cont, true));
     }
 

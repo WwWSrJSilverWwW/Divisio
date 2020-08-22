@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 4890085278179872738, guid: f980a5656de8ca741baab07d0aeaf6f1,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -118,6 +119,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -251,7 +254,7 @@ PrefabInstance:
     - target: {fileID: 4944007627996736210, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
       propertyPath: m_Text
-      value: Menu
+      value: Back to Menu
       objectReference: {fileID: 0}
     - target: {fileID: 4944007627996736210, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
@@ -463,6 +466,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8627451, g: 0.078431375, b: 0.078431375, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -665,7 +669,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 720
     m_Right: 0
-    m_Top: 32
+    m_Top: 56
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 32
@@ -675,6 +679,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1599855274
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,6 +732,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -903,6 +909,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
