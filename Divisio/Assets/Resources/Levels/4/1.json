@@ -1,0 +1,18 @@
+{
+  "N": 3,
+  "M": 1,
+  "exit": "1,3",
+  "enter": "0,0",
+  "noWay": [
+    "1,2"
+  ],
+  "whiteSquare": [
+    "0,0"
+  ],
+  "blackSquare": [
+    "0,1"
+  ],
+  "deleteObject": [
+    "0,2"
+  ]
+}

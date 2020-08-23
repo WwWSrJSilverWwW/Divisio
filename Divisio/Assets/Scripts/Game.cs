@@ -53,6 +53,7 @@ public class Game : MonoBehaviour
     private bool mousePressed = false;
     private Vector3 checkExit;
     private bool fg = true;
+    private int st = 4;
 
     public class LevelStructure {
         public List<string> whiteSquare = new List<string>();
@@ -333,7 +334,7 @@ public class Game : MonoBehaviour
             }
             else {
                 rect.sizeDelta = new Vector2(w / 2, w / 2);
-                passWay.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2    );
+                passWay.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 2, w / 2);
             }
         }
     }
@@ -343,12 +344,14 @@ public class Game : MonoBehaviour
             deletePoints.Add(new Vector2(int.Parse(curLevelStruct.deleteObject[i].Split(new char[] { ',' })[0]), int.Parse(curLevelStruct.deleteObject[i].Split(new char[] { ',' })[1])));
         }
         for (int i = 0; i < deletePoints.Count; i++) {
-            deletePanel = Instantiate(Resources.Load("Prefabs/DeleteObject")) as GameObject;
+            deletePanel = Instantiate(Resources.Load("Prefabs/Objects/DeleteObject")) as GameObject;
             deletePanel.name = "deletePanel" + deletePoints[i].x + deletePoints[i].y;
+            deletePanel.transform.GetChild(0).name = "deletePanelChild" + deletePoints[i].x + deletePoints[i].y;
             deletePanel.transform.SetParent(Canvas.transform, false);
             rect = deletePanel.GetComponent<RectTransform>();
             rect.anchoredPosition = new Vector2(tX + w * deletePoints[i].x, tY + w * deletePoints[i].y);
             rect.sizeDelta = new Vector2(w / 4, w / 4);
+            deletePanel.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 4, w / 4);
         }
     }
 
@@ -357,12 +360,14 @@ public class Game : MonoBehaviour
             takePoints.Add(new Vector2(int.Parse(curLevelStruct.takePoint[i].Split(new char[] { ',' })[0]), int.Parse(curLevelStruct.takePoint[i].Split(new char[] { ',' })[1])));
         }
         for (int i = 0; i < takePoints.Count; i++) {
-            takePanel = Instantiate(Resources.Load("Prefabs/TakePoint")) as GameObject;
+            takePanel = Instantiate(Resources.Load("Prefabs/Objects/TakePoint")) as GameObject;
             takePanel.name = "takePanel" + takePoints[i].x + takePoints[i].y;
+            takePanel.transform.GetChild(0).name = "takePanelChild" + takePoints[i].x + takePoints[i].y;
             takePanel.transform.SetParent(Canvas.transform, false);
             rect = takePanel.GetComponent<RectTransform>();
             rect.anchoredPosition = new Vector2(tX + w * takePoints[i].x / 2 - w / 2, tY + w * takePoints[i].y / 2 - w / 2);
             rect.sizeDelta = new Vector2(w / 3, w / 3);
+            takePanel.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(w / 4, w / 4);
         }
     }
     
@@ -580,7 +585,7 @@ public class Game : MonoBehaviour
             l0 = curLvl + 1;
         }
         else {
-            if (curCamp < 2) {
+            if (curCamp < st) {
                 c0 = curCamp + 1;
                 l0 = 1;
             } else {
@@ -657,6 +662,12 @@ public class Game : MonoBehaviour
         }
         for (int i = 0; i < noWay.Count; i++) {
             StartCoroutine(Animate("noWayChild" + noWay[i].x + noWay[i].y, "MoveLinePanel1"));
+        }
+        for (int i = 0; i < deletePoints.Count; i++) {
+            StartCoroutine(Animate("deletePanelChild" + deletePoints[i].x + deletePoints[i].y, "MoveLinePanel1"));
+        }
+        for (int i = 0; i < takePoints.Count; i++) {
+            StartCoroutine(Animate("takePanelChild" + takePoints[i].x + takePoints[i].y, "MoveLinePanel1"));
         }
         StartCoroutine(Animate("InPanelChild", "MoveLinePanel1"));
         StartCoroutine(Animate("OutPanelChild", "MoveLinePanel1"));

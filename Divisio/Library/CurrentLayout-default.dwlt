@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: Game
   m_RootView: {fileID: 7}
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -73,10 +73,10 @@ MonoBehaviour:
     y: 30
     width: 1600
     height: 767
-  m_MinSize: {x: 678, y: 492}
-  m_MaxSize: {x: 14001, y: 14042}
+  m_MinSize: {x: 679, y: 492}
+  m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 109
+  controlID: 123
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 110
+  controlID: 16
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 111
+  controlID: 17
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -375,21 +375,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Resources/Levels/1
     m_Globs: []
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Resources/Levels/1
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\SrJSi\MyGitRepositories\Divisio\Divisio
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 96}
-    m_SelectedIDs: 963c0000
-    m_LastClickedID: 15510
-    m_ExpandedIDs: 00000000783c00007a3c00007c3c00007e3c0000863c000000ca9a3b
+    scrollPos: {x: 0, y: 80}
+    m_SelectedIDs: 883c0000
+    m_LastClickedID: 15496
+    m_ExpandedIDs: 00000000783c00007a3c00007c3c00007e3c0000803c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -417,7 +417,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000783c00007a3c00007c3c00007e3c0000
+    m_ExpandedIDs: 00000000783c00007a3c00007c3c00007e3c0000803c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -543,7 +543,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 92c2ffffa6c2ffff4cc3ffff60c3ffff64c3ffff78c3ffffa8c3ffffcac3fffffac3ffff00c4ffffd6c5ffffbac6ffff9ec8ffff2acaffffcccbffff5ccdffff78ceffff18d6ffff82dcfffff6dcffff60e3ffff72ecffff74ecffff94ecffffe0ecffffc8faffff5cfbffffc43c0000da3c0000f44000002a4100005e410000ea5000000851000020510000e851000002520000b8550000ee550000a25c0000c05c0000d85c0000fe5d00000c5e0000205e0000325e00005e5e00007c5e0000945e000040600000526000002a610000e46100001a62000062630000
+      m_ExpandedIDs: 26a8ffff3aa8ffffe4a8fffffca8ffff04a9ffff1ca9ffff50a9ffff76a9ffffaaa9ffffb4a9ffff18ecffff2cecffffd2ecffffe6ecffffeaecfffffeecffff2eedffff50edffff80edffff86edffff5cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -604,9 +604,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 2.5975852, y: -0.1837362, z: -12.571055}
+    m_Target: {x: 0, y: 0, z: 0}
     speed: 2
-    m_Value: {x: 2.5975852, y: -0.1837362, z: -12.571055}
+    m_Value: {x: 0, y: 0, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -657,9 +657,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 4.4824767
+    m_Target: 6.3776035
     speed: 2
-    m_Value: 4.4824767
+    m_Value: 6.3776035
   m_Ortho:
     m_Target: 1
     speed: 2
