@@ -29,6 +29,8 @@ public class ChooseCampaign : MonoBehaviour
         
         campNames.Add("Find your path");
         campNames.Add("White and black");
+        campNames.Add("Like in 'Snake'");
+        campNames.Add("Delete it");
 
         int x = 0;
 

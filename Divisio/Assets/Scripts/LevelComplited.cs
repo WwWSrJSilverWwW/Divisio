@@ -14,6 +14,7 @@ public class LevelComplited : MonoBehaviour
     private int c0, l0, c1, l1;
     private string file;
     private string platform;
+    private int st = 4;
 
     void Start() {
         float ratio = (float)(Screen.height / Screen.width);
@@ -40,7 +41,7 @@ public class LevelComplited : MonoBehaviour
     }
 
     public void NextLevelContinue() { 
-        if (curLvl == stopEndOfLevels && curCamp == 2) { 
+        if (curLvl == stopEndOfLevels && curCamp == st) { 
             SceneManager.LoadScene("EndScene");
         } else {
             if (curLvl != 1) {
