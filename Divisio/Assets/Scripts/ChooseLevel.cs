@@ -34,6 +34,7 @@ public class ChooseLevel : MonoBehaviour
     }
 
     void Start() {
+        SetBlacks();
         SetLang();
         ScrollRect scroll = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         UpdateValues();
@@ -80,6 +81,13 @@ public class ChooseLevel : MonoBehaviour
                 x = 0;
                 y--;
             }
+        }
+    }
+
+    public void SetBlacks() { 
+        if (Screen.width > Screen.height) {
+            GameObject.Find("BlackPanel1").GetComponent<RectTransform>().anchoredPosition = new Vector2(-2360, 0);
+            GameObject.Find("BlackPanel2").GetComponent<RectTransform>().anchoredPosition = new Vector2(2360, 0);
         }
     }
 

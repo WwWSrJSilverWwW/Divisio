@@ -14,9 +14,17 @@ public class Menu : MonoBehaviour
     private int curCamp, curLvl, prgCamp, prgLvl;
 
     void Start() {
+        SetBlacks();
         SetLang();
         if (!PlayerPrefs.HasKey("curLvl")) {
             NewGame();
+        }
+    }
+
+    public void SetBlacks() { 
+        if (Screen.width > Screen.height) {
+            GameObject.Find("BlackPanel1").GetComponent<RectTransform>().anchoredPosition = new Vector2(-2360, 0);
+            GameObject.Find("BlackPanel2").GetComponent<RectTransform>().anchoredPosition = new Vector2(2360, 0);
         }
     }
 

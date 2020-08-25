@@ -17,7 +17,15 @@ public class LevelComplited : MonoBehaviour
     private int st = 4;
 
     void Start() {
+        SetBlacks();
         SetLang();
+    }
+
+    public void SetBlacks() { 
+        if (Screen.width > Screen.height) {
+            GameObject.Find("BlackPanel1").GetComponent<RectTransform>().anchoredPosition = new Vector2(-2360, 0);
+            GameObject.Find("BlackPanel2").GetComponent<RectTransform>().anchoredPosition = new Vector2(2360, 0);
+        }
     }
 
     public void SetLang() {

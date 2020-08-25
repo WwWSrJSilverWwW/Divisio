@@ -14,6 +14,7 @@ public class Tutorial : MonoBehaviour
     private int curCamp, curLvl, prgCamp, prgLvl;
 
     void Start() {
+        SetBlacks();
         UpdateValues();
         GameObject Canvas = GameObject.Find("Canvas");
         GameObject t = Instantiate(Resources.Load("Prefabs/Tutorials/" + curCamp)) as GameObject;
@@ -24,6 +25,13 @@ public class Tutorial : MonoBehaviour
     }
 
     void Update() {  
+    }
+
+    public void SetBlacks() { 
+        if (Screen.width > Screen.height) {
+            GameObject.Find("BlackPanel1").GetComponent<RectTransform>().anchoredPosition = new Vector2(-2360, 0);
+            GameObject.Find("BlackPanel2").GetComponent<RectTransform>().anchoredPosition = new Vector2(2360, 0);
+        }
     }
 
     public void SetLang() {

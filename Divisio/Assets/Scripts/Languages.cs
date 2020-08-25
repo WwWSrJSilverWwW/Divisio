@@ -25,6 +25,9 @@ public class Lang
     public string thanks;
     public string gotIt;
     public string newGame;
+    public string idea;
+    public string madeBy;
+    public string thanksTo;
 }
 
 public class Languages : MonoBehaviour

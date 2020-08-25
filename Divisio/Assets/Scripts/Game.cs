@@ -67,6 +67,7 @@ public class Game : MonoBehaviour
     }
 
     void Start() {
+        SetBlacks();
         SetLang();
         Canvas = GameObject.Find("Canvas");
         UpdateValues();
@@ -94,7 +95,13 @@ public class Game : MonoBehaviour
         //ShowWrongSquares();
     }
 
-    
+    public void SetBlacks() { 
+        if (Screen.width > Screen.height) {
+            GameObject.Find("BlackPanel1").GetComponent<RectTransform>().anchoredPosition = new Vector2(-2360, 0);
+            GameObject.Find("BlackPanel2").GetComponent<RectTransform>().anchoredPosition = new Vector2(2360, 0);
+        }
+    }
+
     public void SetLang() {
         GameObject.Find("StandartButton").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.menu;
         GameObject.Find("StandartButton (1)").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.reset;
@@ -689,8 +696,8 @@ public class Game : MonoBehaviour
         StartCoroutine(Animate("DownButton", "Appear"));
         StartCoroutine(Animate("RightButton", "Appear"));
         StartCoroutine(Animate("LeftButton", "Appear"));
-        StartCoroutine(Animate("StandartButton", "FromLeft"));
-        StartCoroutine(Animate("StandartButton (1)", "FromRight"));
+        StartCoroutine(Animate("StandartButton", "FromLeft1"));
+        StartCoroutine(Animate("StandartButton (1)", "FromRight1"));
         StartCoroutine(Animate("Line", "MoveLine"));
         StartCoroutine(Animate("Panel", "DownButton", cont, true));
     }

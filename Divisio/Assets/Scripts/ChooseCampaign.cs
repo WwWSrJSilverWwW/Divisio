@@ -17,6 +17,7 @@ public class ChooseCampaign : MonoBehaviour
     private GameObject levelButton, textLevelButton;
 
     void Start() {
+        SetBlacks();
         SetLang();
         ScrollRect scroll = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         GameObject Canvas = GameObject.Find("Canvas");
@@ -55,6 +56,13 @@ public class ChooseCampaign : MonoBehaviour
         }
     }
 
+    public void SetBlacks() { 
+        if (Screen.width > Screen.height) {
+            GameObject.Find("BlackPanel1").GetComponent<RectTransform>().anchoredPosition = new Vector2(-2360, 0);
+            GameObject.Find("BlackPanel2").GetComponent<RectTransform>().anchoredPosition = new Vector2(2360, 0);
+        }
+    }
+    
     public void SetLang() {
         GameObject.Find("StandartButton").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.backToMenu;
         GameObject.Find("Panel").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.campaigns;

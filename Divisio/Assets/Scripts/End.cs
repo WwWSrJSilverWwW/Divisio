@@ -9,16 +9,27 @@ public class End : MonoBehaviour
     delegate void func();
 
     void Start() {
+        SetBlacks();
         SetLang();
     }
 
     void Update() {
     }
 
+    public void SetBlacks() { 
+        if (Screen.width > Screen.height) {
+            GameObject.Find("BlackPanel1").GetComponent<RectTransform>().anchoredPosition = new Vector2(-2360, 0);
+            GameObject.Find("BlackPanel2").GetComponent<RectTransform>().anchoredPosition = new Vector2(2360, 0);
+        }
+    }
+
     public void SetLang() {
         GameObject.Find("Text").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.thanks;
         GameObject.Find("StandartButton").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.backToMenu;
         GameObject.Find("EndText").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.fin;
+        GameObject.Find("IdeaText").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.idea;
+        GameObject.Find("MadeByText").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.madeBy;
+        GameObject.Find("ThanksToText").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.thanksTo;
     }
 
     public void Menu() {
@@ -30,10 +41,8 @@ public class End : MonoBehaviour
     }
     
     private void AnimateAll(func cont) {
-        StartCoroutine(Animate("StandartButton", "UpButton"));
-        StartCoroutine(Animate("Text", "EndText"));
-        StartCoroutine(Animate("EndText", "GameText"));
-        StartCoroutine(Animate("Panel", "DownPanel", cont, true));
+        StartCoroutine(Animate("StandartButton", "UpButtonEnd"));
+        StartCoroutine(Animate("Text", "EndText", cont, true));
     }
 
     private IEnumerator Animate(string obj, string an, func cont = null, bool k = false) {
