@@ -15,15 +15,12 @@ public class ChooseLevel : MonoBehaviour
     private GameObject textLevelButton;
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
     private List<string> campaigns;
-    private string platform;
     private int l1;
 
     public void ButtonClick(int c, int l) {
         UpdateValues();
-        string file = platform + "/current.txt";
-        StreamWriter writer = new StreamWriter(file);
-        writer.Write("currentCampaign:" + c + ";\ncurrentLevel:" + l + ";\nprogressCampaign:" + prgCamp + ";\nprogressLevel:" + prgLvl + ";\nend,of,file.");
-        writer.Close();
+        PlayerPrefs.SetInt("curCamp", c);
+        PlayerPrefs.SetInt("curLvl", l);
         l1 = l;
         AnimateAll(new func(ButtonClickContinue));
     }
@@ -37,21 +34,11 @@ public class ChooseLevel : MonoBehaviour
     }
 
     void Start() {
+        SetLang();
         ScrollRect scroll = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
-        float ratio = (float)(Screen.height / Screen.width);
-        float ortSize = 720f * ratio / 200f;
-        Camera.main.orthographicSize = ortSize;
-        if (Application.platform == RuntimePlatform.Android) {
-            platform = Application.persistentDataPath;
-        } else {
-            platform = "Assets";
-        }
         UpdateValues();
 
-        string file = platform + "/openCampaign.txt";
-        StreamReader reader = new StreamReader(file);
-        curCamp = int.Parse(reader.ReadToEnd());
-        reader.Close();
+        curCamp = int.Parse(PlayerPrefs.GetString("OpenCampaign"));
         
         stopEndOfLevels = stopEnd(curCamp);
         
@@ -96,6 +83,11 @@ public class ChooseLevel : MonoBehaviour
         }
     }
 
+    public void SetLang() {
+        GameObject.Find("StandartButton").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.backToCampaigns;
+        GameObject.Find("Panel").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.levels;
+    }
+
     public void Campaigns() {
         AnimateAll(new func(CampaignsContinue));
     }
@@ -105,15 +97,10 @@ public class ChooseLevel : MonoBehaviour
     }
 
     public void UpdateValues() {
-        string file = platform + "/current.txt";
-
-        StreamReader reader = new StreamReader(file);
-        string text = reader.ReadToEnd();
-        curCamp = int.Parse(text.Split(new char[] { ';' })[0].Split(new char[] { ':' })[1]);
-        curLvl = int.Parse(text.Split(new char[] { ';' })[1].Split(new char[] { ':' })[1]);
-        prgCamp = int.Parse(text.Split(new char[] { ';' })[2].Split(new char[] { ':' })[1]);
-        prgLvl = int.Parse(text.Split(new char[] { ';' })[3].Split(new char[] { ':' })[1]);
-        reader.Close();
+        curCamp = PlayerPrefs.GetInt("curCamp");
+        curLvl = PlayerPrefs.GetInt("curLvl");
+        prgCamp = PlayerPrefs.GetInt("prgCamp");
+        prgLvl = PlayerPrefs.GetInt("prgLvl");
     }
 
     public int stopEnd(int cc) {

@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 1310821080892970895}
   - component: {fileID: 1719425364422650898}
   m_Layer: 0
-  m_Name: Text
+  m_Name: PanelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -303,7 +303,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 60
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -316,7 +316,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: If you see a trefoil it can help you. While in a plane, it must remove
     one of the elements (a square or hexagon) in that plane. If it does not delete
-    anything, the level is considered not completed. It always removes the element
+    anything, the level is considered not completed. Trefoil always removes the element
     that you need to pass.
 --- !u!111 &8583639253585314062
 Animation:

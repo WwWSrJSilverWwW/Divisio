@@ -15,22 +15,16 @@ public class ChooseCampaign : MonoBehaviour
     private List<string> campaigns;
     private List<string> campNames = new List<string>();
     private GameObject levelButton, textLevelButton;
-    private string platform;
 
     void Start() {
+        SetLang();
         ScrollRect scroll = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
-        if (Application.platform == RuntimePlatform.Android) {
-            platform = Application.persistentDataPath;
-        } else {
-            platform = "Assets";
-        }
         GameObject Canvas = GameObject.Find("Canvas");
         UpdateValues(); 
         
-        campNames.Add("Find your path");
-        campNames.Add("White and black");
-        campNames.Add("Like in 'Snake'");
-        campNames.Add("Delete it");
+        for (int i = 0; i < GameObject.Find("Main Camera").GetComponent<Languages>().lang.campaignsName.Count; i++) {
+            campNames.Add(GameObject.Find("Main Camera").GetComponent<Languages>().lang.campaignsName[i]);
+        }
 
         int x = 0;
 
@@ -61,11 +55,13 @@ public class ChooseCampaign : MonoBehaviour
         }
     }
 
+    public void SetLang() {
+        GameObject.Find("StandartButton").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.backToMenu;
+        GameObject.Find("Panel").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.campaigns;
+    }
+
     public void ButtonClick(int camp) {
-        string file = platform + "/openCampaign.txt";
-        StreamWriter writer = new StreamWriter(file);
-        writer.Write(camp);
-        writer.Close();
+        PlayerPrefs.SetString("OpenCampaign", camp.ToString());
         AnimateAll(new func(ButtonClickContinue));
     }
 
@@ -82,15 +78,10 @@ public class ChooseCampaign : MonoBehaviour
     }
 
     public void UpdateValues() {
-        string file = platform + "/current.txt";
-
-        StreamReader reader = new StreamReader(file);
-        string text = reader.ReadToEnd();
-        curCamp = int.Parse(text.Split(new char[] { ';' })[0].Split(new char[] { ':' })[1]);
-        curLvl = int.Parse(text.Split(new char[] { ';' })[1].Split(new char[] { ':' })[1]);
-        prgCamp = int.Parse(text.Split(new char[] { ';' })[2].Split(new char[] { ':' })[1]);
-        prgLvl = int.Parse(text.Split(new char[] { ';' })[3].Split(new char[] { ':' })[1]);
-        reader.Close();
+        curCamp = PlayerPrefs.GetInt("curCamp");
+        curLvl = PlayerPrefs.GetInt("curLvl");
+        prgCamp = PlayerPrefs.GetInt("prgCamp");
+        prgLvl = PlayerPrefs.GetInt("prgLvl");
     }
 
     private void AnimateAll(func cont) {

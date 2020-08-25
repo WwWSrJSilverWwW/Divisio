@@ -1,0 +1,31 @@
+{
+  "campaignsName": [
+    "Find your path",
+    "White and black",
+    "Like in \"Snake\"",
+    "Delete it"
+  ],
+  "campaignsText": [
+    "Move the line using the arrows from the start (S) to the finish (F). You can't step on or cross the dark areas of the field. To cancel the last action, click the \"Back\" button on your phone. Easy, right?",
+    "Complicating the situation. The cells of the field can contain white and black squares. You must separate them from each other with the line. And, of course, you need to draw the line to the finish.",
+    "Another innovation is that the hexagons. The level will not be considered completed until you collect all the hexagons with a line. All previous rules remain the same.",
+    "If you see a trefoil it can help you. While in a plane, it must remove one of the elements (a square or hexagon) in that plane. If it does not delete anything, the level is considered not completed. Trefoil always removes the element that you need to pass."
+  ],
+  "presents": "presents",
+  "play": "Play",
+  "campaigns": "Campaigns",
+  "exit": "Exit",
+  "settings": "Settings",
+  "backToMenu": "Back to menu",
+  "levels": "Levels",
+  "backToCampaigns": "Back to campaigns",
+  "level": "Level",
+  "menu": "Menu",
+  "reset": "Reset",
+  "levelCompleted": "Level completed",
+  "nextLevel": "Next level",
+  "fin": "The fin",
+  "thanks": "Thank you for passing current alpha version! Please leave a review for the app!",
+  "gotIt": "Got it",
+  "newGame": "New game"
+}

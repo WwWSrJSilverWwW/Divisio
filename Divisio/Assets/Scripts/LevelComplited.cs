@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,19 +14,17 @@ public class LevelComplited : MonoBehaviour
     private int curCamp, curLvl, prgCamp, prgLvl, stopEndOfLevels;
     private int c0, l0, c1, l1;
     private string file;
-    private string platform;
     private int st = 4;
 
     void Start() {
-        float ratio = (float)(Screen.height / Screen.width);
-        float ortSize = 720f * ratio / 200f;
-        Camera.main.orthographicSize = ortSize;
-        if (Application.platform == RuntimePlatform.Android) {
-            platform = Application.persistentDataPath;
-        } else {
-            platform = "Assets";
-        }
-        file = platform + "/current.txt";
+        SetLang();
+    }
+
+    public void SetLang() {
+        GameObject.Find("StandartButton").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.nextLevel;
+        GameObject.Find("StandartButton (1)").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.campaigns;
+        GameObject.Find("StandartButton (2)").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.backToMenu;
+        GameObject.Find("LevelCompletedText").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.levelCompleted;
     }
 
     void Update() { 
@@ -53,13 +52,10 @@ public class LevelComplited : MonoBehaviour
     }
 
     public void UpdateValues() {
-        StreamReader reader = new StreamReader(file);
-        string text = reader.ReadToEnd();
-        curCamp = int.Parse(text.Split(new char[] { ';' })[0].Split(new char[] { ':' })[1]);
-        curLvl = int.Parse(text.Split(new char[] { ';' })[1].Split(new char[] { ':' })[1]);
-        prgCamp = int.Parse(text.Split(new char[] { ';' })[2].Split(new char[] { ':' })[1]);
-        prgLvl = int.Parse(text.Split(new char[] { ';' })[3].Split(new char[] { ':' })[1]);
-        reader.Close();
+        curCamp = PlayerPrefs.GetInt("curCamp");
+        curLvl = PlayerPrefs.GetInt("curLvl");
+        prgCamp = PlayerPrefs.GetInt("prgCamp");
+        prgLvl = PlayerPrefs.GetInt("prgLvl");
     }
 
     public void Menu() {
@@ -97,7 +93,7 @@ public class LevelComplited : MonoBehaviour
         StartCoroutine(Animate("StandartButton (2)", "UpButton"));
         StartCoroutine(Animate("StandartButton (1)", "CampaignsButton"));
         StartCoroutine(Animate("StandartButton", "PlayButton"));
-        StartCoroutine(Animate("LevelComplitedText", "GameText"));
+        StartCoroutine(Animate("LevelCompletedText", "GameText"));
         StartCoroutine(Animate("Panel", "DownPanel", cont, true));
     }
 

@@ -12,37 +12,31 @@ public class Tutorial : MonoBehaviour
 {
     delegate void func();
     private int curCamp, curLvl, prgCamp, prgLvl;
-    private string platform;
 
     void Start() {
-        float ratio = (float)(Screen.height / Screen.width);
-        float ortSize = 720f * ratio / 200f;
-        Camera.main.orthographicSize = ortSize;
-        if (Application.platform == RuntimePlatform.Android) {
-            platform = Application.persistentDataPath;
-        } else {
-            platform = "Assets";
-        }
-        GameObject Canvas = GameObject.Find("Canvas"); 
         UpdateValues();
+        GameObject Canvas = GameObject.Find("Canvas");
         GameObject t = Instantiate(Resources.Load("Prefabs/Tutorials/" + curCamp)) as GameObject;
         t.transform.SetParent(Canvas.transform, false);
         t.transform.SetSiblingIndex(0);
         t.transform.GetChild(0).gameObject.GetComponent<Button>().onClick.AddListener(() => ButtonClick());
+        SetLang();
     }
 
     void Update() {  
     }
 
+    public void SetLang() {
+        GameObject.Find("StandartButton").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.gotIt;
+        GameObject.Find("Panel").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.campaignsName[curCamp - 1];
+        GameObject.Find("Text").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.campaignsText[curCamp - 1];
+    }
+
     public void UpdateValues() {
-        string file = platform + "/current.txt";
-        StreamReader reader = new StreamReader(file);
-        string text = reader.ReadToEnd();
-        curCamp = int.Parse(text.Split(new char[] { ';' })[0].Split(new char[] { ':' })[1]);
-        curLvl = int.Parse(text.Split(new char[] { ';' })[1].Split(new char[] { ':' })[1]);
-        prgCamp = int.Parse(text.Split(new char[] { ';' })[2].Split(new char[] { ':' })[1]);
-        prgLvl = int.Parse(text.Split(new char[] { ';' })[3].Split(new char[] { ':' })[1]);
-        reader.Close();
+        curCamp = PlayerPrefs.GetInt("curCamp");
+        curLvl = PlayerPrefs.GetInt("curLvl");
+        prgCamp = PlayerPrefs.GetInt("prgCamp");
+        prgLvl = PlayerPrefs.GetInt("prgLvl");
     }
 
     public void ButtonClick() {

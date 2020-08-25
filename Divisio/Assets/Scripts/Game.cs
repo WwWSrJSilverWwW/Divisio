@@ -67,11 +67,7 @@ public class Game : MonoBehaviour
     }
 
     void Start() {
-        if (Application.platform == RuntimePlatform.Android) {
-            platform = Application.persistentDataPath;
-        } else {
-            platform = "Assets";
-        }
+        SetLang();
         Canvas = GameObject.Find("Canvas");
         UpdateValues();
         TextAsset txt = (TextAsset)Resources.Load("Levels/" + curCamp + "/" + curLvl, typeof(TextAsset));
@@ -96,6 +92,12 @@ public class Game : MonoBehaviour
         //DrawLine();
         HelpOnComputer();
         //ShowWrongSquares();
+    }
+
+    
+    public void SetLang() {
+        GameObject.Find("StandartButton").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.menu;
+        GameObject.Find("StandartButton (1)").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.reset;
     }
 
     public void DrawLine() {
@@ -150,7 +152,7 @@ public class Game : MonoBehaviour
     public void SetEnterExitSettings() {
         whitePoints.Clear();
         blackPoints.Clear();
-        GameObject.Find("LevelText").GetComponent<Text>().text = "Level " + curCamp + "-" + curLvl;
+        GameObject.Find("LevelText").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.level + " " + curCamp + "-" + curLvl;
         N = curLevelStruct.N;
         M = curLevelStruct.M;
         w = ws[Mathf.Max(N, M) - 1];
@@ -266,7 +268,6 @@ public class Game : MonoBehaviour
     public void SetLine() {
         UpdateValues();
         pointsList = new List<Vector3>();
-        string file = platform + "/current.txt";
         line = GameObject.Find("Line").GetComponent<LineRenderer>();
         line.startWidth = 0.0025f * w;
         line.endWidth = 0.0025f * w; 
@@ -605,10 +606,10 @@ public class Game : MonoBehaviour
             c1 = prgCamp;
             l1 = prgLvl;
         }
-        string file = platform + "/current.txt";
-        StreamWriter writer = new StreamWriter(file);
-        writer.Write("currentCampaign:" + c0 + ";\ncurrentLevel:" + l0 + ";\nprogressCampaign:" + c1 + ";\nprogressLevel:" + l1 + ";\nend,of,file.");
-        writer.Close();
+        PlayerPrefs.SetInt("curCamp", c0);
+        PlayerPrefs.SetInt("curLvl", l0);
+        PlayerPrefs.SetInt("prgCamp", c1);
+        PlayerPrefs.SetInt("prgLvl", l1);
     }
 
     public int stopEnd(int cc) {
@@ -643,14 +644,10 @@ public class Game : MonoBehaviour
     }
 
     public void UpdateValues() {
-        string file = platform + "/current.txt";
-        StreamReader reader = new StreamReader(file);
-        string text = reader.ReadToEnd();
-        curCamp = int.Parse(text.Split(new char[] { ';' })[0].Split(new char[] { ':' })[1]);
-        curLvl = int.Parse(text.Split(new char[] { ';' })[1].Split(new char[] { ':' })[1]);
-        prgCamp = int.Parse(text.Split(new char[] { ';' })[2].Split(new char[] { ':' })[1]);
-        prgLvl = int.Parse(text.Split(new char[] { ';' })[3].Split(new char[] { ':' })[1]);
-        reader.Close();
+        curCamp = PlayerPrefs.GetInt("curCamp");
+        curLvl = PlayerPrefs.GetInt("curLvl");
+        prgCamp = PlayerPrefs.GetInt("prgCamp");
+        prgLvl = PlayerPrefs.GetInt("prgLvl");
     }
 
     private void AnimateAll(func cont) {

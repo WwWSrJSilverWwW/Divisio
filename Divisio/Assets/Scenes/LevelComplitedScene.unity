@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 170155796}
   - component: {fileID: 170155795}
   - component: {fileID: 170155798}
+  - component: {fileID: 170155799}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -305,6 +306,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4cfdac41e206884cb2886e8178d6300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &170155799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170155794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6c8614ce932e243b5168766e369cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!850595691 &325948461
@@ -579,7 +592,7 @@ GameObject:
   - component: {fileID: 1317301532}
   - component: {fileID: 1317301534}
   m_Layer: 0
-  m_Name: LevelComplitedText
+  m_Name: LevelCompletedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637,7 +650,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Level \u0441omplited"
+  m_Text: "Level \u0441ompleted"
 --- !u!222 &1317301533
 CanvasRenderer:
   m_ObjectHideFlags: 0

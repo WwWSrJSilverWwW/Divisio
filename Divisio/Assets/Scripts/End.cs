@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,12 +9,16 @@ public class End : MonoBehaviour
     delegate void func();
 
     void Start() {
-        float ratio = (float)(Screen.height / Screen.width);
-        float ortSize = 720f * ratio / 200f;
-        Camera.main.orthographicSize = ortSize;
+        SetLang();
     }
 
     void Update() {
+    }
+
+    public void SetLang() {
+        GameObject.Find("Text").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.thanks;
+        GameObject.Find("StandartButton").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.backToMenu;
+        GameObject.Find("EndText").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.fin;
     }
 
     public void Menu() {
