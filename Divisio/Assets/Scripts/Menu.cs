@@ -19,6 +19,15 @@ public class Menu : MonoBehaviour
         if (!PlayerPrefs.HasKey("curLvl")) {
             NewGame();
         }
+        if (!PlayerPrefs.HasKey("MusicVolume")) {
+            PlayerPrefs.SetString("MusicVolume", "0,5");
+        }
+        if (GameObject.Find("Main Camera Phone Started") == null) {
+            GameObject.Find("Main Camera Phone").name = "Main Camera Phone Started";
+            GameObject.Find("Main Camera Phone Started").GetComponent<AudioSource>().Play();
+            DontDestroyOnLoad(GameObject.Find("Main Camera Phone Started"));
+            GameObject.Find("Main Camera Phone Started").GetComponent<AudioSource>().volume = float.Parse(PlayerPrefs.GetString("MusicVolume"));
+        }
     }
 
     public void SetBlacks() { 
@@ -29,17 +38,17 @@ public class Menu : MonoBehaviour
     }
 
     public void SetLang() {
-        GameObject.Find("StandartButton").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.play;
-        GameObject.Find("StandartButton (1)").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.campaigns;
-        GameObject.Find("StandartButton (2)").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.exit;
-        GameObject.Find("StandartButton (3)").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.settings;
+        GameObject.Find("StandartButton").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera Phone").GetComponent<Languages>().lang.play;
+        GameObject.Find("StandartButton (1)").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera Phone").GetComponent<Languages>().lang.campaigns;
+        GameObject.Find("StandartButton (2)").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera Phone").GetComponent<Languages>().lang.exit;
+        GameObject.Find("StandartButton (3)").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera Phone").GetComponent<Languages>().lang.settings;
     }
 
     public void Play() {
         AnimateAll(new func(PlayContinue));
     }
 
-    public void PlayContinue() { 
+    public void PlayContinue() {
         UpdateValues();
         if (curLvl != 1) {
             SceneManager.LoadScene("GameScene");
@@ -95,7 +104,7 @@ public class Menu : MonoBehaviour
         StartCoroutine(Animate("StandartButton", "PlayButton"));
         StartCoroutine(Animate("StandartButton (2)", "UpButton"));
         StartCoroutine(Animate("StandartButton (1)", "CampaignsButton"));
-        StartCoroutine(Animate("StandartButton (3)", "Settings"));
+        StartCoroutine(Animate("StandartButton (3)", "SettingsButton"));
         StartCoroutine(Animate("GameText", "GameText"));
         StartCoroutine(Animate("Panel", "DownPanel", cont, true));
     }

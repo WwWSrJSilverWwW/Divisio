@@ -28,13 +28,14 @@ public class Lang
     public string idea;
     public string madeBy;
     public string thanksTo;
+    public string musicVolume;
 }
 
 public class Languages : MonoBehaviour
 {
     delegate void func();
     public Lang lang = new Lang();
-    public List<string> allLangsJson = new List<string>() { "Russian", "English" };
+    public List<string> allLangsJson = new List<string>() { "English", "Russian" };
     public bool k1 = false;
 
     void Awake() {
@@ -54,9 +55,9 @@ public class Languages : MonoBehaviour
     public void SetLang() {
         if (!PlayerPrefs.HasKey("Language")) {
             if (Application.systemLanguage == SystemLanguage.Russian) {
-                PlayerPrefs.SetString("Language", allLangsJson[0]);
-            } else {
                 PlayerPrefs.SetString("Language", allLangsJson[1]);
+            } else {
+                PlayerPrefs.SetString("Language", allLangsJson[0]);
             }
         }
         LoadLang();
@@ -83,9 +84,10 @@ public class Languages : MonoBehaviour
     }
 
     private void AnimateAll(func cont) {
+        StartCoroutine(Animate("Slider", "PlayButton"));
+        StartCoroutine(Animate("StandartButton (1)", "SettingsRight"));
+        StartCoroutine(Animate("Dropdown", "SettingsLeft"));
         StartCoroutine(Animate("StandartButton", "UpButton"));
-        StartCoroutine(Animate("StandartButton (1)", "PlayButton"));
-        StartCoroutine(Animate("Dropdown", "CampaignsButton"));
         StartCoroutine(Animate("Panel", "DownButton", cont, true));
     }
 

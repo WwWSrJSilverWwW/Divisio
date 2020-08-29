@@ -42,6 +42,7 @@ public class ChooseLevel : MonoBehaviour
         curCamp = int.Parse(PlayerPrefs.GetString("OpenCampaign"));
         
         stopEndOfLevels = stopEnd(curCamp);
+        Debug.Log(stopEndOfLevels);
         
         GameObject Canvas = GameObject.Find("Canvas");
 

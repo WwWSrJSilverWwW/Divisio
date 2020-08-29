@@ -11,6 +11,7 @@ public class Settings : MonoBehaviour
     void Start() {
         SetBlacks();
         SetLang();
+        SetMusic();
     }
     
     public void SetBlacks() { 
@@ -24,6 +25,11 @@ public class Settings : MonoBehaviour
         GameObject.Find("StandartButton").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.backToMenu;
         GameObject.Find("StandartButton (1)").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.newGame;
         GameObject.Find("Panel").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.settings;
+        GameObject.Find("SliderText").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.musicVolume;
+    }
+
+    public void SetMusic() {
+        GameObject.Find("Slider").GetComponent<Slider>().value = float.Parse(PlayerPrefs.GetString("MusicVolume"));
     }
 
     public void Menu() {
@@ -41,10 +47,16 @@ public class Settings : MonoBehaviour
         PlayerPrefs.SetInt("prgLvl", 1);
     }
 
+    public void VolumeChanged() {
+        PlayerPrefs.SetString("MusicVolume", GameObject.Find("Slider").GetComponent<Slider>().value.ToString());
+        GameObject.Find("Main Camera Phone Started").GetComponent<AudioSource>().volume = float.Parse(PlayerPrefs.GetString("MusicVolume"));
+    }
+
     private void AnimateAll(func cont) {
+        StartCoroutine(Animate("Slider", "PlayButton"));
+        StartCoroutine(Animate("StandartButton (1)", "SettingsRight"));
+        StartCoroutine(Animate("Dropdown", "SettingsLeft"));
         StartCoroutine(Animate("StandartButton", "UpButton"));
-        StartCoroutine(Animate("StandartButton (1)", "PlayButton"));
-        StartCoroutine(Animate("Dropdown", "CampaignsButton"));
         StartCoroutine(Animate("Panel", "DownButton", cont, true));
     }
 

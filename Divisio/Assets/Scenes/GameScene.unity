@@ -142,6 +142,7 @@ Animation:
   m_Animation: {fileID: 7400000, guid: b3dcf6b28683d9b4aa9ac75a556b802f, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: b3dcf6b28683d9b4aa9ac75a556b802f, type: 2}
+  - {fileID: 7400000, guid: 6daca0b93b546c84193fb9e9354c5b4b, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -851,6 +852,7 @@ Animation:
   m_Animation: {fileID: 7400000, guid: fc045e965e6e92f4fad377b826612915, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: fc045e965e6e92f4fad377b826612915, type: 2}
+  - {fileID: 7400000, guid: 8073a7cb2d105f44cbcb12b0f6b89357, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -975,6 +977,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6c8614ce932e243b5168766e369cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allLangsJson:
+  - English
+  - Russian
+  k1: 0
 --- !u!1 &615832537
 GameObject:
   m_ObjectHideFlags: 0

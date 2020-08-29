@@ -544,8 +544,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allLangsJson:
-  - Russian
   - English
+  - Russian
   k1: 0
 --- !u!1 &1046269182
 GameObject:

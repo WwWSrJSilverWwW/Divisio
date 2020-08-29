@@ -321,8 +321,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allLangsJson:
-  - Russian
   - English
+  - Russian
   k1: 0
 --- !u!850595691 &325948461
 LightingSettings:
