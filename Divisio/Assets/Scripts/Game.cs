@@ -588,7 +588,8 @@ public class Game : MonoBehaviour
     public void NextLevel() {
         UpdateValues();
         stopEndOfLevels = stopEnd(curCamp);
-        if (curLvl != stopEndOfLevels) {
+        PlayerPrefs.SetInt("isFinished", 0);
+        if (curLvl < stopEndOfLevels) {
             c0 = curCamp;
             l0 = curLvl + 1;
         }
@@ -599,6 +600,7 @@ public class Game : MonoBehaviour
             } else {
                 c0 = curCamp;
                 l0 = curLvl;
+                PlayerPrefs.SetInt("isFinished", 1);
             }
         }
         if (c0 > prgCamp) {

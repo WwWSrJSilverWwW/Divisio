@@ -24,7 +24,7 @@ public class Tutorial : MonoBehaviour
         SetLang();
     }
 
-    void Update() {  
+    void Update() {
     }
 
     public void SetBlacks() { 

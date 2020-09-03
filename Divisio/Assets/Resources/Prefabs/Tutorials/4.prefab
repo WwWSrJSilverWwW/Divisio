@@ -98,7 +98,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -30}
-  m_SizeDelta: {x: 720, y: 240}
+  m_SizeDelta: {x: 520, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1310821080892970895
 CanvasRenderer:
@@ -130,10 +130,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 80
+    m_FontSize: 50
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 5
     m_MaxSize: 80
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -271,7 +271,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -60}
-  m_SizeDelta: {x: 660, y: 920}
+  m_SizeDelta: {x: 520, y: 920}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5786191510885065250
 CanvasRenderer:
@@ -303,10 +303,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 123
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -344,7 +344,28 @@ PrefabInstance:
     - target: {fileID: 4944007627415479431, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944007627415479431, guid: aaed3b67a1978914482008794a6db088,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1422014612389947285, guid: aaed3b67a1978914482008794a6db088,
+        type: 3}
+    - target: {fileID: 4944007627415479431, guid: aaed3b67a1978914482008794a6db088,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SoundsEffects, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944007627415479431, guid: aaed3b67a1978914482008794a6db088,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaySound
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944007627415479431, guid: aaed3b67a1978914482008794a6db088,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4944007627415479432, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
@@ -464,7 +485,7 @@ PrefabInstance:
     - target: {fileID: 4944007627996736210, guid: aaed3b67a1978914482008794a6db088,
         type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4944007627996736211, guid: aaed3b67a1978914482008794a6db088,
         type: 3}

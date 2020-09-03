@@ -48,7 +48,8 @@ public class LevelComplited : MonoBehaviour
     }
 
     public void NextLevelContinue() { 
-        if (curLvl == stopEndOfLevels && curCamp == st) { 
+        if (curLvl == stopEndOfLevels && curCamp == st && PlayerPrefs.GetInt("isFinished") == 1) {
+            PlayerPrefs.SetInt("isFinished", 0);
             SceneManager.LoadScene("EndScene");
         } else {
             if (curLvl != 1) {
