@@ -10,6 +10,7 @@ ScriptsOnlyBuild:
     - Menu
     - Preview
     - Settings
+    - SoundsEffects
     - TGame
     - Tutorial
     Unity.2D.Animation.Editor.dll:
@@ -26,6 +27,9 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
+    UnityEditor.UI.dll:
+    - UnityEditor.UI.ButtonEditor
+    - UnityEditor.UI.ImageEditor
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -60,6 +64,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 111
@@ -83,11 +91,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13758}
     - Class: 114
-      Script: {instanceID: 14116}
+      Script: {instanceID: 13872}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 14118}
     - Class: 114
-      Script: {instanceID: 15056}
+      Script: {instanceID: 14424}
+    - Class: 114
+      Script: {instanceID: 15058}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -121,6 +131,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 111
@@ -144,11 +158,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13758}
     - Class: 114
-      Script: {instanceID: 14352}
+      Script: {instanceID: 13872}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 14354}
     - Class: 114
-      Script: {instanceID: 15056}
+      Script: {instanceID: 14424}
+    - Class: 114
+      Script: {instanceID: 15058}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -184,6 +200,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 111
@@ -201,11 +221,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12830}
     - Class: 114
-      Script: {instanceID: 14188}
+      Script: {instanceID: 13872}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 14190}
     - Class: 114
-      Script: {instanceID: 15056}
+      Script: {instanceID: 14424}
+    - Class: 114
+      Script: {instanceID: 15058}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -239,6 +261,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 111
@@ -256,11 +282,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12830}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 13872}
     - Class: 114
-      Script: {instanceID: 14710}
+      Script: {instanceID: 14424}
     - Class: 114
-      Script: {instanceID: 15056}
+      Script: {instanceID: 14712}
+    - Class: 114
+      Script: {instanceID: 15058}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -296,6 +324,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 111
@@ -315,9 +347,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12830}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 13872}
     - Class: 114
-      Script: {instanceID: 15056}
+      Script: {instanceID: 14424}
+    - Class: 114
+      Script: {instanceID: 15058}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -374,11 +408,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12830}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 13872}
     - Class: 114
-      Script: {instanceID: 14480}
+      Script: {instanceID: 14424}
     - Class: 114
-      Script: {instanceID: 15056}
+      Script: {instanceID: 14482}
+    - Class: 114
+      Script: {instanceID: 15058}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -414,6 +450,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 111
@@ -433,9 +473,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12830}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 13872}
     - Class: 114
-      Script: {instanceID: 15056}
+      Script: {instanceID: 14424}
+    - Class: 114
+      Script: {instanceID: 15058}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -471,6 +513,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 111
@@ -496,15 +542,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13210}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 13872}
     - Class: 114
-      Script: {instanceID: 15022}
+      Script: {instanceID: 14424}
     - Class: 114
-      Script: {instanceID: 15056}
+      Script: {instanceID: 15024}
     - Class: 114
-      Script: {instanceID: 15078}
+      Script: {instanceID: 15058}
     - Class: 114
-      Script: {instanceID: 15102}
+      Script: {instanceID: 15080}
+    - Class: 114
+      Script: {instanceID: 15104}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -540,6 +588,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 111
@@ -559,9 +611,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12830}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 13872}
     - Class: 114
-      Script: {instanceID: 15056}
+      Script: {instanceID: 14424}
+    - Class: 114
+      Script: {instanceID: 15058}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -604,9 +658,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13746}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 14424}
     - Class: 114
-      Script: {instanceID: 15056}
+      Script: {instanceID: 15058}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -946,6 +1000,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: VerticalLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SoundsEffects
   - hash:
       serializedVersion: 2
       Hash: 71b711096c6c32621c1d4c02310898b7

@@ -29,6 +29,7 @@ public class Lang
     public string madeBy;
     public string thanksTo;
     public string musicVolume;
+    public string soundVolume;
 }
 
 public class Languages : MonoBehaviour
@@ -85,6 +86,7 @@ public class Languages : MonoBehaviour
 
     private void AnimateAll(func cont) {
         StartCoroutine(Animate("Slider", "PlayButton"));
+        StartCoroutine(Animate("Slider (1)", "CampaignsButton"));
         StartCoroutine(Animate("StandartButton (1)", "SettingsRight"));
         StartCoroutine(Animate("Dropdown", "SettingsLeft"));
         StartCoroutine(Animate("StandartButton", "UpButton"));
