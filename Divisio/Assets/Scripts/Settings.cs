@@ -11,7 +11,7 @@ public class Settings : MonoBehaviour
     void Start() {
         SetBlacks();
         SetLang();
-        SetMusic();
+        SetMusicAndSound();
     }
     
     public void SetBlacks() { 
@@ -26,10 +26,12 @@ public class Settings : MonoBehaviour
         GameObject.Find("StandartButton (1)").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.newGame;
         GameObject.Find("Panel").transform.GetChild(0).GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.settings;
         GameObject.Find("SliderText").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.musicVolume;
+        GameObject.Find("SliderText (1)").GetComponent<Text>().text = GameObject.Find("Main Camera").GetComponent<Languages>().lang.soundVolume;
     }
 
-    public void SetMusic() {
+    public void SetMusicAndSound() {
         GameObject.Find("Slider").GetComponent<Slider>().value = float.Parse(PlayerPrefs.GetString("MusicVolume"));
+        GameObject.Find("Slider (1)").GetComponent<Slider>().value = float.Parse(PlayerPrefs.GetString("SoundVolume"));
     }
 
     public void Menu() {
@@ -47,13 +49,18 @@ public class Settings : MonoBehaviour
         PlayerPrefs.SetInt("prgLvl", 1);
     }
 
-    public void VolumeChanged() {
+    public void MusicVolumeChanged() {
         PlayerPrefs.SetString("MusicVolume", GameObject.Find("Slider").GetComponent<Slider>().value.ToString());
         GameObject.Find("Main Camera Phone Started").GetComponent<AudioSource>().volume = float.Parse(PlayerPrefs.GetString("MusicVolume"));
     }
 
+    public void SoundVolumeChanged() {
+        PlayerPrefs.SetString("SoundVolume", GameObject.Find("Slider (1)").GetComponent<Slider>().value.ToString());
+    }
+
     private void AnimateAll(func cont) {
         StartCoroutine(Animate("Slider", "PlayButton"));
+        StartCoroutine(Animate("Slider (1)", "CampaignsButton"));
         StartCoroutine(Animate("StandartButton (1)", "SettingsRight"));
         StartCoroutine(Animate("Dropdown", "SettingsLeft"));
         StartCoroutine(Animate("StandartButton", "UpButton"));
